@@ -5,27 +5,41 @@ enum {wait, move}
 var state
 
 export (int) var width = 8
-export (int) var height = 8
+export (int) var height = 10
 export (int) var x_start = 64
-export (int) var y_start = 900
+export (int) var y_start = 950
 export (int) var offset = 64
 #where the piece should drop from
 export (int) var y_offset = -2
 
+export (PoolVector2Array) var empty_spaces = [
+#	Vector2(0,0),
+#	Vector2(width-1,height-1),
+#	Vector2(0,height-1),
+#	Vector2(width-1,0), 
+#	Vector2((width-1)/2,(height-1)/2),
+#	Vector2((width-1)/2+1,(height-1)/2),
+#	Vector2((width-1)/2,(height-1)/2+1),
+#	Vector2((width-1)/2+1,(height-1)/2+1),
+]
+
 var all_pieces = []
+var current_matches = []
 
 var possible_pieces = [
 	preload("res://Scenes/yellow_piece.tscn"),
 	preload("res://Scenes/blue_piece.tscn"),
 	preload("res://Scenes/orange_piece.tscn"),
 	preload("res://Scenes/pink_piece.tscn"),
-	preload("res://Scenes/green_piece.tscn"),
-	preload("res://Scenes/lightgreen_piece.tscn"),
+	#preload("res://Scenes/green_piece.tscn"),
+	#preload("res://Scenes/lightgreen_piece.tscn"),
 ]
 
 #touch variables
 var first_touch = Vector2(0,0)
 var final_touch = Vector2(0,0)
+var first_piece
+var final_piece
 var controlling = false
 
 # Called when the node enters the scene tree for the first time.
@@ -43,6 +57,11 @@ func make_2d_array():
 			array[i].append(null)
 	return array
 	
+func add_to_unique_array(value, array_to_add = current_matches):
+	if not array_to_add.has(value):
+		array_to_add.append(value)
+		
+	
 func spawn_one_piece(i,j,should_check = true):
 	var rand = randi() % possible_pieces.size()
 	var piece = possible_pieces[rand].instance()
@@ -59,11 +78,19 @@ func spawn_one_piece(i,j,should_check = true):
 	piece.position = grid_to_pixel(i,j-y_offset)
 	piece.move(grid_to_pixel(i,j))
 	all_pieces[i][j] = piece
+	
+func restricted_movement(grid_point):
+	for i in empty_spaces:
+		if i == grid_point:
+#	if empty_spaces.has(grid_point):
+			return true
+	return false
 
 func spawn_pieces():
 	for i in width:
 		for j in height:
-			spawn_one_piece(i,j)
+			if not restricted_movement(Vector2(i,j)):
+				spawn_one_piece(i,j)
 			
 
 	
@@ -102,6 +129,9 @@ func is_match_at2(i, j, color,callback):
 				all_pieces[i][j].call(callback)
 				all_pieces[i-1][j].call(callback)
 				all_pieces[i-2][j].call(callback)
+				add_to_unique_array(Vector2(i,j))
+				add_to_unique_array(Vector2(i-1,j))
+				add_to_unique_array(Vector2(i-2,j))
 				isMatched = true
 				#return true
 	if j>1:
@@ -110,6 +140,9 @@ func is_match_at2(i, j, color,callback):
 				all_pieces[i][j].call(callback)
 				all_pieces[i][j-1].call(callback)
 				all_pieces[i][j-2].call(callback)
+				add_to_unique_array(Vector2(i,j))
+				add_to_unique_array(Vector2(i,j-1))
+				add_to_unique_array(Vector2(i,j-2))
 				isMatched = true
 				#return true
 	#return false
@@ -138,8 +171,8 @@ func swap_pieces(column, row, direction):
 	var new_row = row+direction.y
 	if not is_in_grid(new_column, new_row):
 		return
-	var first_piece = all_pieces[column][row]
-	var final_piece = all_pieces[new_column][new_row]
+	first_piece = all_pieces[column][row]
+	final_piece = all_pieces[new_column][new_row]
 	if first_piece == null or final_piece == null:
 		return
 	state = wait
@@ -182,6 +215,8 @@ func find_matches():
 					found_matched = true
 	if found_matched:
 		print("foundMatched")
+		# todo keep trigger bomb
+		trigger_bombed_pieces()
 		$destroy_timer.start()
 	else:
 		print("not foundMatched")
@@ -192,8 +227,144 @@ func find_matches():
 func _process(delta):
 	if state == move:
 		touch_input()
+		
+#func get_adjacent(i,j,adjacent):
+#	var new_i = i+adjacent.x
+#	var new_j = j+adjacent.y
+#	if is_in_grid(new_i,new_j):
+#		return all_pieces[new_i][new_j]
+#	return null
+#
+#func get_adjacent_ij(i,j,adjacent):
+#	var new_i = i+adjacent.x
+#	var new_j = j+adjacent.y
+#	return Vector2(new_i,new_j)
+#
+#func find_match_3(i,j,isHorizon):
+#	var adjacent = Vector2(1,0) if isHorizon else Vector2(0,1)
+#	var color = all_pieces[i][j].color
+#	var adjacent_piece_1 = get_adjacent(i,j,adjacent)
+#	var adjacent_piece_2 = get_adjacent(i,j,-adjacent)
+#	return adjacent_piece_1 and adjacent_piece_1.color == color and adjacent_piece_2 and adjacent_piece_2.color == color
+#
+#func find_bombs():
+#	#var isHorizon = true
+#	for isHorizon in [true,false]:
+#		var adjacent = Vector2(1,0) if isHorizon else Vector2(0,1)
+#		for current_match in current_matches:
+#			var i = current_match.x
+#			var j = current_match.y
+#			if find_match_3(i,j,isHorizon):
+#				var adjacent_ij_1 = get_adjacent_ij(i,j,adjacent)
+#				var adjacent_ij_2 = get_adjacent_ij(i,j,-adjacent)
+#				var found_match3_1 = find_match_3(adjacent_ij_1.x,adjacent_ij_1.y,isHorizon)
+#				var found_match3_2 = find_match_3(adjacent_ij_2.x,adjacent_ij_2.y,isHorizon)
+#				if found_match3_1 and found_match3_2:
+#					print("bomb 5")
+#				elif found_match3_1 or found_match3_2:
+#					print("bomb 4")
+#
+#				#var new_adjacent = Vector2(1,0) if not isHorizon else Vector2(0,1)
+#
+#				var found_match3_1_new = find_match_3(adjacent_ij_1.x,adjacent_ij_1.y,not isHorizon)
+#				var found_match3_2_new = find_match_3(adjacent_ij_2.x,adjacent_ij_2.y,not isHorizon)
+#				if found_match3_1_new or found_match3_2_new:
+#					print("bomb T")
+
+func find_bombs():
+	for i in current_matches:
+		var x = i.x
+		var y = i.y
+		var color = all_pieces[x][y].color
+		var x_matched = 0
+		var y_matched = 0
+		# todo this algorithm does not consider there might be interval in two same color
+		# piece get matched
+		for j in current_matches:
+			var this_x = j.x
+			var this_y = j.y
+			var this_color = all_pieces[this_x][this_y].color
+			if this_x == x and this_color == color:
+				x_matched+=1
+			if this_y == y and this_color == color:
+				y_matched+=1
+		if x_matched == 5 or y_matched == 5:
+			print("5 bomb")
+			return
+		if y_matched == 3 and x_matched == 3:
+			print(" adj bomb")
+			make_bomb(0, color)
+			return
+		if x_matched == 4:
+			print("col bomb")
+			make_bomb(1, color)
+			return
+		if y_matched == 4:
+			print("row bomb")
+			make_bomb(2, color)
+			return
+				
+func make_bomb(bomb_type, color):
+	# todo: this does not consider bomb generated later
+	for i in current_matches:
+		var x = i.x
+		var y = i.y
+		# todo: oh boy this is totally wrong
+		if all_pieces[x][y] == first_piece:
+			change_bomb(bomb_type, first_piece)
+		if all_pieces[x][y] == final_piece:
+			change_bomb(bomb_type, final_piece)
+			
+func trigger_bombed_pieces():
+	for i in width:
+		for j in height:
+			if all_pieces[i][j]!=null:
+				if all_pieces[i][j].matched:
+					match_bombs(i,j)
+					
+func match_bombs(i,j):
+	if all_pieces[i][j].is_col_bomb:
+		match_all_in_col(i)
+	elif all_pieces[i][j].is_row_bomb:
+		match_all_in_row(j)
+	elif all_pieces[i][j].is_adj_bomb:
+		match_all_adjacent(i,j) 
+		
+func match_all_in_row(row):
+	for i in width:
+		if all_pieces[i][row] !=null:
+			all_pieces[i][row].matched = true
+			match_bombs(i,row)
+
+func match_all_in_col(col):
+	for i in height:
+		if all_pieces[col][i] !=null:
+			all_pieces[col][i].matched = true
+			match_bombs(col,i)
+			
+func match_all_adjacent(column,row):
+	for i in range(-1,2):
+		for j in range(-1,2):
+			if is_in_grid(column+i, row+j):
+				if all_pieces[column+i][row+j] !=null:
+					all_pieces[column+i][row+j].matched = true
+					match_bombs(i,j)
+
+func change_bomb(bombType,piece):
+	piece.matched = false
+	print("change bomb",bombType,piece)
+	match bombType:
+		0:
+			piece.make_adj_bomb()
+		1:
+			piece.make_col_bomb()
+		2:
+			piece.make_row_bomb()
 
 func destroy_matched():
+	print(current_matches)
+	find_bombs()
+	current_matches.clear()
 	print("destroy_matched")
 	for i in width:
 		for j in height:
@@ -207,7 +378,7 @@ func collapse_columns():
 	print("collapse_columns")
 	for i in width:
 		for j in height:
-			if all_pieces[i][j] == null:
+			if all_pieces[i][j] == null and not restricted_movement(Vector2(i,j)):
 				for k in range(j+1,height):
 					if all_pieces[i][k]!=null:
 						all_pieces[i][k].move(grid_to_pixel(i,j))
@@ -220,7 +391,7 @@ func refill_columns():
 	print("refill_columns")
 	for i in width:
 		for j in height:
-			if all_pieces[i][j] == null:
+			if all_pieces[i][j] == null and not restricted_movement(Vector2(i,j)):
 				spawn_one_piece(i,j,false)
 	after_refill()
 
