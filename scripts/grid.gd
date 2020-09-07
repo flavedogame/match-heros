@@ -48,6 +48,8 @@ signal update_score
 export (int) var piece_value = 10
 var streak = 1
 
+var particle_effect = preload("res://Scenes/destory_piece_particle.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = move
@@ -159,9 +161,29 @@ func is_match_at2(i, j, color,callback):
 	#return false
 	return isMatched
 	
-func touch_input():
-	if Input.is_action_just_pressed("ui_touch"):
-		first_touch = get_global_mouse_position()
+#func touch_input():
+#	if Input.is_action_just_pressed("ui_touch"):
+#		first_touch = get_global_mouse_position()
+#		var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
+#		print(grid_position)
+#		if is_in_grid(grid_position.x,grid_position.y):
+#			print("in grid")
+#			controlling = true
+#		else:
+#			print("not in grid")
+#	if controlling:
+#		if Input.is_action_just_released("ui_touch"):
+#			final_touch = get_global_mouse_position()
+#			var direction = touch_direction(first_touch,final_touch)
+#			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
+#			swap_pieces(grid_position.x,grid_position.y,direction)
+#			controlling = false
+
+func _input(event):
+	if state != move:
+		return
+	if event is InputEventScreenTouch and event.pressed:
+		first_touch = event.position
 		var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
 		print(grid_position)
 		if is_in_grid(grid_position.x,grid_position.y):
@@ -170,8 +192,8 @@ func touch_input():
 		else:
 			print("not in grid")
 	if controlling:
-		if Input.is_action_just_released("ui_touch"):
-			final_touch = get_global_mouse_position()
+		if event is InputEventScreenTouch and not event.pressed:
+			final_touch = event.position
 			var direction = touch_direction(first_touch,final_touch)
 			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
 			swap_pieces(grid_position.x,grid_position.y,direction)
@@ -261,9 +283,9 @@ func find_matches():
 	return found_matched
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if state == move:
-		touch_input()
+#func _process(delta):
+#	if state == move:
+#		touch_input()
 
 func find_match_line_with_direction(vec2, direction, match_count, current_match):
 	var success = true
@@ -464,6 +486,8 @@ func match_board():
 func change_bomb(bombType,piece):
 	print("change bomb",bombType,piece)
 	emit_signal("update_score",piece_value*streak)
+	#hmm maybe another one
+	#make_effect(particle_effect,i,j)
 	match bombType:
 		0:
 			piece.make_adj_bomb()
@@ -486,6 +510,7 @@ func destroy_matched():
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
 					emit_signal("update_score",piece_value*streak)
+					make_effect(particle_effect,i,j)
 	$collapse_timer.start()
 
 func collapse_columns():
@@ -520,6 +545,11 @@ func after_refill():
 	if not foundMatched:
 		state = move
 	streak = 1
+	
+func make_effect(effect, column, row):
+	var current = effect.instance()
+	current.position = grid_to_pixel(column, row)
+	add_child(current)
 
 func _on_destroy_timer_timeout():
 	destroy_matched()
