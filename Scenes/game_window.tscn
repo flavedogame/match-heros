@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://art/background.png" type="Texture" id=1]
+[ext_resource path="res://art/top UI v 2.png" type="Texture" id=2]
+[ext_resource path="res://art/bottom UI v 2.png" type="Texture" id=3]
+
+[node name="game_window" type="Node2D"]
+
+[node name="background" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top_ui" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom_ui" type="TextureRect" parent="."]
+margin_top = 932.0
+margin_right = 576.0
+margin_bottom = 1124.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
