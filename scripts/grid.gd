@@ -24,7 +24,8 @@ export (PoolVector2Array) var empty_spaces = [
 ]
 
 var all_pieces = []
-var current_matches = []
+var current_matches = {
+}
 
 var possible_pieces = [
 	preload("res://Scenes/yellow_piece.tscn"),
@@ -61,6 +62,11 @@ func make_2d_array():
 		for j in height:
 			array[i].append(null)
 	return array
+	
+func add_to_current_matches(value, color):
+	if not current_matches.has(color):
+		current_matches[color] = []
+	add_to_unique_array(value,current_matches[color])
 	
 func add_to_unique_array(value, array_to_add = current_matches):
 	if not array_to_add.has(value):
@@ -134,9 +140,9 @@ func is_match_at2(i, j, color,callback):
 				all_pieces[i][j].call(callback)
 				all_pieces[i-1][j].call(callback)
 				all_pieces[i-2][j].call(callback)
-				add_to_unique_array(Vector2(i,j))
-				add_to_unique_array(Vector2(i-1,j))
-				add_to_unique_array(Vector2(i-2,j))
+				add_to_current_matches(Vector2(i,j),color)
+				add_to_current_matches(Vector2(i-1,j),color)
+				add_to_current_matches(Vector2(i-2,j),color)
 				isMatched = true
 				#return true
 	if j>1:
@@ -145,9 +151,9 @@ func is_match_at2(i, j, color,callback):
 				all_pieces[i][j].call(callback)
 				all_pieces[i][j-1].call(callback)
 				all_pieces[i][j-2].call(callback)
-				add_to_unique_array(Vector2(i,j))
-				add_to_unique_array(Vector2(i,j-1))
-				add_to_unique_array(Vector2(i,j-2))
+				add_to_current_matches(Vector2(i,j),color)
+				add_to_current_matches(Vector2(i,j-1),color)
+				add_to_current_matches(Vector2(i,j-2),color)
 				isMatched = true
 				#return true
 	#return false
@@ -186,6 +192,8 @@ func swap_pieces(column, row, direction):
 	all_pieces[new_column][new_row] = first_piece
 	first_piece.move(grid_to_pixel(new_column,new_row))
 	final_piece.move(grid_to_pixel(column,row))
+	first_piece.set_grid_position(new_column,new_row)
+	final_piece.set_grid_position(column,row)
 	var found_color_bomb = match_color_bomb()
 	if found_color_bomb:
 		start_destory()
@@ -256,49 +264,43 @@ func find_matches():
 func _process(delta):
 	if state == move:
 		touch_input()
-		
-#func get_adjacent(i,j,adjacent):
-#	var new_i = i+adjacent.x
-#	var new_j = j+adjacent.y
-#	if is_in_grid(new_i,new_j):
-#		return all_pieces[new_i][new_j]
-#	return null
-#
-#func get_adjacent_ij(i,j,adjacent):
-#	var new_i = i+adjacent.x
-#	var new_j = j+adjacent.y
-#	return Vector2(new_i,new_j)
-#
-#func find_match_3(i,j,isHorizon):
-#	var adjacent = Vector2(1,0) if isHorizon else Vector2(0,1)
-#	var color = all_pieces[i][j].color
-#	var adjacent_piece_1 = get_adjacent(i,j,adjacent)
-#	var adjacent_piece_2 = get_adjacent(i,j,-adjacent)
-#	return adjacent_piece_1 and adjacent_piece_1.color == color and adjacent_piece_2 and adjacent_piece_2.color == color
-#
-#func find_bombs():
-#	#var isHorizon = true
-#	for isHorizon in [true,false]:
-#		var adjacent = Vector2(1,0) if isHorizon else Vector2(0,1)
-#		for current_match in current_matches:
-#			var i = current_match.x
-#			var j = current_match.y
-#			if find_match_3(i,j,isHorizon):
-#				var adjacent_ij_1 = get_adjacent_ij(i,j,adjacent)
-#				var adjacent_ij_2 = get_adjacent_ij(i,j,-adjacent)
-#				var found_match3_1 = find_match_3(adjacent_ij_1.x,adjacent_ij_1.y,isHorizon)
-#				var found_match3_2 = find_match_3(adjacent_ij_2.x,adjacent_ij_2.y,isHorizon)
-#				if found_match3_1 and found_match3_2:
-#					print("bomb 5")
-#				elif found_match3_1 or found_match3_2:
-#					print("bomb 4")
-#
-#				#var new_adjacent = Vector2(1,0) if not isHorizon else Vector2(0,1)
-#
-#				var found_match3_1_new = find_match_3(adjacent_ij_1.x,adjacent_ij_1.y,not isHorizon)
-#				var found_match3_2_new = find_match_3(adjacent_ij_2.x,adjacent_ij_2.y,not isHorizon)
-#				if found_match3_1_new or found_match3_2_new:
-#					print("bomb T")
+
+func find_match_line_with_direction(vec2, direction, match_count, current_match):
+	var success = true
+	for i in match_count-1:
+		vec2 += direction
+		if not current_match.has(vec2):
+			success = false
+			break
+	print(vec2, match_count,direction, success)
+	return success
+	
+func find_match_line_centered(vec2, is_horizontal, current_match):
+	var direction = Vector2(1,0) if is_horizontal else Vector2(0,1)
+	return current_match.has(vec2+direction) and current_match.has(vec2-direction)
+
+func find_match_line(vec2, is_horizontal, match_count, current_match):
+	var direction = Vector2(1,0) if is_horizontal else Vector2(0,1)
+	
+	return find_match_line_with_direction(vec2,direction,match_count,current_match) or \
+			find_match_line_with_direction(vec2,-direction,match_count,current_match) 
+	
+
+func find_match_5(vec2,current_match):
+	return find_match_line(vec2,true,5,current_match) or find_match_line(vec2,false,5,current_match)
+	
+func find_match_L(vec2,current_match):
+	return find_match_line(vec2, true, 3,current_match) and find_match_line(vec2, false, 3,current_match)
+
+func find_match_T(vec2,current_match):
+	return (find_match_line(vec2, true, 3,current_match) and find_match_line_centered(vec2, false, current_match)) or \
+			(find_match_line(vec2, false, 3,current_match) and find_match_line_centered(vec2, true, current_match))
+			
+func find_match_cross(vec2,current_match):
+	return find_match_line_centered(vec2, false, current_match) and find_match_line_centered(vec2, true, current_match)
+	
+func find_match_adj(vec2,current_match):
+	return find_match_L(vec2,current_match) or find_match_T(vec2,current_match) or find_match_cross(vec2,current_match)
 
 func find_bombs():
 	# for each one in current matches:
@@ -306,48 +308,94 @@ func find_bombs():
 	# in this list, find 5 match first, generate bomb at center
 	# find L or T, generate bomb at coner or center
 	# find 4 match, generate at swap or one end(it should be the last drop one) 
-	for i in current_matches:
-		var x = i.x
-		var y = i.y
-		var color = all_pieces[x][y].color
-		var x_matched = 0
-		var y_matched = 0
-		# todo this algorithm does not consider there might be interval in two same color
-		# piece get matched
-		for j in current_matches:
-			var this_x = j.x
-			var this_y = j.y
-			var this_color = all_pieces[this_x][this_y].color
-			if this_x == x and this_color == color:
-				x_matched+=1
-			if this_y == y and this_color == color:
-				y_matched+=1
-		if x_matched == 5 or y_matched == 5:
-			make_bomb(3, color)
-			return
-		if y_matched == 3 and x_matched == 3:
-			print(" adj bomb")
-			make_bomb(0, color)
-			return
-		if x_matched == 4:
-			print("col bomb")
-			make_bomb(1, color)
-			return
-		if y_matched == 4:
-			print("row bomb")
-			make_bomb(2, color)
-			return
+	
+	#too lazy to refactor this
+	
+	for current_match in current_matches.values():
+		for i in current_match:
+			var x = i.x
+			var y = i.y
+			var color = all_pieces[x][y].color
+			if find_match_5(i,current_match):
+				make_bomb(3,i,current_match)
+				return
 				
-func make_bomb(bomb_type, color):
-	# todo: this does not consider bomb generated later
-	for i in current_matches:
-		var x = i.x
-		var y = i.y
-		# todo: oh boy this is totally wrong
-		if all_pieces[x][y] == first_piece:
-			change_bomb(bomb_type, first_piece)
-		if all_pieces[x][y] == final_piece:
-			change_bomb(bomb_type, final_piece)
+	for current_match in current_matches.values():
+		for i in current_match:
+			var x = i.x
+			var y = i.y
+			var color = all_pieces[x][y].color	
+			if find_match_line(i,false,4,current_match):
+				make_bomb(1, i,current_match)
+				return
+				
+	for current_match in current_matches.values():
+		for i in current_match:
+			var x = i.x
+			var y = i.y
+			var color = all_pieces[x][y].color
+			if find_match_line(i,true,4,current_match):
+				make_bomb(2, i,current_match)
+				return
+				
+	for current_match in current_matches.values():
+		for i in current_match:
+			var x = i.x
+			var y = i.y
+			var color = all_pieces[x][y].color
+			if find_match_adj(i,current_match):
+				make_bomb(0, i,current_match)
+				return
+				
+	
+
+#func find_bombs():
+#	# for each one in current matches:
+#	# for each one, add all adjacent ones that can match 3, put all of them into a list
+#	# in this list, find 5 match first, generate bomb at center
+#	# find L or T, generate bomb at coner or center
+#	# find 4 match, generate at swap or one end(it should be the last drop one) 
+#	for i in current_matches:
+#		var x = i.x
+#		var y = i.y
+#		var color = all_pieces[x][y].color
+#		var x_matched = 0
+#		var y_matched = 0
+#		# todo this algorithm does not consider there might be interval in two same color
+#		# piece get matched
+#		for j in current_matches:
+#			var this_x = j.x
+#			var this_y = j.y
+#			var this_color = all_pieces[this_x][this_y].color
+#			if this_x == x and this_color == color:
+#				x_matched+=1
+#			if this_y == y and this_color == color:
+#				y_matched+=1
+#		if x_matched == 5 or y_matched == 5:
+#			make_bomb(3, color)
+#			return
+#		if y_matched == 3 and x_matched == 3:
+#			print(" adj bomb")
+#			make_bomb(0, color)
+#			return
+#		if x_matched == 4:
+#			print("col bomb")
+#			make_bomb(1, color)
+#			return
+#		if y_matched == 4:
+#			print("row bomb")
+#			make_bomb(2, color)
+#			return
+				
+func make_bomb(bomb_type, vec2,current_match):
+	#if swap is in this match, generate at swap position
+	var bomb_piece = all_pieces[vec2.x][vec2.y]
+	print(current_match, first_piece,final_piece)
+	if first_piece and current_match.has(first_piece.grid_position):
+		bomb_piece = first_piece
+	if final_piece and current_match.has(final_piece.grid_position):
+		bomb_piece = final_piece
+	change_bomb(bomb_type, bomb_piece)
 			
 func trigger_bombed_pieces():
 	for i in width:
@@ -379,7 +427,7 @@ func match_all_in_row(row):
 		if all_pieces[i][row] !=null:
 			if all_pieces[i][row].is_color_bomb:
 				continue
-			all_pieces[i][row].matched = true
+			all_pieces[i][row].set_matched()
 			match_bombs(i,row)
 
 func match_all_in_col(col):
@@ -388,7 +436,7 @@ func match_all_in_col(col):
 		if all_pieces[col][i] !=null:
 			if all_pieces[col][i].is_color_bomb:
 				continue
-			all_pieces[col][i].matched = true
+			all_pieces[col][i].set_matched()
 			match_bombs(col,i)
 			
 func match_all_adjacent(column,row):
@@ -398,24 +446,24 @@ func match_all_adjacent(column,row):
 				if all_pieces[column+i][row+j] !=null:
 					if all_pieces[column+i][row+j].is_color_bomb:
 						continue
-					all_pieces[column+i][row+j].matched = true
+					all_pieces[column+i][row+j].set_matched()
 					match_bombs(i,j)
 					
 func match_color(color):
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] and all_pieces[i][j].color == color:
-				all_pieces[i][j].matched = true
+				all_pieces[i][j].set_matched()
 				match_bombs(i,j)
 
 func match_board():
 	for i in width:
 		for j in height:
-			all_pieces[i][j].matched = true
+			all_pieces[i][j].set_matched()
 
 func change_bomb(bombType,piece):
-	piece.matched = false
 	print("change bomb",bombType,piece)
+	emit_signal("update_score",piece_value*streak)
 	match bombType:
 		0:
 			piece.make_adj_bomb()
@@ -463,6 +511,10 @@ func refill_columns():
 	after_refill()
 
 func after_refill():
+	
+	#clear swap info
+	first_piece = null
+	final_piece = null
 	print("after_refill")
 	var foundMatched = find_matches()
 	if not foundMatched:
