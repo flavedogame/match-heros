@@ -42,6 +42,11 @@ var first_piece
 var final_piece
 var controlling = false
 
+#scoreing variables
+signal update_score
+export (int) var piece_value = 10
+var streak = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = move
@@ -176,15 +181,39 @@ func swap_pieces(column, row, direction):
 	if first_piece == null or final_piece == null:
 		return
 	state = wait
+	
 	all_pieces[column][row] = final_piece
 	all_pieces[new_column][new_row] = first_piece
 	first_piece.move(grid_to_pixel(new_column,new_row))
 	final_piece.move(grid_to_pixel(column,row))
+	var found_color_bomb = match_color_bomb()
+	if found_color_bomb:
+		start_destory()
+		return
+	
 	var found_matches = find_matches()
-	if not found_matches:
+	if not found_matches and not found_color_bomb:
 		yield(get_tree().create_timer(0.15), "timeout")
 		swap_back(column,row,new_column,new_row)
 		
+func match_color_bomb(): 
+	if first_piece.color == "Color" and final_piece.color == "Color":
+		match_board()
+		return true
+	elif first_piece.color == "Color":
+		match_color(final_piece.color)
+		first_piece.set_matched()
+		return true
+	elif final_piece.color == "Color":
+		match_color(first_piece.color)
+		final_piece.set_matched()
+		return true
+	return false
+	
+func start_destory():
+	trigger_bombed_pieces()
+	$destroy_timer.start()
+
 func swap_back(column,row,new_column,new_row):
 	var first_piece = all_pieces[column][row]
 	var final_piece = all_pieces[new_column][new_row]
@@ -272,6 +301,11 @@ func _process(delta):
 #					print("bomb T")
 
 func find_bombs():
+	# for each one in current matches:
+	# for each one, add all adjacent ones that can match 3, put all of them into a list
+	# in this list, find 5 match first, generate bomb at center
+	# find L or T, generate bomb at coner or center
+	# find 4 match, generate at swap or one end(it should be the last drop one) 
 	for i in current_matches:
 		var x = i.x
 		var y = i.y
@@ -289,7 +323,7 @@ func find_bombs():
 			if this_y == y and this_color == color:
 				y_matched+=1
 		if x_matched == 5 or y_matched == 5:
-			print("5 bomb")
+			make_bomb(3, color)
 			return
 		if y_matched == 3 and x_matched == 3:
 			print(" adj bomb")
@@ -323,22 +357,37 @@ func trigger_bombed_pieces():
 					match_bombs(i,j)
 					
 func match_bombs(i,j):
+	var bomb_piece = all_pieces[i][j]
+	if all_pieces[i][j].is_bomb_triggered:
+		return
 	if all_pieces[i][j].is_col_bomb:
+		
+		all_pieces[i][j].is_bomb_triggered = true
 		match_all_in_col(i)
 	elif all_pieces[i][j].is_row_bomb:
+		all_pieces[i][j].is_bomb_triggered = true
 		match_all_in_row(j)
 	elif all_pieces[i][j].is_adj_bomb:
+		all_pieces[i][j].is_bomb_triggered = true
+		match_all_adjacent(i,j) 
+	elif all_pieces[i][j].is_color_bomb:
+		all_pieces[i][j].is_bomb_triggered = true
 		match_all_adjacent(i,j) 
 		
 func match_all_in_row(row):
 	for i in width:
 		if all_pieces[i][row] !=null:
+			if all_pieces[i][row].is_color_bomb:
+				continue
 			all_pieces[i][row].matched = true
 			match_bombs(i,row)
 
 func match_all_in_col(col):
+	print("match_all_in_col")
 	for i in height:
 		if all_pieces[col][i] !=null:
+			if all_pieces[col][i].is_color_bomb:
+				continue
 			all_pieces[col][i].matched = true
 			match_bombs(col,i)
 			
@@ -347,8 +396,22 @@ func match_all_adjacent(column,row):
 		for j in range(-1,2):
 			if is_in_grid(column+i, row+j):
 				if all_pieces[column+i][row+j] !=null:
+					if all_pieces[column+i][row+j].is_color_bomb:
+						continue
 					all_pieces[column+i][row+j].matched = true
 					match_bombs(i,j)
+					
+func match_color(color):
+	for i in width:
+		for j in height:
+			if all_pieces[i][j] and all_pieces[i][j].color == color:
+				all_pieces[i][j].matched = true
+				match_bombs(i,j)
+
+func match_board():
+	for i in width:
+		for j in height:
+			all_pieces[i][j].matched = true
 
 func change_bomb(bombType,piece):
 	piece.matched = false
@@ -360,6 +423,8 @@ func change_bomb(bombType,piece):
 			piece.make_col_bomb()
 		2:
 			piece.make_row_bomb()
+		3:
+			piece.make_color_bomb()
 
 func destroy_matched():
 	print(current_matches)
@@ -372,6 +437,7 @@ func destroy_matched():
 				if all_pieces[i][j].matched:
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
+					emit_signal("update_score",piece_value*streak)
 	$collapse_timer.start()
 
 func collapse_columns():
@@ -389,6 +455,7 @@ func collapse_columns():
 						
 func refill_columns():
 	print("refill_columns")
+	streak+=1
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] == null and not restricted_movement(Vector2(i,j)):
@@ -400,6 +467,7 @@ func after_refill():
 	var foundMatched = find_matches()
 	if not foundMatched:
 		state = move
+	streak = 1
 
 func _on_destroy_timer_timeout():
 	destroy_matched()

@@ -5,10 +5,14 @@ export (String) var color
 export (Texture) var row_texture
 export (Texture) var col_texture
 export (Texture) var adj_texture
+export (Texture) var color_texture
 
 var is_row_bomb = false
 var is_col_bomb = false
 var is_adj_bomb = false
+var is_color_bomb = false
+
+var is_bomb_triggered = false
 
 var move_tween
 var matched = false
@@ -35,6 +39,12 @@ func make_adj_bomb():
 	is_adj_bomb = true
 	$Sprite.texture = adj_texture
 	$Sprite.modulate = Color(1,1,1,1)
+	
+func make_color_bomb():
+	is_color_bomb = true
+	$Sprite.texture = color_texture
+	$Sprite.modulate = Color(1,1,1,1)
+	color = "Color"
 
 func set_matched():
 	$Sprite.modulate = Color(1,1,1,.5)
