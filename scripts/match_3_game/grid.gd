@@ -28,12 +28,12 @@ var current_matches = {
 }
 
 var possible_pieces = [
-	preload("res://Scenes/yellow_piece.tscn"),
-	preload("res://Scenes/blue_piece.tscn"),
-	preload("res://Scenes/orange_piece.tscn"),
-	preload("res://Scenes/pink_piece.tscn"),
-	#preload("res://Scenes/green_piece.tscn"),
-	#preload("res://Scenes/lightgreen_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/yellow_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/blue_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/orange_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/pink_piece.tscn"),
+	#preload("res://Scenes/match_3_game/pieces/green_piece.tscn"),
+	#preload("res://Scenes/match_3_game/pieces/lightgreen_piece.tscn"),
 ]
 
 #touch variables
@@ -48,7 +48,7 @@ signal update_score
 export (int) var piece_value = 10
 var streak = 1
 
-var particle_effect = preload("res://Scenes/destory_piece_particle.tscn")
+var particle_effect = preload("res://Scenes/match_3_game/destory_piece_particle.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

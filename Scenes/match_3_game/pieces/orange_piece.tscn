@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://art/pieces/Orange Column.png" type="Texture" id=1]
+[ext_resource path="res://art/pieces/Orange Row.png" type="Texture" id=2]
+[ext_resource path="res://art/pieces/Orange Piece.png" type="Texture" id=3]
+[ext_resource path="res://art/pieces/Orange Adjacent.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/match_3_game/pieces/piece.tscn" type="PackedScene" id=5]
+
+[node name="orange_piece" instance=ExtResource( 5 )]
+color = "orange"
+row_texture = ExtResource( 2 )
+col_texture = ExtResource( 1 )
+adj_texture = ExtResource( 4 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )

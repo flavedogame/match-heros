@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://art/pieces/Blue Row.png" type="Texture" id=1]
+[ext_resource path="res://art/pieces/Blue Adjacent.png" type="Texture" id=2]
+[ext_resource path="res://art/pieces/Blue Piece.png" type="Texture" id=3]
+[ext_resource path="res://art/pieces/Blue Column.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/match_3_game/pieces/piece.tscn" type="PackedScene" id=5]
+
+[node name="blue_piece" instance=ExtResource( 5 )]
+color = "blue"
+row_texture = ExtResource( 1 )
+col_texture = ExtResource( 4 )
+adj_texture = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
