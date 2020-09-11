@@ -2,7 +2,8 @@
 
 [ext_resource path="res://Scenes/battler/Battler.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/battler/EnemyAnim.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/battle/enemy.tres" type="Resource" id=3]
+[ext_resource path="res://Scenes/battle/enemy.tres" type="Resource" id=3]
+
 
 [node name="Battler" instance=ExtResource( 1 )]
 stats = ExtResource( 3 )
