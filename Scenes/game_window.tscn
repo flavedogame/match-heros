@@ -30,4 +30,5 @@ __meta__ = {
 [node name="grid" parent="." instance=ExtResource( 4 )]
 
 [node name="battle_scene" parent="." instance=ExtResource( 5 )]
+[connection signal="make_a_move" from="grid" to="battle_scene" method="_on_grid_make_a_move"]
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]

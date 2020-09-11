@@ -32,8 +32,8 @@ var possible_pieces = [
 	preload("res://Scenes/match_3_game/pieces/blue_piece.tscn"),
 	preload("res://Scenes/match_3_game/pieces/orange_piece.tscn"),
 	preload("res://Scenes/match_3_game/pieces/pink_piece.tscn"),
-	#preload("res://Scenes/match_3_game/pieces/green_piece.tscn"),
-	#preload("res://Scenes/match_3_game/pieces/lightgreen_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/green_piece.tscn"),
+	preload("res://Scenes/match_3_game/pieces/lightgreen_piece.tscn"),
 ]
 
 #touch variables
@@ -45,6 +45,7 @@ var controlling = false
 
 #scoreing variables
 signal update_score
+signal make_a_move
 export (int) var piece_value = 10
 var streak = 1
 
@@ -197,6 +198,8 @@ func _input(event):
 			var direction = touch_direction(first_touch,final_touch)
 			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
 			swap_pieces(grid_position.x,grid_position.y,direction)
+			print("emit")
+			emit_signal("make_a_move",piece_value*streak)
 			controlling = false
 		
 func swap_pieces(column, row, direction):
@@ -273,12 +276,13 @@ func find_matches():
 				if is_match_at2(i,j,current_color,"set_matched"):
 					found_matched = true
 	if found_matched:
-		print("foundMatched")
+		#print("foundMatched")
 		# todo keep trigger bomb
 		trigger_bombed_pieces()
 		$destroy_timer.start()
 	else:
-		print("not foundMatched")
+		#print("not foundMatched")
+		pass
 		#after_refill()
 	return found_matched
 
@@ -294,7 +298,7 @@ func find_match_line_with_direction(vec2, direction, match_count, current_match)
 		if not current_match.has(vec2):
 			success = false
 			break
-	print(vec2, match_count,direction, success)
+	#print(vec2, match_count,direction, success)
 	return success
 	
 func find_match_line_centered(vec2, is_horizontal, current_match):
@@ -412,7 +416,7 @@ func find_bombs():
 func make_bomb(bomb_type, vec2,current_match):
 	#if swap is in this match, generate at swap position
 	var bomb_piece = all_pieces[vec2.x][vec2.y]
-	print(current_match, first_piece,final_piece)
+	#print(current_match, first_piece,final_piece)
 	if first_piece and current_match.has(first_piece.grid_position):
 		bomb_piece = first_piece
 	if final_piece and current_match.has(final_piece.grid_position):
@@ -453,7 +457,7 @@ func match_all_in_row(row):
 			match_bombs(i,row)
 
 func match_all_in_col(col):
-	print("match_all_in_col")
+	#print("match_all_in_col")
 	for i in height:
 		if all_pieces[col][i] !=null:
 			if all_pieces[col][i].is_color_bomb:
@@ -484,7 +488,7 @@ func match_board():
 			all_pieces[i][j].set_matched()
 
 func change_bomb(bombType,piece):
-	print("change bomb",bombType,piece)
+	#print("change bomb",bombType,piece)
 	emit_signal("update_score",piece_value*streak)
 	#hmm maybe another one
 	#make_effect(particle_effect,i,j)
@@ -499,7 +503,7 @@ func change_bomb(bombType,piece):
 			piece.make_color_bomb()
 
 func destroy_matched():
-	print(current_matches)
+	#print(current_matches)
 	find_bombs()
 	current_matches.clear()
 	print("destroy_matched")
