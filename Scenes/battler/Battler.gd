@@ -8,6 +8,7 @@ class_name Battler
 export var stats: Resource
 
 onready var skin = $Skin
+onready var bars = $Bars
 
 
 var display_name: String

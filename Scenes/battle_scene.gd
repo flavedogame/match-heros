@@ -2,13 +2,15 @@ extends Node2D
 
 class_name CombatArena
 
+var BattleStatesUIBuilder = preload("res://Scenes/battle/hookableUI/BattleStatesUIBuilder.gd")
+
 onready var turn_queue = $turn_queue
 
 onready var hero = $"spawnpositions/party/5/HeroBattler"
 onready var enemy = $"spawnpositions/enemy/5/EnemyBattler"
 
 func _ready():
-	pass
+	initialize([enemy],[hero])
 	#enemies = 
 	#initialize()
 
@@ -16,7 +18,12 @@ func initialize(enemies, party):
 	ready_field(enemies, party)
 
 func ready_field(enemies, party):
-	pass
+	print("ready field")
+	enemies[0].stats.reset()
+	party[0].stats.reset()
+	BattleStatesUIBuilder.initialize(enemies)
+	BattleStatesUIBuilder.initialize(party)
+	
 	
 func attack(actor, targets):
 	if actor.party_member and not targets:

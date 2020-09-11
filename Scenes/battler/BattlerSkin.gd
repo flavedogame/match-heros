@@ -11,6 +11,9 @@ export var TWEEN_DURATION: float = 0.3
 
 var blink: bool = false setget set_blink
 
+func _ready():
+	initialize()
+
 func initialize():
 	for child in get_children():
 		if child is BattlerAnim:
@@ -33,7 +36,6 @@ func move_forward():
 
 
 func move_to(target: Battler):
-	print("move to")
 	tween.interpolate_property(
 		self,
 		'global_position',

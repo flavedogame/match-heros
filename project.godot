@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "Hit",
 "language": "GDScript",
 "path": "res://Scenes/battle/Hit.gd"
+}, {
+"base": "Control",
+"class": "LifeBar",
+"language": "GDScript",
+"path": "res://Scenes/battle/hookableUI/HookableLifeBar.gd"
 } ]
 _global_script_class_icons={
 "Battler": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "CharacterStats": "",
 "CombatAction": "",
 "CombatArena": "",
-"Hit": ""
+"Hit": "",
+"LifeBar": ""
 }
 
 [application]
