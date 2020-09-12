@@ -25,8 +25,9 @@ export var TARGET_OFFSET_DISTANCE: float = 120.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var direction: Vector2 = Vector2(-1.0, 0.0) if party_member else Vector2(1.0, 0.0)
+	var direction: Vector2 = Vector2(1.0, 0.0) if party_member else Vector2(-1.0, 0.0)
 	target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
+	initialize()
 
 func initialize():
 	skin.initialize()

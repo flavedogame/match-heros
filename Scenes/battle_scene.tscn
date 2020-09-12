@@ -29,6 +29,7 @@ position = Vector2( 115.665, 167.954 )
 position = Vector2( 115.665, 222.682 )
 
 [node name="HeroBattler" parent="spawnpositions/party/5" instance=ExtResource( 2 )]
+party_member = true
 
 [node name="6" type="Position2D" parent="spawnpositions/party"]
 position = Vector2( 115.665, 281.415 )

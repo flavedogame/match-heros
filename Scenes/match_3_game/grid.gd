@@ -32,8 +32,8 @@ var possible_pieces = [
 	preload("res://Scenes/match_3_game/pieces/blue_piece.tscn"),
 	preload("res://Scenes/match_3_game/pieces/orange_piece.tscn"),
 	preload("res://Scenes/match_3_game/pieces/pink_piece.tscn"),
-	preload("res://Scenes/match_3_game/pieces/green_piece.tscn"),
-	preload("res://Scenes/match_3_game/pieces/lightgreen_piece.tscn"),
+	#preload("res://Scenes/match_3_game/pieces/green_piece.tscn"),
+	#preload("res://Scenes/match_3_game/pieces/lightgreen_piece.tscn"),
 ]
 
 #touch variables
@@ -199,7 +199,6 @@ func _input(event):
 			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
 			swap_pieces(grid_position.x,grid_position.y,direction)
 			print("emit")
-			emit_signal("make_a_move",piece_value*streak)
 			controlling = false
 		
 func swap_pieces(column, row, direction):
@@ -507,14 +506,21 @@ func destroy_matched():
 	find_bombs()
 	current_matches.clear()
 	print("destroy_matched")
+	var move_info =  {}
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] !=null:
 				if all_pieces[i][j].matched:
+					var color = all_pieces[i][j].color
+					if not move_info.has(color):
+						move_info[color] = 0
+					move_info[color] += 1
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
 					emit_signal("update_score",piece_value*streak)
 					make_effect(particle_effect,i,j)
+	# todo: generate bomb should destroy the old one then create new one, to avoid problems
+	emit_signal("make_a_move",move_info)
 	$collapse_timer.start()
 
 func collapse_columns():

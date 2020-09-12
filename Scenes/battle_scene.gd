@@ -25,13 +25,14 @@ func ready_field(enemies, party):
 	BattleStatesUIBuilder.initialize(party)
 	
 	
-func attack(actor, targets):
+func attack(actor, targets, attack_value):
 	if actor.party_member and not targets:
 		return false
-
+	if attack_value == 0:
+		return false
 	for target in targets:
+		var hit = Hit.new(actor.stats.strength * attack_value)
 		yield(actor.skin.move_to(target), "completed")
-		var hit = Hit.new(actor.stats.strength)
 		target.take_damage(hit)
 		yield(actor.get_tree().create_timer(1.0), "timeout")
 		yield(actor.skin.return_to_start(), "completed")
@@ -45,5 +46,5 @@ func play_turn():
 
 
 func _on_grid_make_a_move(move_details):
-	print("make a move")
-	attack(hero, get_targets())
+	var attack_value = move_details.get("orange",0)
+	attack(hero, get_targets(),attack_value)
