@@ -46,6 +46,7 @@ var controlling = false
 #scoreing variables
 signal update_score
 signal make_a_move
+signal finish_a_move
 export (int) var piece_value = 10
 var streak = 1
 
@@ -162,24 +163,6 @@ func is_match_at2(i, j, color,callback):
 	#return false
 	return isMatched
 	
-#func touch_input():
-#	if Input.is_action_just_pressed("ui_touch"):
-#		first_touch = get_global_mouse_position()
-#		var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
-#		print(grid_position)
-#		if is_in_grid(grid_position.x,grid_position.y):
-#			print("in grid")
-#			controlling = true
-#		else:
-#			print("not in grid")
-#	if controlling:
-#		if Input.is_action_just_released("ui_touch"):
-#			final_touch = get_global_mouse_position()
-#			var direction = touch_direction(first_touch,final_touch)
-#			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
-#			swap_pieces(grid_position.x,grid_position.y,direction)
-#			controlling = false
-
 func _input(event):
 	if state != move:
 		return
@@ -505,7 +488,6 @@ func destroy_matched():
 	#print(current_matches)
 	find_bombs()
 	current_matches.clear()
-	print("destroy_matched")
 	var move_info =  {}
 	for i in width:
 		for j in height:
@@ -524,7 +506,7 @@ func destroy_matched():
 	$collapse_timer.start()
 
 func collapse_columns():
-	print("collapse_columns")
+	#print("collapse_columns")
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] == null and not restricted_movement(Vector2(i,j)):
@@ -537,7 +519,7 @@ func collapse_columns():
 	$refill_timer.start()
 						
 func refill_columns():
-	print("refill_columns")
+	#print("refill_columns")
 	streak+=1
 	for i in width:
 		for j in height:
@@ -550,10 +532,12 @@ func after_refill():
 	#clear swap info
 	first_piece = null
 	final_piece = null
-	print("after_refill")
+	#print("after_refill")
 	var foundMatched = find_matches()
 	if not foundMatched:
+		#set state when enmey finish move
 		state = move
+		emit_signal("finish_a_move")
 	streak = 1
 	
 func make_effect(effect, column, row):

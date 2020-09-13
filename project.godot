@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "BattleScene",
+"language": "GDScript",
+"path": "res://Scenes/battle_scene.gd"
+}, {
 "base": "Position2D",
 "class": "Battler",
 "language": "GDScript",
@@ -29,11 +34,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/battle/actions/CombatAction.gd"
 }, {
-"base": "Node2D",
-"class": "CombatArena",
-"language": "GDScript",
-"path": "res://Scenes/battle_scene.gd"
-}, {
 "base": "Reference",
 "class": "Hit",
 "language": "GDScript",
@@ -45,11 +45,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/battle/hookableUI/HookableLifeBar.gd"
 } ]
 _global_script_class_icons={
+"BattleScene": "",
 "Battler": "",
 "BattlerAnim": "",
 "CharacterStats": "",
 "CombatAction": "",
-"CombatArena": "",
 "Hit": "",
 "LifeBar": ""
 }
