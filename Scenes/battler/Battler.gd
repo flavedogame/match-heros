@@ -47,3 +47,14 @@ func take_damage(hit):
 func _on_health_depleted():
 	yield(skin.play_death(), "completed")
 	emit_signal("died", self)
+
+func is_finished():
+	print("is finished?")
+	print(skin.anim.name)
+	if (skin.anim.is_playing()):
+		yield( skin.anim, "animation_finished" )
+	print("is finished!")
+	
+	yield(get_tree(), "idle_frame")
+	return
+	

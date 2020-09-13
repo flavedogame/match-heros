@@ -32,28 +32,16 @@ func battle_start():
 	#play into
 	active = true
 	play_turn()
-	
-func attack(actor, targets, attack_value):
-	if actor.party_member and not targets:
-		return false
-	if attack_value == 0:
-		return false
-	for target in targets:
-		var hit = Hit.new(actor.stats.strength * attack_value)
-		yield(actor.skin.move_to(target), "completed")
-		target.take_damage(hit)
-		yield(actor.get_tree().create_timer(1.0), "timeout")
-		yield(actor.skin.return_to_start(), "completed")
-	return true
+
 
 func get_targets():
 	return [enemy]
 
 func play_turn():
 	if is_hero_turn:
-		yield($"../grid","finish_a_move")
+		yield($party_ai.choose_action([hero],[enemy]),"completed")
 	else:
-		$enemies_ai.choose_action([enemy],[hero])
+		yield($enemies_ai.choose_action([enemy],[hero]),"completed")
 	is_hero_turn = !is_hero_turn
 	if active:
 		play_turn()
@@ -61,7 +49,12 @@ func play_turn():
 func battle_end():
 	emit_signal("battle_ends")
 	active = false
+	
+func is_finished():
+	print("is finished battle scene")
+	yield($party_ai.is_finished(),"completed")
+	#yield($enemies_ai.is_finished(),"completed")
+	return
 
 func _on_grid_make_a_move(move_details):
-	var attack_value = move_details.get("orange",0)
-	attack(hero, get_targets(),attack_value)
+	$party_ai._on_grid_make_a_move(move_details)

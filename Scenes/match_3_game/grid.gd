@@ -355,45 +355,6 @@ func find_bombs():
 				make_bomb(0, i,current_match)
 				return
 				
-	
-
-#func find_bombs():
-#	# for each one in current matches:
-#	# for each one, add all adjacent ones that can match 3, put all of them into a list
-#	# in this list, find 5 match first, generate bomb at center
-#	# find L or T, generate bomb at coner or center
-#	# find 4 match, generate at swap or one end(it should be the last drop one) 
-#	for i in current_matches:
-#		var x = i.x
-#		var y = i.y
-#		var color = all_pieces[x][y].color
-#		var x_matched = 0
-#		var y_matched = 0
-#		# todo this algorithm does not consider there might be interval in two same color
-#		# piece get matched
-#		for j in current_matches:
-#			var this_x = j.x
-#			var this_y = j.y
-#			var this_color = all_pieces[this_x][this_y].color
-#			if this_x == x and this_color == color:
-#				x_matched+=1
-#			if this_y == y and this_color == color:
-#				y_matched+=1
-#		if x_matched == 5 or y_matched == 5:
-#			make_bomb(3, color)
-#			return
-#		if y_matched == 3 and x_matched == 3:
-#			print(" adj bomb")
-#			make_bomb(0, color)
-#			return
-#		if x_matched == 4:
-#			print("col bomb")
-#			make_bomb(1, color)
-#			return
-#		if y_matched == 4:
-#			print("row bomb")
-#			make_bomb(2, color)
-#			return
 				
 func make_bomb(bomb_type, vec2,current_match):
 	#if swap is in this match, generate at swap position
@@ -533,6 +494,9 @@ func after_refill():
 	first_piece = null
 	final_piece = null
 	#print("after_refill")
+	yield($"../battle_scene".is_finished(),"completed")
+	print("battle scene completed")
+	#wait until battle scene finished attack & anim
 	var foundMatched = find_matches()
 	if not foundMatched:
 		#set state when enmey finish move
