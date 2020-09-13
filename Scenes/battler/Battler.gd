@@ -10,6 +10,8 @@ export var stats: Resource
 onready var skin = $Skin
 onready var bars = $Bars
 
+export var attack_move_time = 0.5
+
 
 var display_name: String
 
@@ -48,13 +50,16 @@ func _on_health_depleted():
 	yield(skin.play_death(), "completed")
 	emit_signal("died", self)
 
-func is_finished():
-	print("is finished?")
-	print(skin.anim.name)
-	if (skin.anim.is_playing()):
-		yield( skin.anim, "animation_finished" )
-	print("is finished!")
-	
-	yield(get_tree(), "idle_frame")
-	return
+func attack(target, move_details):
+	var attack_value = 1
+	if move_details:
+		attack_value = move_details.get("orange",0)
+		if attack_value == 0:
+			yield(get_tree(), "idle_frame")
+			return
+	var hit = Hit.new(stats.strength * attack_value)
+	yield(skin.move_to(target), "completed")
+	target.take_damage(hit)
+	yield(get_tree().create_timer(attack_move_time), "timeout")
+	yield(skin.return_to_start(), "completed")
 	

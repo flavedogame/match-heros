@@ -7,7 +7,7 @@ onready var anim = $AnimationPlayer
 onready var position_start: Vector2
 
 export var TURN_START_MOVE_DISTANCE: float = 40.0
-export var TWEEN_DURATION: float = 0.3
+export var TWEEN_DURATION: float = 0.1
 
 var blink: bool = false setget set_blink
 

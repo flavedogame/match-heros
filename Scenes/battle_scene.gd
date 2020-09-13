@@ -31,30 +31,19 @@ func ready_field(enemies, party):
 func battle_start():
 	#play into
 	active = true
-	play_turn()
 
 
 func get_targets():
 	return [enemy]
 
-func play_turn():
-	if is_hero_turn:
-		yield($party_ai.choose_action([hero],[enemy]),"completed")
-	else:
-		yield($enemies_ai.choose_action([enemy],[hero]),"completed")
-	is_hero_turn = !is_hero_turn
-	if active:
-		play_turn()
+func party_attack(move_details):
+	print("party_attack ",move_details)
+	yield($party_ai.attack([hero],[enemy],move_details),"completed")
+
+func enemy_attack():
+	yield(get_tree().create_timer(0.2), "timeout")
+	yield($enemies_ai.attack([enemy],[hero]),"completed")
 
 func battle_end():
 	emit_signal("battle_ends")
 	active = false
-	
-func is_finished():
-	print("is finished battle scene")
-	yield($party_ai.is_finished(),"completed")
-	#yield($enemies_ai.is_finished(),"completed")
-	return
-
-func _on_grid_make_a_move(move_details):
-	$party_ai._on_grid_make_a_move(move_details)

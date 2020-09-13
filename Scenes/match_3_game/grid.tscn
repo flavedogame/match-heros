@@ -10,11 +10,11 @@ wait_time = 0.3
 one_shot = true
 
 [node name="collapse_timer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="refill_timer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 [connection signal="timeout" from="destroy_timer" to="." method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="." method="_on_collapse_timer_timeout"]

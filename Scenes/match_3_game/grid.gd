@@ -44,11 +44,11 @@ var final_piece
 var controlling = false
 
 #scoreing variables
-signal update_score
-signal make_a_move
-signal finish_a_move
+#signal update_score
 export (int) var piece_value = 10
 var streak = 1
+
+var battle_scene :BattleScene
 
 var particle_effect = preload("res://Scenes/match_3_game/destory_piece_particle.tscn")
 
@@ -181,7 +181,6 @@ func _input(event):
 			var direction = touch_direction(first_touch,final_touch)
 			var grid_position = pixel_to_grid(first_touch.x,first_touch.y)
 			swap_pieces(grid_position.x,grid_position.y,direction)
-			print("emit")
 			controlling = false
 		
 func swap_pieces(column, row, direction):
@@ -432,7 +431,7 @@ func match_board():
 
 func change_bomb(bombType,piece):
 	#print("change bomb",bombType,piece)
-	emit_signal("update_score",piece_value*streak)
+	#emit_signal("update_score",piece_value*streak)
 	#hmm maybe another one
 	#make_effect(particle_effect,i,j)
 	match bombType:
@@ -460,10 +459,10 @@ func destroy_matched():
 					move_info[color] += 1
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
-					emit_signal("update_score",piece_value*streak)
+					#emit_signal("update_score",piece_value*streak)
 					make_effect(particle_effect,i,j)
 	# todo: generate bomb should destroy the old one then create new one, to avoid problems
-	emit_signal("make_a_move",move_info)
+	yield(battle_scene.party_attack(move_info),"completed")
 	$collapse_timer.start()
 
 func collapse_columns():
@@ -494,14 +493,13 @@ func after_refill():
 	first_piece = null
 	final_piece = null
 	#print("after_refill")
-	yield($"../battle_scene".is_finished(),"completed")
 	print("battle scene completed")
 	#wait until battle scene finished attack & anim
 	var foundMatched = find_matches()
 	if not foundMatched:
 		#set state when enmey finish move
+		yield(battle_scene.enemy_attack(),"completed")
 		state = move
-		emit_signal("finish_a_move")
 	streak = 1
 	
 func make_effect(effect, column, row):
