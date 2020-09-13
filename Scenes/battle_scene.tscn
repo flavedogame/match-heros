@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://grass_land_background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/battler/EnemyBattler.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/battle_scene.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/battle/ai/enemies_ai.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/battle/ai/party_ai.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/battler/HeroBattler.tscn" type="PackedScene" id=6]
 
 [node name="battle_scene" type="Node2D"]
 script = ExtResource( 3 )
@@ -30,7 +31,7 @@ position = Vector2( 115.665, 167.954 )
 [node name="5" type="Position2D" parent="spawnpositions/party"]
 position = Vector2( 115.665, 222.682 )
 
-[node name="HeroBattler" parent="spawnpositions/party/5" instance=ExtResource( 2 )]
+[node name="HeroBattler" parent="spawnpositions/party/5" instance=ExtResource( 6 )]
 party_member = true
 
 [node name="6" type="Position2D" parent="spawnpositions/party"]
