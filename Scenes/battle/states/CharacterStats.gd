@@ -48,4 +48,4 @@ func _get_defense() -> int:
 	return defense
 
 func _is_alive() -> bool:
-	return health >= 0
+	return health > 0

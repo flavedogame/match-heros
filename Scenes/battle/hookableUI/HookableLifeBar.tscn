@@ -1,13 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/battle/hookableUI/HookableLifeBar.gd" type="Script" id=1]
 [ext_resource path="res://art/battleState/bars/background.png" type="Texture" id=2]
 [ext_resource path="res://art/battleState/bars/life_fill.png" type="Texture" id=3]
-[ext_resource path="res://fonts/Kenney Future.ttf" type="DynamicFontData" id=4]
-
-[sub_resource type="DynamicFont" id=1]
-size = 20
-font_data = ExtResource( 4 )
+[ext_resource path="res://fonts/info font.tres" type="DynamicFont" id=4]
 
 [node name="HookableLifeBar" type="Control" groups=[
 "bars",
@@ -37,6 +33,6 @@ texture_progress = ExtResource( 3 )
 margin_top = 26.0
 margin_right = 192.0
 margin_bottom = 49.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "20/40"
 align = 1

@@ -506,6 +506,8 @@ func after_refill():
 	#clear swap info
 	first_piece = null
 	final_piece = null
+	if not battle_scene.active:
+		return
 	#print("after_refill")
 	print("battle scene completed")
 	#wait until battle scene finished attack & anim
@@ -516,6 +518,8 @@ func after_refill():
 		toggle_disable_layers(true)
 		
 		yield(battle_scene.enemy_attack(),"completed")
+		if not battle_scene.active:
+			return
 		toggle_disable_layers(false)
 		state = move
 	streak = 1

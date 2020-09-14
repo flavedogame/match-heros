@@ -10,6 +10,8 @@ export var stats: Resource
 onready var skin = $Skin
 onready var bars = $Bars
 
+var is_alive = true
+
 export var attack_move_time = 0.5
 
 
@@ -19,11 +21,6 @@ export var party_member = false
 
 var target_global_position: Vector2
 export var TARGET_OFFSET_DISTANCE: float = 120.0
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +44,7 @@ func take_damage(hit):
 		skin.play_stagger()
 
 func _on_health_depleted():
+	is_alive = false
 	yield(skin.play_death(), "completed")
 	emit_signal("died", self)
 
