@@ -6,8 +6,6 @@
 [ext_resource path="res://art/pieces/Green Adjacent.png" type="Texture" id=4]
 [ext_resource path="res://art/pieces/Green Row.png" type="Texture" id=5]
 
-
-
 [node name="green_piece" instance=ExtResource( 2 )]
 color = "green"
 row_texture = ExtResource( 5 )

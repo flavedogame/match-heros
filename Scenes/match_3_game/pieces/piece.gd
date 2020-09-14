@@ -7,6 +7,8 @@ export (Texture) var col_texture
 export (Texture) var adj_texture
 export (Texture) var color_texture
 
+onready var sprite = $Sprite
+
 var is_row_bomb = false
 var is_col_bomb = false
 var is_adj_bomb = false
@@ -55,11 +57,17 @@ func make_color_bomb():
 	color = "Color"
 
 func set_matched():
-	$Sprite.modulate = Color(1,1,1,.5)
+	#$Sprite.modulate = Color(1,1,1,.5)
 	matched = true
 
 func set_grid_position(i,j):
 	grid_position = Vector2(i,j)
+	
+func set_disabled(is_disabled):
+	if is_disabled:
+		$Sprite.modulate = Color(0.5,0.5,0.5,1)
+	else:
+		$Sprite.modulate = Color(1,1,1,1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

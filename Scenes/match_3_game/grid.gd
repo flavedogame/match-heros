@@ -12,6 +12,7 @@ export (int) var offset = 64
 #where the piece should drop from
 export (int) var y_offset = -2
 
+
 export (PoolVector2Array) var empty_spaces = [
 #	Vector2(0,0),
 #	Vector2(width-1,height-1),
@@ -43,8 +44,11 @@ var first_piece
 var final_piece
 var controlling = false
 
+onready var pieces_parent = $pieces_parent
+
 #scoreing variables
 #signal update_score
+signal piece_destroyed
 export (int) var piece_value = 10
 var streak = 1
 
@@ -58,6 +62,8 @@ func _ready():
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()
+	toggle_disable_layers(false)
+	
 	
 func make_2d_array():
 	var array = []
@@ -89,7 +95,7 @@ func spawn_one_piece(i,j,should_check = true):
 			rand = randi() % possible_pieces.size()
 			loops+=1
 			piece = possible_pieces[rand].instance()
-	add_child(piece)
+	pieces_parent.add_child(piece)
 	piece.position = grid_to_pixel(i,j-y_offset)
 	piece.move(grid_to_pixel(i,j))
 	all_pieces[i][j] = piece
@@ -457,11 +463,13 @@ func destroy_matched():
 					if not move_info.has(color):
 						move_info[color] = 0
 					move_info[color] += 1
+					
+					make_effect(particle_effect,i,j)
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j] = null
 					#emit_signal("update_score",piece_value*streak)
-					make_effect(particle_effect,i,j)
 	# todo: generate bomb should destroy the old one then create new one, to avoid problems
+	
 	yield(battle_scene.party_attack(move_info),"completed")
 	$collapse_timer.start()
 
@@ -487,6 +495,12 @@ func refill_columns():
 				spawn_one_piece(i,j,false)
 	after_refill()
 
+func toggle_disable_layers(is_disabled):
+	for i in width:
+		for j in height:
+			all_pieces[i][j].set_disabled(is_disabled)
+	
+
 func after_refill():
 	
 	#clear swap info
@@ -498,14 +512,20 @@ func after_refill():
 	var foundMatched = find_matches()
 	if not foundMatched:
 		#set state when enmey finish move
+		
+		toggle_disable_layers(true)
+		
 		yield(battle_scene.enemy_attack(),"completed")
+		toggle_disable_layers(false)
 		state = move
 	streak = 1
 	
 func make_effect(effect, column, row):
 	var current = effect.instance()
 	current.position = grid_to_pixel(column, row)
-	add_child(current)
+	pieces_parent.add_child(current)
+	emit_signal("piece_destroyed",current.position, all_pieces[column][row].color, all_pieces[column][row].sprite.texture)
+	
 
 func _on_destroy_timer_timeout():
 	destroy_matched()

@@ -38,11 +38,17 @@ func get_targets():
 
 func party_attack(move_details):
 	print("party_attack ",move_details)
+	#yield(get_tree().create_timer(0.5), "timeout")
 	yield($party_ai.attack([hero],[enemy],move_details),"completed")
 
 func enemy_attack():
-	yield(get_tree().create_timer(0.2), "timeout")
+	#yield(get_tree().create_timer(0.5), "timeout")
 	yield($enemies_ai.attack([enemy],[hero]),"completed")
+	
+func get_attack_party_member(color):
+	if color == "orange":
+		return [hero]
+	return []
 
 func battle_end():
 	emit_signal("battle_ends")

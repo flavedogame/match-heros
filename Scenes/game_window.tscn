@@ -32,3 +32,6 @@ __meta__ = {
 [node name="grid" parent="." instance=ExtResource( 4 )]
 
 [node name="battle_scene" parent="." instance=ExtResource( 5 )]
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="piece_destroyed" from="grid" to="." method="_on_grid_piece_destroyed"]
