@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/battle/actions/CombatAction.gd"
 }, {
+"base": "Node2D",
+"class": "CombatArena",
+"language": "GDScript",
+"path": "res://Scenes/game_window.gd"
+}, {
 "base": "Reference",
 "class": "Hit",
 "language": "GDScript",
@@ -43,6 +48,16 @@ _global_script_classes=[ {
 "class": "LifeBar",
 "language": "GDScript",
 "path": "res://Scenes/battle/hookableUI/HookableLifeBar.gd"
+}, {
+"base": "Node2D",
+"class": "Map",
+"language": "GDScript",
+"path": "res://Scenes/map/map.gd"
+}, {
+"base": "Node2D",
+"class": "Party",
+"language": "GDScript",
+"path": "res://Scenes/party.gd"
 } ]
 _global_script_class_icons={
 "BattleScene": "",
@@ -50,14 +65,17 @@ _global_script_class_icons={
 "BattlerAnim": "",
 "CharacterStats": "",
 "CombatAction": "",
+"CombatArena": "",
 "Hit": "",
-"LifeBar": ""
+"LifeBar": "",
+"Map": "",
+"Party": ""
 }
 
 [application]
 
 config/name="Match-heros"
-run/main_scene="res://Scenes/game_window.tscn"
+run/main_scene="res://Scenes/main_game.tscn"
 config/icon="res://icon.png"
 
 [display]

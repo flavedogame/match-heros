@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://art/polygon.png" type="Texture" id=1]
+[ext_resource path="res://fonts/Kenney Pixel.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/map/map_node.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="map_node" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = -288.79
+margin_top = -54.7401
+margin_right = 299.21
+margin_bottom = 47.2599
+icon = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button"]
+margin_left = 7.24518
+margin_top = 20.1581
+margin_right = 575.245
+margin_bottom = 80.1581
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "village"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
