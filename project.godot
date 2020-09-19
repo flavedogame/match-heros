@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/battler/EnemyAnim.gd"
 }, {
 "base": "Resource",
+"class": "CareerStats",
+"language": "GDScript",
+"path": "res://Scenes/battle/states/CareerStats.gd"
+}, {
+"base": "Resource",
 "class": "CharacterStats",
 "language": "GDScript",
 "path": "res://Scenes/battle/states/CharacterStats.gd"
@@ -64,6 +69,7 @@ _global_script_class_icons={
 "BattleScene": "",
 "Battler": "",
 "BattlerAnim": "",
+"CareerStats": "",
 "CharacterStats": "",
 "CombatAction": "",
 "Hit": "",

@@ -14,6 +14,8 @@ var is_alive = true
 
 export var attack_move_time = 0.5
 
+onready var career = $career
+var color_related
 
 var display_name: String
 
@@ -51,10 +53,14 @@ func _on_health_depleted():
 func attack(target, move_details):
 	var attack_value = 1
 	if move_details:
-		attack_value = move_details.get("orange",0)
+		#orange
+		
+		color_related =  career.stats.color_related
+		attack_value = move_details.get(color_related,0)
 		if attack_value == 0:
 			yield(get_tree(), "idle_frame")
 			return
+	print(color_related)
 	var hit = Hit.new(stats.strength * attack_value)
 	yield(skin.move_to(target), "completed")
 	target.take_damage(hit)

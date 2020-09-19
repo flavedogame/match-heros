@@ -85,9 +85,12 @@ func check_battle_end():
 	return false
 
 func get_attack_party_member(color):
-	if color == "orange":
-		return party.keys()
-	return []
+	#orange
+	var related_battlers = []
+	for k in party:
+		if k.color_related == color:
+			related_battlers.append(k)
+	return related_battlers
 
 func battle_end(is_won):
 	emit_signal("battle_ends")

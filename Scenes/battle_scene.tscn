@@ -91,6 +91,7 @@ script = ExtResource( 5 )
 script = ExtResource( 7 )
 
 [node name="Panel" type="Panel" parent="Rewards"]
+visible = false
 margin_right = 400.0
 margin_bottom = 100.0
 __meta__ = {
