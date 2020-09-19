@@ -4,12 +4,15 @@ const battle_game_scene = preload("res://Scenes/battle_game.tscn")
 const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn")
 onready var transition
 onready var local_map = $local_map
-onready var party = $party
-
+#onready var party = $party
+var party = {"HeroBattler":"1",
+	"HeressBattler":"5"}
 var transitioning = false
 var battle_game :BattleGame
 
 func enter_battle(formation):
+	
+	
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
@@ -26,7 +29,7 @@ func enter_battle(formation):
 	battle_game.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	battle_game.initialize(formation, party.get_active_members())
+	battle_game.initialize(formation, party)
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()

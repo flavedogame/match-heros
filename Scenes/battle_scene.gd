@@ -26,21 +26,17 @@ onready var enemy = $"spawnpositions/enemy/5/EnemyBattler"
 
 func initialize(_enemies, _party):
 	
-	party = _party
+	party = {}
 	
-	for k in party:
+	for k in _party:
 		for i in party_positions.get_children():
-			if i.name == party[k]:
+			if i.name == _party[k]:
 				#var k_instance = k.duplicate()
-				print(k)
-				print(k.get_parent())
-				var old_parent = k.get_parent()
-				old_parent.remove_child(k)
-#				self.remove_child(source)
-#				target.add_child(source)
-#				source.set_owner(target)
-				i.add_child(k)
-				k.set_owner(i)
+				var preload_string:String = "res://Scenes/battler/"+k+".tscn"
+				var battler:Battler = load(preload_string).instance()
+				battler.party_member = true
+				i.add_child(battler)
+				party[battler] = i.name
 				break
 	
 	enemies = [enemy]#_enemies
