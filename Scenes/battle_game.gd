@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name CombatArena
+class_name BattleGame
 
 onready var tween = $Tween
 var glowing_piece = preload("res://Scenes/match_3_game/fly_to_attacker_glow_part.tscn")

@@ -1,13 +1,13 @@
 extends Node2D
 
-const combat_arena_scene = preload("res://Scenes/combat_arena_scene.tscn")
+const battle_game_scene = preload("res://Scenes/battle_game.tscn")
 const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn")
 onready var transition
 onready var local_map = $local_map
 onready var party = $party
 
 var transitioning = false
-var combat_arena :CombatArena
+var battle_game :BattleGame
 
 func enter_battle(formation):
 	# Plays the combat transition animation and initializes the combat scene
@@ -19,20 +19,20 @@ func enter_battle(formation):
 	yield(transition.fade_to_color(), "completed")
 	print("fade to color")
 	remove_child(local_map)
-	combat_arena = combat_arena_scene.instance()
-	add_child(combat_arena)
-	combat_arena.connect("victory", self, "_on_CombatArena_player_victory")
-	combat_arena.connect("game_over", self, "_on_CombatArena_game_over")
-	combat_arena.connect(
-		"battle_completed", self, "_on_CombatArena_battle_completed", [combat_arena]
+	battle_game = battle_game_scene.instance()
+	add_child(battle_game)
+	battle_game.connect("victory", self, "_on_CombatArena_player_victory")
+	battle_game.connect("game_over", self, "_on_CombatArena_game_over")
+	battle_game.connect(
+		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	combat_arena.initialize(formation, party.get_active_members())
+	battle_game.initialize(formation, party.get_active_members())
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()
 	transitioning = false
 
-	combat_arena.battle_start()
+	battle_game.battle_start()
 	emit_signal("combat_started")
 
 
