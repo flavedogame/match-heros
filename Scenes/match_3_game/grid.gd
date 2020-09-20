@@ -55,15 +55,17 @@ var streak = 1
 var battle_scene :BattleScene
 
 var particle_effect = preload("res://Scenes/match_3_game/destory_piece_particle.tscn")
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	state = move
+	
+func initialize():
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()
-	toggle_disable_layers(false)
+	toggle_disable_layers(true)
+	state = wait
 	
+func battle_start():
+	toggle_disable_layers(false)
+	state = move
 	
 func make_2d_array():
 	var array = []

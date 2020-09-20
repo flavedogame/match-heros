@@ -6,28 +6,19 @@ onready var tween = $Tween
 var glowing_piece = preload("res://Scenes/match_3_game/fly_to_attacker_glow_part.tscn")
 var glocing_piece_flying_time = 0.5
 onready var battle_view:BattleScene = $battle_scene
-
+onready var grid = $grid
 
 func _ready():
-	$grid.battle_scene = battle_view
+	grid.battle_scene = battle_view
 	
 func initialize(formation, party):
 	battle_view.initialize(formation,party)
-
-#	# reparent the enemy battlers into the turn queue
-#	var battlers = turn_queue.get_battlers()
-#	for battler in battlers:
-#		battler.initialize()
-#
-#	interface.initialize(self, turn_queue, battlers)
-#	rewards.initialize(battlers)
-#	turn_queue.initialize()
-
+	#todo can put grid info here, like width height obstacles etc
+	grid.initialize()
 
 func battle_start():
 	battle_view.battle_start()
-#	yield(play_intro(), "completed")
-	#active = true
+	grid.battle_start()
 
 
 func _on_grid_piece_destroyed(start_position,color,texture):
