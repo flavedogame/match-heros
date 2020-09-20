@@ -5,8 +5,16 @@ const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn"
 onready var transition
 onready var local_map = $local_map
 #onready var party = $party
-var party = {"HeroBattler":"1",
-	"HeressBattler":"5"}
+var party = {
+	"1":
+		{anim = "HeroAnim", stats = "hero", career = "hero_career"},
+	"5":
+		{anim = "HeressAnim", stats = "heress", career = "heress_career"},
+	}
+var _formation = {
+	"5":
+		{anim = "EnemyAnim", stats = "enemy"},
+	}
 var transitioning = false
 var battle_game :BattleGame
 
@@ -40,7 +48,7 @@ func enter_battle(formation):
 
 
 func _on_map_enemies_encountered(formation):
-	enter_battle(formation)
+	enter_battle(_formation)
 
 
 func _on_CombatArena_battle_completed(arena):

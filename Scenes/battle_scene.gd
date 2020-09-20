@@ -11,44 +11,55 @@ var is_hero_turn = true
 var active: bool = false
 
 var party
-var enemies
+var formation
 
 onready var party_positions = $"spawnpositions/party"
+onready var formation_positions = $spawnpositions/formation
 
 onready var hero = $"spawnpositions/party/5/HeroBattler"
 onready var enemy = $"spawnpositions/enemy/5/EnemyBattler"
 
+var battler_scene = preload("res://Scenes/battler/Battler.tscn")
+
 #func _ready():
 #	pass
 	#initialize([enemy],[hero])
-	#enemies = 
+	#formation = 
 	#initialize()
 
-func initialize(_enemies, _party):
-	
+func initialize(_formation, _party):
 	party = {}
+	for i in party_positions.get_children():
+		if _party.has(i.name):
+			var info = _party[i.name]
+			#load battler, load correct animation, career, stat
+			var battler:Battler = battler_scene.instance()
+			battler.init(info, true)
+			i.add_child(battler)
+			party[battler] = i.name
+
+	formation = {}
+	for i in formation_positions.get_children():
+		if _formation.has(i.name):
+			var info = _formation[i.name]
+			#load battler, load correct animation, career, stat
+			var battler:Battler = battler_scene.instance()
+			battler.init(info, false)
+			i.add_child(battler)
+			formation[battler] = i.name
 	
-	for k in _party:
-		for i in party_positions.get_children():
-			if i.name == _party[k]:
-				#var k_instance = k.duplicate()
-				var preload_string:String = "res://Scenes/battler/"+k+".tscn"
-				var battler:Battler = load(preload_string).instance()
-				battler.party_member = true
-				i.add_child(battler)
-				party[battler] = i.name
-				break
-	
-	enemies = [enemy]#_enemies
-	#rewards.initialize(party,enemies)
+	#formation = [enemy]#_formation
+	rewards.initialize(party.keys(),formation.keys())
 	ready_field()
 
 func ready_field():
-	enemies[0].stats.reset()
+	#formation[0].stats.reset()
 	for k in party:
 		k.stats.reset()
+	for k in formation:
+		k.stats.reset()
 	
-	BattleStatesUIBuilder.initialize(enemies)
+	BattleStatesUIBuilder.initialize(formation.keys())
 	BattleStatesUIBuilder.initialize(party.keys())
 	
 func battle_start():
@@ -58,12 +69,12 @@ func battle_start():
 func party_attack(move_details):
 	print("party_attack ",move_details)
 	#yield(get_tree().create_timer(0.5), "timeout")
-	yield($party_ai.attack(party.keys(),enemies,move_details),"completed")
+	yield($party_ai.attack(party.keys(),formation.keys(),move_details),"completed")
 	return check_battle_end()
 
 func enemy_attack():
 	#yield(get_tree().create_timer(0.5), "timeout")
-	yield($enemies_ai.attack(enemies,party.keys()),"completed")
+	yield($enemies_ai.attack(formation.keys(),party.keys()),"completed")
 
 func one_side_has_alive(side:Array):
 	for i in side.size():
@@ -74,8 +85,8 @@ func one_side_has_alive(side:Array):
 
 func check_battle_end():
 	var party_has_alive = one_side_has_alive(party.keys())
-	var enemies_has_alive = one_side_has_alive(enemies)
-	if not party_has_alive or not enemies_has_alive:
+	var formation_has_alive = one_side_has_alive(formation.keys())
+	if not party_has_alive or not formation_has_alive:
 		print("battle end")
 		if party_has_alive:
 			battle_end(true)

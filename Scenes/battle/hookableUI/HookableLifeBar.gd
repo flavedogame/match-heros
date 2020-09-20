@@ -1,8 +1,8 @@
 extends Control
 class_name LifeBar
 
-onready var bar = $Column/TextureProgress
-onready var label = $Column/LifeLabel
+onready var bar = $TextureProgress
+onready var label = $LifeLabel
 
 var max_value: int = 0 setget set_max_value
 var value: int = 0 setget set_value

@@ -51,7 +51,7 @@ tracks/0/keys = {
 }
 
 [node name="Anim" type="Position2D"]
-scale = Vector2( 0.928146, 1.1702 )
+scale = Vector2( 0.3, 0.3 )
 script = ExtResource( 1 )
 
 [node name="animationNode" type="Position2D" parent="."]

@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Scenes/battler/Battler.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/battler/HeressAnim.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/enemy.tres" type="Resource" id=3]
+[ext_resource path="res://resources/battler/enemy.tres" type="Resource" id=3]
 [ext_resource path="res://Scenes/battler/career.gd" type="Script" id=4]
-[ext_resource path="res://resources/heress_career.tres" type="Resource" id=5]
+[ext_resource path="res://resources/battler/heress_career.tres" type="Resource" id=5]
 
 [node name="Battler" instance=ExtResource( 1 )]
 stats = ExtResource( 3 )

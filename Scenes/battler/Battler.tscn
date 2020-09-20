@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/battler/Battler.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/battler/BattlerSkin.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/battler/career.gd" type="Script" id=3]
+[ext_resource path="res://resources/battler/hero_career.tres" type="Resource" id=4]
 
 [node name="Battler" type="Position2D" groups=[
 "enemy",
@@ -18,10 +20,14 @@ script = ExtResource( 2 )
 [node name="TargetAnchor" type="Position2D" parent="."]
 
 [node name="Bars" type="VBoxContainer" parent="."]
-margin_left = -100.0
-margin_top = 8.0
-margin_right = 100.0
-margin_bottom = 28.0
+margin_left = -71.5
+margin_top = -74.75
+margin_right = 72.5
+margin_bottom = -54.75
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="career" type="Node2D" parent="."]
+script = ExtResource( 3 )
+stats = ExtResource( 4 )

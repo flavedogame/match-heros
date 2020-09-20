@@ -6,6 +6,7 @@ extends Position2D
 class_name Battler
 
 export var stats: Resource
+export var career: Resource
 
 onready var skin = $Skin
 onready var bars = $Bars
@@ -14,7 +15,6 @@ var is_alive = true
 
 export var attack_move_time = 0.5
 
-onready var career = $career
 var color_related
 
 var display_name: String
@@ -24,15 +24,35 @@ export var party_member = false
 var target_global_position: Vector2
 export var TARGET_OFFSET_DISTANCE: float = 120.0
 
+var _anim
+var _stats
+var _career
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var direction: Vector2 = Vector2(1.0, 0.0) if party_member else Vector2(-1.0, 0.0)
 	target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
+	
+	skin.add_child(_anim)
+	stats = _stats
+	career = _career
 	initialize()
+	
+
+func init(info, is_party_member):
+	party_member = is_party_member
+	#"res://Scenes/battler/"+info.anim+".tscn"
+	#res://Scenes/battler/HeressAnim.tscn
+	_anim = load("res://Scenes/battler/"+info.anim+".tscn").instance()
+	_anim.init(is_party_member)
+	_stats = load("res://resources/battler/"+info.stats+".tres").copy()
+	
+	if is_party_member:
+		_career = load("res://resources/battler/"+info.career+".tres").copy()
 
 func initialize():
 	skin.initialize()
-	stats = stats.copy()
+	#stats = stats.copy()
 	stats.connect("health_depleted", self, "_on_health_depleted")
 
 func is_able_to_play() -> bool:
@@ -55,7 +75,7 @@ func attack(target, move_details):
 	if move_details:
 		#orange
 		
-		color_related =  career.stats.color_related
+		color_related =  career.color_related
 		attack_value = move_details.get(color_related,0)
 		if attack_value == 0:
 			yield(get_tree(), "idle_frame")

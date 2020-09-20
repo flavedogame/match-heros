@@ -8,31 +8,33 @@
 [node name="HookableLifeBar" type="Control" groups=[
 "bars",
 ]]
-margin_right = 190.0
-margin_bottom = 40.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Column" type="VBoxContainer" parent="."]
-margin_right = 190.0
-margin_bottom = 40.0
+rect_clip_content = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureProgress" type="TextureProgress" parent="Column"]
+[node name="TextureProgress" type="TextureProgress" parent="."]
 margin_right = 192.0
 margin_bottom = 22.0
+rect_scale = Vector2( 0.6, 1 )
 value = 60.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="LifeLabel" type="Label" parent="Column"]
+[node name="LifeLabel" type="Label" parent="."]
 margin_top = 26.0
-margin_right = 192.0
+margin_right = 115.2
 margin_bottom = 49.0
+rect_pivot_offset = Vector2( 17.3856, 106.093 )
 custom_fonts/font = ExtResource( 4 )
 text = "20/40"
 align = 1
