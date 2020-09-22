@@ -1,12 +1,20 @@
 extends Node2D
 
-onready var local_map:Map = get_parent()
+onready var local_map:LocalMap = get_parent()
 export var stats: Resource
+onready var buttons_container = $VBoxContainer
 
-func _on_Button_pressed():
-	for action in stats.actions:
-		for action_key in action:
-			if action_key == "battle_action":
-				var action_content = action[action_key] 
-				print(action_content)
-				local_map.start_encounter(action_content)
+var button_scene = preload("res://Scenes/map/MapNodeDetailButton.tscn")
+
+func _ready():
+	var buttons = stats.buttons
+	var name = stats.name
+	var folder_name = stats.map_node_id
+	for button_name in buttons:
+		#if button is visible
+		var button_instance = button_scene.instance()
+		var button_stats = load("res://resources/mapNode/"+folder_name+"/"+button_name+".tres").duplicate()
+		button_instance.init(button_stats,local_map)
+		buttons_container.add_child(button_instance)
+		
+

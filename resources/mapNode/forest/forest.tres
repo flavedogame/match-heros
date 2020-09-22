@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/battle/states/MapNodeStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "forest"
+map_node_id = "forest"
+visible_condition = ""
+buttons = [ "forest_battle_1", "forest_battle_2" ]

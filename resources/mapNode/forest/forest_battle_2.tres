@@ -4,11 +4,19 @@
 
 [resource]
 script = ExtResource( 1 )
-name = ""
-battle_id = ""
+name = "Explore Deeper"
+battle_id = "forest_monsters_2"
 visible_condition = ""
 actions = [ {
 "battle_action": {
+"1": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
+"3": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
 "5": {
 "anim": "EnemyAnim",
 "stats": "enemy"

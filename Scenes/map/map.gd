@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name Map
+class_name LocalMap
 
 signal enemies_encountered(formation)
 

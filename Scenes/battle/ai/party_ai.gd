@@ -17,9 +17,6 @@ func attack(actors, targets, move_details):
 	yield(get_tree(), "idle_frame")
 	for actor in actors:
 		if actor.is_alive:
-	#		if actor.party_member and not targets:
-	#			print("should not be here")
-	#			return false
 			var target = get_target(targets)
 			
 			if not target:

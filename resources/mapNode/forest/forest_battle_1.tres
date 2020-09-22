@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/battle/states/MapDetailButtonStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Explore"
+battle_id = "forest_monsters_1"
+visible_condition = ""
+actions = [ {
+"battle_action": {
+"5": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
+"9": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+}
+}
+} ]

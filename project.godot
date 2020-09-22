@@ -55,7 +55,7 @@ _global_script_classes=[ {
 "path": "res://Scenes/battle/hookableUI/HookableLifeBar.gd"
 }, {
 "base": "Node2D",
-"class": "Map",
+"class": "LocalMap",
 "language": "GDScript",
 "path": "res://Scenes/map/map.gd"
 }, {
@@ -84,7 +84,7 @@ _global_script_class_icons={
 "CombatAction": "",
 "Hit": "",
 "LifeBar": "",
-"Map": "",
+"LocalMap": "",
 "MapDetailButtonStats": "",
 "MapNodeStats": "",
 "Party": ""

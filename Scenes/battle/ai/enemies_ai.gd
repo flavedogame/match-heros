@@ -10,8 +10,6 @@ func attack(actors, targets):
 	yield(get_tree(), "idle_frame")
 	for actor in actors:
 		if actor.is_alive:
-	#		if actor.party_member and not targets:
-	#			return false
 			var target = get_target(targets)
 			if not target:
 				push_warning("no target!!")
