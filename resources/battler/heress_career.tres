@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-color_related = "orange"
+color_related = "yellow"

@@ -77,11 +77,12 @@ func enemy_attack():
 	yield($enemies_ai.attack(formation.keys(),party.keys()),"completed")
 
 func one_side_has_alive(side:Array):
-	for i in side.size():
+	var alive_count = 0
+	for i in range(side.size()):
 		var battler = side[i]
-		if not battler.is_alive:
-			side.remove(i)
-	return side.size()>0
+		if battler.is_alive:
+			alive_count+=1
+	return alive_count>0
 
 func check_battle_end():
 	var party_has_alive = one_side_has_alive(party.keys())

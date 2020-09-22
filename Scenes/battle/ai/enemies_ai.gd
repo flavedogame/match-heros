@@ -1,11 +1,21 @@
 extends Node
 
+func get_target(targets):
+	for target in targets:
+		if target.is_alive:
+			return target
+	return null
+	
 func attack(actors, targets):
 	yield(get_tree(), "idle_frame")
-	var actor = actors[0]
-	if actor.party_member and not targets:
-		return false
-	var target = targets[0]
-	yield(actor.attack(target,null),"completed")
+	for actor in actors:
+		if actor.is_alive:
+	#		if actor.party_member and not targets:
+	#			return false
+			var target = get_target(targets)
+			if not target:
+				push_warning("no target!!")
+				break
+			yield(actor.attack(target,null),"completed")
 		
 	return true

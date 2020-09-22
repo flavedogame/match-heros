@@ -59,6 +59,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/map/map.gd"
 }, {
+"base": "Resource",
+"class": "MapDetailButtonStats",
+"language": "GDScript",
+"path": "res://Scenes/battle/states/MapDetailButtonStats.gd"
+}, {
+"base": "Resource",
+"class": "MapNodeStats",
+"language": "GDScript",
+"path": "res://Scenes/battle/states/MapNodeStats.gd"
+}, {
 "base": "Node2D",
 "class": "Party",
 "language": "GDScript",
@@ -75,6 +85,8 @@ _global_script_class_icons={
 "Hit": "",
 "LifeBar": "",
 "Map": "",
+"MapDetailButtonStats": "",
+"MapNodeStats": "",
 "Party": ""
 }
 

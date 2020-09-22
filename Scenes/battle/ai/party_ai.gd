@@ -4,16 +4,28 @@ extends Node
 #var targets
 
 signal finished_attack
+
+func get_target(targets):
+	print(targets)
+	for target in targets:
+		if target.is_alive:
+			return target
+	return null
 	
 func attack(actors, targets, move_details):
 	print("party ai attack")
 	yield(get_tree(), "idle_frame")
 	for actor in actors:
-		if actor.party_member and not targets:
-			print("should not be here")
-			return false
-		var target = targets[0]
-		yield(actor.attack(target,move_details),"completed")
+		if actor.is_alive:
+	#		if actor.party_member and not targets:
+	#			print("should not be here")
+	#			return false
+			var target = get_target(targets)
+			
+			if not target:
+				push_warning("no target!!")
+				break
+			yield(actor.attack(target,move_details),"completed")
 		
 	return true
 

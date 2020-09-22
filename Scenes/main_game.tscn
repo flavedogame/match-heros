@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/main_game.gd" type="Script" id=1]
+[ext_resource path="res://resources/mapNode/forest_battle_1.tres" type="Resource" id=2]
 [ext_resource path="res://Scenes/map/map_node.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/map/map.gd" type="Script" id=7]
 
@@ -11,4 +12,5 @@ script = ExtResource( 1 )
 script = ExtResource( 7 )
 
 [node name="map_node" parent="local_map" instance=ExtResource( 6 )]
+stats = ExtResource( 2 )
 [connection signal="enemies_encountered" from="local_map" to="." method="_on_map_enemies_encountered"]

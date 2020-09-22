@@ -14,6 +14,8 @@ var party = {
 var _formation = {
 	"5":
 		{anim = "EnemyAnim", stats = "enemy"},
+	"9":
+		{anim = "EnemyAnim", stats = "enemy"},
 	}
 var transitioning = false
 var battle_game :BattleGame
@@ -48,7 +50,7 @@ func enter_battle(formation):
 
 
 func _on_map_enemies_encountered(formation):
-	enter_battle(_formation)
+	enter_battle(formation)
 
 
 func _on_CombatArena_battle_completed(arena):
