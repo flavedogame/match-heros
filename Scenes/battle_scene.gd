@@ -4,7 +4,6 @@ class_name BattleScene
 
 var BattleStatesUIBuilder = preload("res://Scenes/battle/hookableUI/BattleStatesUIBuilder.gd")
 
-onready var rewards = $Rewards
 
 var is_hero_turn = true
 
@@ -12,6 +11,7 @@ var active: bool = false
 
 var party
 var formation
+onready var battle_game = get_parent()
 
 onready var party_positions = $"spawnpositions/party"
 onready var formation_positions = $spawnpositions/formation
@@ -47,9 +47,7 @@ func initialize(_formation, _party):
 			battler.init(info, false)
 			i.add_child(battler)
 			formation[battler] = i.name
-	
-	#formation = [enemy]#_formation
-	rewards.initialize(party.keys(),formation.keys())
+	battle_game.rewards.initialize(party.keys(),formation.keys())
 	ready_field()
 
 func ready_field():
@@ -67,7 +65,7 @@ func battle_start():
 	active = true
 
 func party_attack(move_details):
-	print("party_attack ",move_details)
+	#print("party_attack ",move_details)
 	#yield(get_tree().create_timer(0.5), "timeout")
 	yield($party_ai.attack(party.keys(),formation.keys(),move_details),"completed")
 	return check_battle_end()
@@ -75,6 +73,7 @@ func party_attack(move_details):
 func enemy_attack():
 	#yield(get_tree().create_timer(0.5), "timeout")
 	yield($enemies_ai.attack(formation.keys(),party.keys()),"completed")
+	return check_battle_end()
 
 func one_side_has_alive(side:Array):
 	var alive_count = 0
@@ -109,4 +108,4 @@ func battle_end(is_won):
 	active = false
 	emit_signal("battle_complete",is_won)
 	if is_won:
-		yield(rewards.on_battle_completed(), "completed")
+		yield(battle_game.rewards.on_battle_completed(), "completed")

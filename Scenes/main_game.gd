@@ -54,19 +54,22 @@ func _on_map_enemies_encountered(formation):
 
 
 func _on_CombatArena_battle_completed(arena):
-	pass
+	
 	# At the end of an encounter, fade the screen, remove the combat arena
 	# and add the local map back
 #	gui.show()
 #
-#	transitioning = true
-#	yield(transition.fade_to_color(), "completed")
-#	combat_arena.queue_free()
-#
-#	add_child(local_map)
-#	yield(transition.fade_from_color(), "completed")
-#	transitioning = false
-#	music_player.stop()
+	transitioning = true
+	transition = Transition_Overlay.instance()
+	add_child(transition)
+	yield(transition.fade_to_color(), "completed")
+	battle_game.queue_free()
+
+	add_child(local_map)
+	yield(transition.fade_from_color(), "completed")
+	transition.queue_free()
+	transitioning = false
+	#music_player.stop()
 
 
 func _on_CombatArena_player_victory():

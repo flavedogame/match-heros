@@ -5,6 +5,8 @@ var party: Array = []
 var rewards: Array = []
 
 
+signal battle_completed
+
 func initialize(_party: Array, enemies:Array):
 	# We rely on signals to only add experience of enemies that have been defeated.
 	# This allows us to support enemies running away and not receiving exp for them,
@@ -41,7 +43,9 @@ func _reward_to_battlers() -> Array:
 		if not member.stats.is_alive:
 			continue
 		survived.append(member)
-
+	if len(survived):
+		push_error("survived =0, this should not happen")
+		return []
 	var exp_per_survivor = int(ceil(float(experience_earned) / float(len(survived))))
 	var leveled_up = []
 	# TODO: restore experience gain
@@ -60,6 +64,7 @@ func on_battle_completed():
 	# and show the interface
 	var leveled_up = _reward_to_battlers()
 	$Panel.visible = true
+	$FullScreenButton.visible = true
 	#dont use timeout use user click
 	$Panel/Label.text = "EXP Earned: %d" % experience_earned
 	yield(get_tree().create_timer(2.0), "timeout")
@@ -76,3 +81,7 @@ func on_flee():
 	# End combat condition when the party flees
 	experience_earned /= 2
 	on_battle_completed()
+
+
+func _on_Button_pressed():
+	emit_signal("battle_completed")

@@ -7,7 +7,8 @@ var glowing_piece = preload("res://Scenes/match_3_game/fly_to_attacker_glow_part
 var glocing_piece_flying_time = 0.5
 onready var battle_view:BattleScene = $battle_scene
 onready var grid = $grid
-
+onready var rewards = $Rewards
+signal battle_completed
 func _ready():
 	grid.battle_scene = battle_view
 	
@@ -41,3 +42,7 @@ func _on_grid_piece_destroyed(start_position,color,texture):
 		yield(tween,"tween_completed")
 		glowing_piece_new.queue_free()
 	
+
+
+func _on_Rewards_battle_completed():
+	emit_signal("battle_completed")

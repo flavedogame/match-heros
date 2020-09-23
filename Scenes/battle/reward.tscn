@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/reward.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/Rewards.gd" type="Script" id=2]
+
+[node name="Rewards" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+margin_right = 400.0
+margin_bottom = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+text = "you won!
+exp earned: 5
+you earned a chest"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullScreenButton" type="Button" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 576.0
+margin_bottom = 1024.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="FullScreenButton" to="." method="_on_Button_pressed"]

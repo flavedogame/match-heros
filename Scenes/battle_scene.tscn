@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://grass_land_background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/battle_scene.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/battle/ai/enemies_ai.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/battle/ai/party_ai.gd" type="Script" id=5]
-[ext_resource path="res://Scenes/Rewards.gd" type="Script" id=7]
-[ext_resource path="res://fonts/reward.tres" type="DynamicFont" id=8]
 
 [node name="battle_scene" type="Node2D"]
 script = ExtResource( 3 )
@@ -83,25 +81,3 @@ script = ExtResource( 4 )
 
 [node name="party_ai" type="Node" parent="."]
 script = ExtResource( 5 )
-
-[node name="Rewards" type="CanvasLayer" parent="."]
-script = ExtResource( 7 )
-
-[node name="Panel" type="Panel" parent="Rewards"]
-visible = false
-margin_right = 400.0
-margin_bottom = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Rewards/Panel"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 8 )
-text = "you won!
-exp earned: 5
-you earned a chest"
-__meta__ = {
-"_edit_use_anchors_": false
-}
