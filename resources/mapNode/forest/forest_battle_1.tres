@@ -6,16 +6,16 @@
 script = ExtResource( 1 )
 name = "Explore"
 battle_id = "forest_monsters_1"
-visible_condition = ""
+visible_condition = []
 actions = [ {
-"battle_action": {
-"5": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-},
-"9": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-}
-}
+	"battle_action": {
+		"5": {
+			"anim": "EnemyAnim",
+			"stats": "enemy"
+		},
+		"9": {
+			"anim": "EnemyAnim",
+			"stats": "enemy"
+		}
+	}
 } ]

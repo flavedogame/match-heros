@@ -108,4 +108,5 @@ func battle_end(is_won):
 	active = false
 	emit_signal("battle_complete",is_won)
 	if is_won:
+		Events.emit_signal("battle_won","forest_monsters_1")
 		yield(battle_game.rewards.on_battle_completed(), "completed")

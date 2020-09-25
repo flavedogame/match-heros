@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://fonts/reward.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scenes/Rewards.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/battle/Rewards.gd" type="Script" id=2]
 
 [node name="Rewards" type="CanvasLayer"]
 script = ExtResource( 2 )

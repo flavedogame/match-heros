@@ -21,8 +21,6 @@ var transitioning = false
 var battle_game :BattleGame
 
 func enter_battle(formation):
-	
-	
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return

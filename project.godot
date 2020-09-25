@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AchievementStats",
+"language": "GDScript",
+"path": "res://Scenes/battle/states/AchievementStats.gd"
+}, {
 "base": "Node2D",
 "class": "BattleGame",
 "language": "GDScript",
@@ -75,6 +80,7 @@ _global_script_classes=[ {
 "path": "res://Scenes/party.gd"
 } ]
 _global_script_class_icons={
+"AchievementStats": "",
 "BattleGame": "",
 "BattleScene": "",
 "Battler": "",
@@ -95,6 +101,12 @@ _global_script_class_icons={
 config/name="Match-heros"
 run/main_scene="res://Scenes/main_game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Achievements="*res://Scenes/Autoload/Achievements.gd"
+Events="*res://Scenes/Autoload/Events.gd"
+Utils="*res://Scenes/Autoload/Utils.gd"
 
 [display]
 
