@@ -12,8 +12,8 @@ signal battle_completed
 func _ready():
 	grid.battle_scene = battle_view
 	
-func initialize(formation, party):
-	battle_view.initialize(formation,party)
+func initialize(battle_id, formation, party):
+	battle_view.initialize(battle_id, formation,party)
 	#todo can put grid info here, like width height obstacles etc
 	grid.initialize()
 

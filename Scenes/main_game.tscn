@@ -11,4 +11,3 @@ script = ExtResource( 1 )
 script = ExtResource( 7 )
 
 [node name="map_node" parent="local_map" instance=ExtResource( 6 )]
-[connection signal="enemies_encountered" from="local_map" to="." method="_on_map_enemies_encountered"]

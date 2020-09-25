@@ -11,6 +11,7 @@ var active: bool = false
 
 var party
 var formation
+var battle_id
 onready var battle_game = get_parent()
 
 onready var party_positions = $"spawnpositions/party"
@@ -27,7 +28,8 @@ var battler_scene = preload("res://Scenes/battler/Battler.tscn")
 	#formation = 
 	#initialize()
 
-func initialize(_formation, _party):
+func initialize(_battle_id, _formation, _party):
+	battle_id = _battle_id
 	party = {}
 	for i in party_positions.get_children():
 		if _party.has(i.name):
@@ -108,5 +110,5 @@ func battle_end(is_won):
 	active = false
 	emit_signal("battle_complete",is_won)
 	if is_won:
-		Events.emit_signal("battle_won","forest_monsters_1")
+		Events.emit_signal("battle_won",battle_id)
 		yield(battle_game.rewards.on_battle_completed(), "completed")

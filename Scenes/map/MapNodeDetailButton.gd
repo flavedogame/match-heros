@@ -13,8 +13,7 @@ func _on_Button_pressed():
 		for action_key in action:
 			if action_key == "battle_action":
 				var action_content = action[action_key] 
-				print(action_content)
-				local_map.start_encounter(action_content)
+				Events.emit_signal("encounter_battle",stats.battle_id,action_content)
 
 func init(button_stats,map):
 	stats = button_stats

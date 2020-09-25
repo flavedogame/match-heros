@@ -20,7 +20,7 @@ var _formation = {
 var transitioning = false
 var battle_game :BattleGame
 
-func enter_battle(formation):
+func enter_battle(battle_id,formation):
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
@@ -28,7 +28,6 @@ func enter_battle(formation):
 	transition = Transition_Overlay.instance()
 	add_child(transition)
 	yield(transition.fade_to_color(), "completed")
-	print("fade to color")
 	remove_child(local_map)
 	battle_game = battle_game_scene.instance()
 	add_child(battle_game)
@@ -37,7 +36,7 @@ func enter_battle(formation):
 	battle_game.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	battle_game.initialize(formation, party)
+	battle_game.initialize(battle_id, formation, party)
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()
@@ -45,10 +44,9 @@ func enter_battle(formation):
 
 	battle_game.battle_start()
 	emit_signal("combat_started")
-
-
-func _on_map_enemies_encountered(formation):
-	enter_battle(formation)
+	
+func _ready():
+	Events.connect("encounter_battle",self,"enter_battle")
 
 
 func _on_CombatArena_battle_completed(arena):
