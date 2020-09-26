@@ -78,6 +78,11 @@ _global_script_classes=[ {
 "class": "Party",
 "language": "GDScript",
 "path": "res://Scenes/party.gd"
+}, {
+"base": "Resource",
+"class": "SavedGame",
+"language": "GDScript",
+"path": "res://Scenes/Autoload/SavedGame.gd"
 } ]
 _global_script_class_icons={
 "AchievementStats": "",
@@ -93,7 +98,8 @@ _global_script_class_icons={
 "LocalMap": "",
 "MapDetailButtonStats": "",
 "MapNodeStats": "",
-"Party": ""
+"Party": "",
+"SavedGame": ""
 }
 
 [application]
@@ -101,12 +107,14 @@ _global_script_class_icons={
 config/name="Match-heros"
 run/main_scene="res://Scenes/main_game.tscn"
 config/icon="res://icon.png"
+config/version="0.0.1"
 
 [autoload]
 
 Achievements="*res://Scenes/Autoload/Achievements.gd"
 Events="*res://Scenes/Autoload/Events.gd"
 Utils="*res://Scenes/Autoload/Utils.gd"
+GameSaver="*res://Scenes/Autoload/GameSaver.gd"
 
 [display]
 

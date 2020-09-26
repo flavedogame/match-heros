@@ -4,6 +4,8 @@ var achievement
 
 var battle_won:String = "battle_won"
 
+var SAVE_KEY = "Achievements"
+
 func is_battle_won(battle_id):
 	if achievement.has(battle_won) and achievement[battle_won].has(battle_id):
 		return achievement[battle_won][battle_id] > 0
@@ -29,3 +31,12 @@ func battle_won(battle_id):
 func _ready():
 	achievement = load("res://resources/achievements/achievements.tres").achievements
 	Events.connect("battle_won",self,battle_won)
+	
+func save(saved_game: Resource):
+	saved_game.data[SAVE_KEY] = achievement
+	
+func load(saved_game: Resource):
+	achievement = saved_game.data[SAVE_KEY]
+	if achievement == null:
+		achievement = {}
+	Events.emit_signal("achievement_update")
