@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/states/FullMap.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "start map"
+map_id = "start_map"
+visible_condition = ""
+map_nodes = {
+"forest": "forest/forest",
+"village": "village/village"
+}
+connections = [ [ "forest", "village" ] ]

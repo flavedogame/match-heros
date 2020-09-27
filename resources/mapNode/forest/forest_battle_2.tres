@@ -1,29 +1,31 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/battle/states/MapDetailButtonStats.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/states/MapDetailButtonStats.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 name = "Explore Deeper"
 battle_id = "forest_monsters_2"
-visible_condition = [ {"battle_won":"forest_monsters_1"}]
+visible_condition = [ {
+"battle_won": "forest_monsters_1"
+} ]
 actions = [ {
-	"battle_action": {
-		"1": {
-			"anim": "EnemyAnim",
-			"stats": "enemy"
-		},
-		"3": {
-			"anim": "EnemyAnim",
-			"stats": "enemy"
-		},
-		"5": {
-			"anim": "EnemyAnim",
-			"stats": "enemy"
-		},
-		"9": {
-			"anim": "EnemyAnim",
-			"stats": "enemy"
-		}
-	}
+"battle_action": {
+"1": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
+"3": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
+"5": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+},
+"9": {
+"anim": "EnemyAnim",
+"stats": "enemy"
+}
+}
 } ]

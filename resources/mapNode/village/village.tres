@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "forest"
-map_node_id = "forest"
+name = "village"
+map_node_id = "village"
 visible_condition = ""
-position = Vector2( 500, 500 )
-buttons = [ "forest_battle_1", "forest_battle_2" ]
+position = Vector2( 100, 100 )
+buttons = [ "village_battle_1" ]
