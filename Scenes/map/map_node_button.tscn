@@ -5,6 +5,8 @@
 [node name="map_node_button" type="Button"]
 margin_right = 100.0
 margin_bottom = 50.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 50, 25 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

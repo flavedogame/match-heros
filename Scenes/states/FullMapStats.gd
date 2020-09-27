@@ -1,6 +1,6 @@
 extends Resource
 
-class_name FullMap
+class_name FullMapStats
 
 export var name: String
 export var map_id:String

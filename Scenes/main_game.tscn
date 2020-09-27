@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/main_game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/debug/DebugInterface.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/map/map_node.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/map/map_node_view.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/map/map.gd" type="Script" id=7]
 
 [node name="main_game" type="Node2D"]
@@ -25,4 +25,8 @@ __meta__ = {
 script = ExtResource( 7 )
 
 [node name="map_node" parent="local_map" instance=ExtResource( 6 )]
+
+[node name="lines" type="Node2D" parent="local_map"]
+
+[node name="buttons" type="Node2D" parent="local_map"]
 [connection signal="pressed" from="DebugLayer/Button" to="DebugLayer/DebugInterface" method="_on_Button_pressed"]

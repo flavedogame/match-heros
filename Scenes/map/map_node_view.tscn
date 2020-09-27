@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scenes/map/map_node.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/map/map_node_view.gd" type="Script" id=3]
 [ext_resource path="res://resources/mapNode/forest/forest.tres" type="Resource" id=4]
 
 [node name="map_node" type="Node2D"]

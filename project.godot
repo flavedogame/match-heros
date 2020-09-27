@@ -50,9 +50,9 @@ _global_script_classes=[ {
 "path": "res://Scenes/battle/actions/CombatAction.gd"
 }, {
 "base": "Resource",
-"class": "FullMap",
+"class": "FullMapStats",
 "language": "GDScript",
-"path": "res://Scenes/states/FullMap.gd"
+"path": "res://Scenes/states/FullMapStats.gd"
 }, {
 "base": "Reference",
 "class": "Hit",
@@ -98,7 +98,7 @@ _global_script_class_icons={
 "CareerStats": "",
 "CharacterStats": "",
 "CombatAction": "",
-"FullMap": "",
+"FullMapStats": "",
 "Hit": "",
 "LifeBar": "",
 "LocalMap": "",

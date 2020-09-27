@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 name = "village"
 map_node_id = "village"
 visible_condition = ""
-position = Vector2( 100, 100 )
+position = Vector2( 50, 25 )
 buttons = [ "village_battle_1" ]
