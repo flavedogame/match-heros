@@ -1,9 +1,51 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/main_game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/debug/DebugInterface.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/main_map.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/SwipeScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/map/map_node_view.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/map/map.gd" type="Script" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="Theme" id=6]
+HScrollBar/icons/decrement = null
+HScrollBar/icons/decrement_highlight = null
+HScrollBar/icons/increment = null
+HScrollBar/icons/increment_highlight = null
+HScrollBar/styles/grabber = SubResource( 7 )
+HScrollBar/styles/grabber_highlight = SubResource( 8 )
+HScrollBar/styles/grabber_pressed = SubResource( 9 )
+HScrollBar/styles/scroll = SubResource( 10 )
+HScrollBar/styles/scroll_focus = SubResource( 11 )
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/styles/grabber = SubResource( 1 )
+VScrollBar/styles/grabber_highlight = SubResource( 2 )
+VScrollBar/styles/grabber_pressed = SubResource( 3 )
+VScrollBar/styles/scroll = SubResource( 4 )
+VScrollBar/styles/scroll_focus = SubResource( 5 )
 
 [node name="main_game" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,12 +63,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="local_map" type="Node2D" parent="."]
+[node name="map_view" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
-[node name="map_node" parent="local_map" instance=ExtResource( 6 )]
+[node name="map_node_view" parent="map_view" instance=ExtResource( 6 )]
 
-[node name="lines" type="Node2D" parent="local_map"]
+[node name="ScrollContainer" type="ScrollContainer" parent="map_view"]
+anchor_right = 1.0
+margin_right = 573.0
+margin_bottom = 279.0
+rect_min_size = Vector2( 100, 100 )
+theme = SubResource( 6 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="buttons" type="Node2D" parent="local_map"]
+[node name="main_map" type="Control" parent="map_view/ScrollContainer"]
+margin_right = 800.0
+margin_bottom = 800.0
+rect_min_size = Vector2( 800, 800 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lines" type="Node2D" parent="map_view/ScrollContainer/main_map"]
+
+[node name="buttons" type="Node2D" parent="map_view/ScrollContainer/main_map"]
 [connection signal="pressed" from="DebugLayer/Button" to="DebugLayer/DebugInterface" method="_on_Button_pressed"]
