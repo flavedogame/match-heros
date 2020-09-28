@@ -1,5 +1,7 @@
 extends Button
 
+class_name MapNodeButton
+
 var stat:MapNodeStats
 onready var label:Label = $Label
 
@@ -14,10 +16,9 @@ func _ready():
 	self.connect("pressed",self,"button_pressed")
 
 func button_pressed():
-	Events.emit_signal("select_map_node_button",stat)
+	Events.emit_signal("select_map_node_button",self)
 
-func init(_stat):
+func init(_stat,min_xy):
 	stat = _stat
-	center_position = stat.position
-	topright_position = stat.position - rect_pivot_offset
-	print(topright_position)
+	center_position = stat.position-min_xy
+	topright_position = center_position - rect_pivot_offset

@@ -1,7 +1,6 @@
 extends Button
 
 var stats: MapDetailButtonStats
-var local_map: LocalMap
 onready var label = $Label
 
 func _ready():
@@ -17,4 +16,3 @@ func _on_Button_pressed():
 
 func init(button_stats,map):
 	stats = button_stats
-	local_map = map

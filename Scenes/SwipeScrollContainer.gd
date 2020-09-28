@@ -9,6 +9,19 @@ var swipe_mouse_start
 var swipe_mouse_times = []
 var swipe_mouse_positions = []
 
+var full_size = Vector2(573,966)
+var focus_size = Vector2(573,300)
+
+func _ready():
+	Events.connect("select_map_node_button",self,"focus_on")
+
+func focus_on(button:MapNodeButton):
+	var position = button.center_position
+	rect_size = focus_size
+	var half_size = rect_size/2
+	scroll_horizontal = position.x - half_size.x
+	scroll_vertical = position.y - half_size.y
+
 func _input(ev):
 	if ev is InputEventMouseButton:
 		if ev.pressed:

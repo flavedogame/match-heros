@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var local_map:LocalMap = get_parent()
+onready var local_map = get_parent()
 export var stats: Resource
 onready var buttons_container = $VBoxContainer
 
