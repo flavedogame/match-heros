@@ -7,3 +7,6 @@ signal encounter_battle(battle_id, enemy_formation)
 
 signal select_map_node_button(button)
 signal cancel_select_map_node_button()
+
+
+signal locale_update()

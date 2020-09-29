@@ -7,7 +7,7 @@ func _ready():
 	if stats:
 		label.text = stats.name
 	else:
-		label.text = "Cancel"
+		label.text = tr("Cancel")
 	self.connect("pressed", self, "_on_Button_pressed")
 	
 func _on_Button_pressed():

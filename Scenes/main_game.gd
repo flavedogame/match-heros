@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const battle_game_scene = preload("res://Scenes/battle_game.tscn")
 const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn")
@@ -19,7 +19,6 @@ var _formation = {
 	}
 var transitioning = false
 var battle_game :BattleGame
-
 func enter_battle(battle_id,formation):
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:

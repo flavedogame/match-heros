@@ -126,6 +126,8 @@ config/name="Match-heros"
 run/main_scene="res://Scenes/main_game.tscn"
 config/icon="res://icon.png"
 config/version="0.0.1"
+config/name_en="match hero"
+config/name_zh="火柴英雄"
 
 [autoload]
 
@@ -159,6 +161,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
+fallback="zh"
 translations=PoolStringArray( "res://resources/localization.en.translation", "res://resources/localization.zh.translation" )
 
 [rendering]

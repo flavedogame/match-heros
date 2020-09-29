@@ -15,6 +15,8 @@ func is_button_visible(button_stats):
 	return false
 
 func update_buttons():
+	
+	print("update buttons")
 	map = load("res://resources/mapNode/start_map.tres")
 	var map_node_id_to_instance = {}
 	var extents:Extents = Extents.new(extended_size)
@@ -64,6 +66,8 @@ func update_buttons():
 #	get_parent().scroll_vertical = center.y - half_size.y
 #	print(get_parent().scroll_horizontal ," ",get_parent().scroll_vertical)
 
+
 func _ready():
 	update_buttons()
 	Events.connect("achievement_update",self,"update_buttons")
+	Events.connect("locale_update",self,"update_buttons")
