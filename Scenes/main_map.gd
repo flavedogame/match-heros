@@ -5,40 +5,50 @@ var map_node_button = preload("res://Scenes/map/map_node_button.tscn")
 onready var lines = $lines
 onready var buttons = $buttons
 var extended_size =  Vector2(500,500)
-#extents, start offset
-func _ready():
+
+func is_button_visible(button_stats):
+	if button_stats.visible_condition.size() == 0:
+		return true
+	for condition_combination in button_stats.visible_condition:
+		if Achievements.is_achievement_finished(condition_combination):
+			return true
+	return false
+
+func update_buttons():
 	map = load("res://resources/mapNode/start_map.tres")
 	var map_node_id_to_instance = {}
 	var extents:Extents = Extents.new(extended_size)
 	
 	for map_node in map.map_nodes:
-		#check visibility
+		
 		var map_node_stat = load("res://resources/mapNode/"+map.map_nodes[map_node]+".tres")
-		extents.add_point(map_node_stat.position)
+		if is_button_visible(map_node_stat):
+			extents.add_point(map_node_stat.position)
 		
 	var min_xy = extents.min_xy()
 	
 	for map_node in map.map_nodes:
 		#check visibility
 		var map_node_stat = load("res://resources/mapNode/"+map.map_nodes[map_node]+".tres")
-		var map_node_button_instance = map_node_button.instance()
-		map_node_button_instance.init(map_node_stat,min_xy)
-		buttons.add_child(map_node_button_instance)
-		map_node_id_to_instance[map_node] = map_node_button_instance
-		#extents.add_point(map_node_button_instance.center_position)
+		if is_button_visible(map_node_stat):
+			var map_node_button_instance = map_node_button.instance()
+			map_node_button_instance.init(map_node_stat,min_xy)
+			buttons.add_child(map_node_button_instance)
+			map_node_id_to_instance[map_node] = map_node_button_instance
 		
 	for connection in map.connections:
 		#check visibility
 		var line = Line2D.new()
-		var button0 = map_node_id_to_instance[connection[0]]
-		var button1 = map_node_id_to_instance[connection[1]]
-		
-		var position0 = button0.center_position
-		var position1 = button1.center_position
-		print(position0,position1)
-		line.add_point(position0)
-		line.add_point(position1)
-		lines.add_child(line)
+		if map_node_id_to_instance.has(connection[0]) and map_node_id_to_instance.has(connection[1]):
+			var button0 = map_node_id_to_instance[connection[0]]
+			var button1 = map_node_id_to_instance[connection[1]]
+			
+			var position0 = button0.center_position
+			var position1 = button1.center_position
+			if is_button_visible(button0.stat) and is_button_visible(button1.stat):
+				line.add_point(position0)
+				line.add_point(position1)
+				lines.add_child(line)
 		
 	rect_min_size = extents.xy_size()
 	
@@ -53,3 +63,7 @@ func _ready():
 #	get_parent().scroll_horizontal = center.x - half_size.x
 #	get_parent().scroll_vertical = center.y - half_size.y
 #	print(get_parent().scroll_horizontal ," ",get_parent().scroll_vertical)
+
+func _ready():
+	update_buttons()
+	Events.connect("achievement_update",self,"update_buttons")

@@ -6,6 +6,8 @@
 script = ExtResource( 1 )
 name = "forest"
 map_node_id = "forest"
-visible_condition = ""
+visible_condition = [ {
+"battle_won": "village_practice_1"
+} ]
 position = Vector2( 200, 500 )
 buttons = [ "forest_battle_1", "forest_battle_2" ]

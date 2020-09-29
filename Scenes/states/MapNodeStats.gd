@@ -11,6 +11,6 @@ signal health_depleted
 
 export var name: String
 export var map_node_id:String
-export var visible_condition:String
+export(Array, Dictionary) var visible_condition
 export var position:Vector2
 export var buttons:Array
