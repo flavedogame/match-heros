@@ -4,7 +4,7 @@ var map:FullMapStats
 var map_node_button = preload("res://Scenes/map/map_node_button.tscn")
 onready var lines = $lines
 onready var buttons = $buttons
-var extended_size =  Vector2(200,200)
+var extended_size =  Vector2(500,500)
 #extents, start offset
 func _ready():
 	map = load("res://resources/mapNode/start_map.tres")
@@ -41,3 +41,15 @@ func _ready():
 		lines.add_child(line)
 		
 	rect_min_size = extents.xy_size()
+	
+	#some bugs here
+	#if no previous position
+#	var content_size = rect_min_size
+#	print(rect_min_size)
+#	var center = content_size/2
+#	get_parent(). rect_size = get_parent().full_size
+#	var half_size = rect_size/2
+#	print(center.x - half_size.x," ",center.y - half_size.y)
+#	get_parent().scroll_horizontal = center.x - half_size.x
+#	get_parent().scroll_vertical = center.y - half_size.y
+#	print(get_parent().scroll_horizontal ," ",get_parent().scroll_vertical)
