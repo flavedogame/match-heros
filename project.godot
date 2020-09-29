@@ -157,6 +157,10 @@ ui_touch={
 
 pointing/emulate_touch_from_mouse=true
 
+[locale]
+
+translations=PoolStringArray( "res://resources/localization.en.translation", "res://resources/localization.zh.translation" )
+
 [rendering]
 
 quality/2d/use_pixel_snap=true
