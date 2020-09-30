@@ -42,7 +42,6 @@ func is_button_visible(button_stats):
 func _ready():
 	update_buttons()
 	Events.connect("achievement_update",self,"update_buttons")
-	Events.connect("locale_update",self,"update_buttons")
 	
 		
 

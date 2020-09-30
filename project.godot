@@ -135,6 +135,7 @@ Achievements="*res://Scenes/Autoload/Achievements.gd"
 Events="*res://Scenes/Autoload/Events.gd"
 Utils="*res://Scenes/Autoload/Utils.gd"
 GameSaver="*res://Scenes/Autoload/GameSaver.gd"
+GameSettings="*res://Scenes/Autoload/GameSettings.gd"
 
 [display]
 
