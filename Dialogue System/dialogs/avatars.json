@@ -1,0 +1,38 @@
+{
+  "first": {
+    "type": "text",
+    "name": "Jimmy",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "Hi!| This is the first time we met.| Nice to meet you!",
+    "next": "0"
+  },
+  "repeat": {
+    "type": "text",
+    "name": "Jimmy",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "content": "Hello.| Nice to see you again.| I hope you're doing well.",
+    "next": "0"
+  },
+  "0": {
+    "type": "text",
+    "name": "John",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "content": "This is just a formated text.@|You can use [b]bold[/b]|, [i]italic[/i]|, [b][i]bold and italic[/i][/b] or any bbcode style you want ||(even [color=red]c[/color][color=#ff7800]o[/color][color=yellow]l[/color][color=lime]o[/color][color=#00f1ff]r[/color][color=#c200ff]s[/color]!).@|Just be sure to set the fonts for other styles if you want to use them.",
+    "next": "1"
+  },
+  "1": {
+    "type": "text",
+    "name": "John",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "shake_regular_long",
+    "content": "And remeber to not overdo the p|a|u|s|e|s|.",
+  }
+}

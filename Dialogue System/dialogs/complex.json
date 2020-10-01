@@ -1,0 +1,121 @@
+{
+  "first": {
+    "type": "text",
+    "content": "Hi.| Take a seat. Eat some cake. Drink some juice.",
+    "next": "block_random"
+  },
+  "repeat": {
+    "type": "text",
+    "content": "You again?| Drink some water| if you want.",
+    "next": "block_random"
+  },
+  "block_random": {
+    "type": "action",
+    "operation": "random",
+    "value": ["random_0", "random_1", "random_2", "random_3"]
+  },  
+  "random_0": {
+    "type": "text",
+    "content": "This is an example of a [b]random[/b] dialogue block.| This dialogue is the \"random_0\"",
+    "next": "check_var"
+  },  
+  "random_1": {
+    "type": "text",
+    "content": "This is an example of a [b]random[/b] dialogue block.| This dialogue is the \"random_1\"",
+    "next": "check_var"
+  },  
+  "random_2": {
+    "type": "text",
+    "content": "This is an example of a [b]random[/b] dialogue block.| This dialogue is the \"random_2\"",
+    "next": "check_var"
+  },  
+  "random_3": {
+    "type": "text",
+    "content": "This is an example of a [b]random[/b] dialogue block.| This dialogue is the \"random_3\"",
+    "next": "check_var"
+  },
+  "check_var": {
+    "type": "divert",
+    "condition": "boolean",
+    "dictionary": "variables",
+    "variable": "var1",
+    "true": "check_var2",
+    "false": "var_false_1"
+  },
+  "check_var2": {
+    "type": "divert",
+    "condition": "equal",
+    "dictionary": "variables",
+    "variable": "var2",
+    "value": 2,
+    "true": "check_var3",
+    "false": "var_false_2"
+  },
+  "check_var3": {
+    "type": "divert",
+    "condition": "greater",
+    "dictionary": "variables",
+    "variable": "var3",
+    "value": 3,
+    "true": "check_var4",
+    "false": "var_false_3"
+  },
+  "check_var4": {
+    "type": "divert",
+    "condition": "less",
+    "dictionary": "variables",
+    "variable": "var4",
+    "value": 7,
+    "true": "check_var5",
+    "false": "var_false_4"
+  },
+  "check_var5": {
+    "type": "divert",
+    "condition": "range",
+    "dictionary": "variables",
+    "variable": "var5",
+    "value": [3, 8],
+    "true": "var_true",
+    "false": "var_false_5"
+  },
+  "var_true": {
+    "type": "question",
+    "text": "All the variables seems to be as they should.| Now the question:|| What do you prefer?",
+    "options": ["Oranges", "Apples"],
+    "next": ["oranges", "apples"]
+  },
+  "var_false_1": {
+    "type": "text",
+    "content":"The variable 'var1' must be [b]true[/b]."
+  },
+  "var_false_2": {
+    "type": "text",
+    "content":"The variable 'var2' must be [b]2[/b]."
+  },
+  "var_false_3": {
+    "type": "text",
+    "content":"The variable 'var3' must be [i]greater than[/i] [b]3[/b]."
+  },
+  "var_false_4": {
+    "type": "text",
+    "content":"The variable 'var4' must be [i]less than[/i] [b]7[/b]."
+  },
+  "var_false_5": {
+    "type": "text",
+    "content":"The variable 'var5'  must be [i]between[/i] [b]3[/b] and [b]8[/b]."
+  },
+  "oranges": {
+    "type": "action",
+    "operation": "variable",
+    "dictionary": "variables",
+    "text": "Nice.",
+    "value": [["oranges", true], ["apples", false]]
+  },
+  "apples": {
+    "type": "action",
+    "operation": "variable",
+    "dictionary": "variables",
+    "text": "Very Nice.",
+    "value": [["apples", true], ["oranges", false]]
+  }
+}

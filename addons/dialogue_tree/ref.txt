@@ -1,0 +1,4 @@
+https://github.com/EmAlexander/DialogueTreePlugin
+https://github.com/LittleMouseGames
+https://bitbucket.org/jsena42/godot-open-dialogue/src/master/
+https://jsena42.bitbucket.io/god/docs/

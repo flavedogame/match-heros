@@ -5,10 +5,6 @@ extends Resource
 
 class_name MapNodeStats
 
-signal health_changed(new_health, old_health)
-signal health_depleted
-
-
 export var name: String
 export var map_node_id:String
 export(Array, Dictionary) var visible_condition

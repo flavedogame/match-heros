@@ -3,7 +3,7 @@
 # and lookup tables
 extends Resource
 
-class_name MapDetailButtonStats
+class_name DialogueStats
 
 
 export var name: String
@@ -16,16 +16,12 @@ export(Array, Dictionary) var visible_condition
 	{condition_type:condition_value,condition_type:condition_value},
 ]
 """
-export(Array, Dictionary) var actions
+export(Array, Dictionary) var dialogues
 """
 [
 	{
-		"battle_type":{
-			"position":{
-				"anim":"",
-				"stats":""
-			},
-		}
+		"speaker":"Aaron",
+		"text":"what are we going to learn today?"
 	}
 ]
 """

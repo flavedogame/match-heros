@@ -5,8 +5,6 @@ extends Resource
 
 class_name CareerStats
 
-signal health_changed(new_health, old_health)
-signal health_depleted
 
 export var color_related: String
 
