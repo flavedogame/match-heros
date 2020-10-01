@@ -39,10 +39,11 @@ func is_button_visible(button_stats):
 			return true
 	return false
 	
+
+
 func _ready():
 	update_buttons()
 	Events.connect("achievement_update",self,"update_buttons")
-	
 		
 
 

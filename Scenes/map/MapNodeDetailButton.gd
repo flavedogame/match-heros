@@ -16,9 +16,11 @@ func _on_Button_pressed():
 		return
 	for action in stats.actions:
 		for action_key in action:
+			var action_content = action[action_key] 
 			if action_key == "battle_action":
-				var action_content = action[action_key] 
 				Events.emit_signal("encounter_battle",stats.battle_id,action_content)
+			elif action_key == "dialog_action":
+				Events.emit_signal("start_dialog",stats.battle_id,action_content)
 
 func init(button_stats):
 	stats = button_stats

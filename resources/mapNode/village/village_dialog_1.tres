@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/states/MapDetailButtonStats.gd" type="Script" id=1]
+
+
+[resource]
+script = ExtResource( 1 )
+name = "Talk To Uncle"
+battle_id = "village_dialog_1"
+visible_condition = []
+actions = [ {
+	"dialog_action": "just_text"
+} ]
