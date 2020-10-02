@@ -50,5 +50,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="NameRight" type="Label" parent="Frame"]
+margin_left = 515.958
+margin_top = 5.29733
+margin_right = 565.958
+margin_bottom = 31.2973
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "right"
+
+[node name="NameLeft" type="Label" parent="Frame"]
+margin_right = 40.0
+margin_bottom = 26.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "left"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Timer" type="Timer" parent="."]
 [connection signal="pressed" from="Frame/ContinueButton" to="." method="_on_ContinueButton_pressed"]

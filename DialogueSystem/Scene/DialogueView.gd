@@ -5,9 +5,14 @@ var dialogues_folder = 'res://DialogueSystem/dialogs/'
 onready var frame : Node = $Frame # The container node for the dialogues.
 onready var timer : Node = $Timer # Timer node.
 onready var label : Node = $Frame/RichTextLabel # The label where the text will be displayed.
+onready var name_left : Node = $Frame/NameLeft
+onready var name_right : Node = $Frame/NameRight
 
 var wait_time : float = 0.02 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
-
+var pause_time : float = 2.0 # Duration of each pause when the typewriter effect is active.
+var pause_char : String = '|' # The character used in the JSON file to define where pauses should be. If you change this you'll need to edit all your dialogue files.
+var newline_char : String = '@' # The character used in the JSON file to break lines. If you change this you'll need to edit all your dialogue files.
+var show_names : bool = true # Turn on and off the character name labels
 
 
 var id
@@ -16,7 +21,11 @@ var dialogue
 var current = ''
 var number_characters : = 0
 var phrase = ''
-var phrase_raw = ''
+var raw_text = '' #the raw phrase to show after remove pause and new line
+
+var pause_index : = 0
+var paused : = false
+var pause_array : = []
 
 var init_block
 var dialog_id
@@ -68,21 +77,83 @@ func clean_bbcode(string):
 	var pause_search = 0
 	var line_search = 0
 	
-#	pause_search = phrase.find('%s' % pause_char, pause_search)
-#
-#	if pause_search >= 0:
-#		while pause_search != -1:
-#			phrase.erase(pause_search,1)
-#			pause_search = phrase.find('%s' % pause_char, pause_search)
-#
-#	phrase = phrase.split('%s' % newline_char, true, 0) # Splits the phrase using the newline_char as separator
-#
+	pause_search = phrase.find('%s' % pause_char, pause_search)
+	
+	if pause_search >= 0:
+		while pause_search != -1:
+			phrase.erase(pause_search,1)
+			pause_search = phrase.find('%s' % pause_char, pause_search)
+	
+	phrase = phrase.split('%s' % newline_char, true, 0) # Splits the phrase using the newline_char as separator
+	
 	var counter = 0
 	label.bbcode_text = ''
 	for n in phrase:
 		label.bbcode_text = label.get('bbcode_text') + phrase[counter] + '\n'
 		counter += 1
 
+func check_names(block):
+	if not show_names:
+		return
+	if block.has('name'):
+		if block['position'] == 'left':
+			name_left.text = block['name']
+			yield(get_tree(), 'idle_frame')
+			name_left.rect_size.x = 0
+			#name_left.rect_position.x += name_offset.x
+			name_left.set_process(true)
+			name_left.show()
+			name_right.hide()
+		else:
+			name_right.text = block['name']
+			
+			yield(get_tree(), 'idle_frame')
+			name_right.rect_size.x = 0
+			#name_right.rect_position.x = frame_width - name_right.rect_size.x - name_offset.x
+			name_right.set_process(true)
+			name_right.show()
+			name_left.hide()
+	else:
+		pass
+
+func format_text(text):
+	raw_text = text
+	check_pauses()
+	check_newlines(raw_text)
+	clean_bbcode(text)
+
+func check_pauses():
+	#put all pause character into array and remove from raw_text
+	var next_search = 0
+	next_search = raw_text.find('%s' % pause_char, next_search)
+	
+	while next_search != -1:
+		pause_array.append(next_search)
+		raw_text.erase(next_search, 1)
+		next_search = raw_text.find('%s' % pause_char, next_search)
+			
+func check_newlines(string):
+	var line_search = 0
+	var line_break_array = []
+	var new_pause_array = []
+	var current_line = 0
+	raw_text = string
+	line_search = raw_text.find('%s' % newline_char, line_search)
+	
+	if line_search >= 0:
+		while line_search != -1:
+			line_break_array.append(line_search)
+			raw_text.erase(line_search,1)
+			line_search = raw_text.find('%s' % newline_char, line_search)
+	
+		for a in pause_array.size():
+			if pause_array[a] > line_break_array[current_line]:
+				current_line += 1
+			new_pause_array.append(pause_array[a]-current_line)
+				
+		pause_array = new_pause_array
+
+		
 func update_dialogue(step): # step == whole dialogue block
 	clean()
 	current = step
@@ -91,13 +162,11 @@ func update_dialogue(step): # step == whole dialogue block
 	match step['type']:
 		'text': # Simple text.
 			#not_question()
-			label.bbcode_text = step['content']
-			#check_pauses(label.get_text())
-			#check_newlines(phrase_raw)
-			#clean_bbcode(step['content'])
-			number_characters = phrase_raw.length()
+			var text = step['content']
+			format_text(text)
+			#number_characters = raw_text.length()
 			#check_animation(step)
-			#check_names(step)
+			check_names(step)
 			
 			if step.has('next'):
 				next_step = step['next']
