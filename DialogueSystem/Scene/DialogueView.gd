@@ -8,8 +8,8 @@ onready var label : Node = $Frame/RichTextLabel # The label where the text will 
 onready var name_left : Node = $Frame/NameLeft
 onready var name_right : Node = $Frame/NameRight
 
-var wait_time : float = 0.02 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
-var pause_time : float = 2.0 # Duration of each pause when the typewriter effect is active.
+var wait_time : float = 0.01 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
+var pause_time : float = 0.4 # Duration of each pause when the typewriter effect is active.
 var pause_char : String = '|' # The character used in the JSON file to define where pauses should be. If you change this you'll need to edit all your dialogue files.
 var newline_char : String = '@' # The character used in the JSON file to break lines. If you change this you'll need to edit all your dialogue files.
 var show_names : bool = true # Turn on and off the character name labels
@@ -121,6 +121,7 @@ func format_text(text):
 	check_pauses()
 	check_newlines(raw_text)
 	clean_bbcode(text)
+	number_characters = raw_text.length()
 
 func check_pauses():
 	#put all pause character into array and remove from raw_text
@@ -164,7 +165,6 @@ func update_dialogue(step): # step == whole dialogue block
 			#not_question()
 			var text = step['content']
 			format_text(text)
-			#number_characters = raw_text.length()
 			#check_animation(step)
 			check_names(step)
 			
@@ -173,12 +173,13 @@ func update_dialogue(step): # step == whole dialogue block
 			else:
 				next_step = ''
 	
-#	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
-#		label.visible_characters = 0
-#		timer.start()
+	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
+		label.visible_characters = 0
+		timer.start()
 #	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
+
 func next():
 	if not dialogue:# or on_animation: # Check if is in the middle of a dialogue 
 		return
@@ -217,6 +218,43 @@ func next():
 #			yield(tween, "tween_completed")
 		
 		update_dialogue(dialogue[next_step])
+
+func _on_Timer_timeout():
+	#print("timer out")
+	if label.visible_characters < number_characters: # Check if the timer needs to be started
+		if paused:
+			update_pause()
+			return # If in pause, ignore the rest of the function.
+
+		if pause_array.size() > 0: # Check if the phrase have any pauses left.
+			if label.visible_characters == pause_array[pause_index]: # pause_char == index of the last character before pause.
+				timer.wait_time = pause_time #* wait_time * 10
+				paused = true
+			else:
+				label.visible_characters += 1
+		else: # Phrase doesn't have any pauses.
+			label.visible_characters += 1
+		
+		timer.start()
+	else:
+#		if is_question:
+#			choices.get_child(0).self_modulate = active_choice
+#		elif dialogue and enable_continue_indicator:
+#			animations.play('Continue_Indicator')
+#			continue_indicator.show()
+		timer.stop()
+		return
+
+func update_pause():
+	if pause_array.size() > (pause_index+1): # Check if the current pause is not the last one. 
+		pause_index += 1
+	else: # Doesn't have any pauses left.
+		pause_array = []
+		pause_index = 0
+		
+	paused = false
+	timer.wait_time = wait_time
+	timer.start()
 
 func _on_ContinueButton_pressed():
 	next()

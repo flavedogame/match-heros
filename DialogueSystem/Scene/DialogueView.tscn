@@ -69,3 +69,4 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 [connection signal="pressed" from="Frame/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
