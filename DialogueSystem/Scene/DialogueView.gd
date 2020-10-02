@@ -29,6 +29,7 @@ var pause_array : = []
 
 var init_block
 var dialog_id
+var typewriting_finished = true
 
 func _ready():
 	first(init_block)
@@ -164,6 +165,8 @@ func update_dialogue(step): # step == whole dialogue block
 		'text': # Simple text.
 			#not_question()
 			var text = step['content']
+			AutoCheckTranslation.addTranslation(text)
+			text = tr(text)
 			format_text(text)
 			#check_animation(step)
 			check_names(step)
@@ -175,6 +178,7 @@ func update_dialogue(step): # step == whole dialogue block
 	
 	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
 		label.visible_characters = 0
+		typewriting_finished = false
 		timer.start()
 #	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
 #		continue_indicator.show()
@@ -243,7 +247,13 @@ func _on_Timer_timeout():
 #			animations.play('Continue_Indicator')
 #			continue_indicator.show()
 		timer.stop()
+		typewriting_finished = true
 		return
+		
+func skil_typewriting():
+	typewriting_finished = true
+	timer.stop()
+	label.visible_characters = number_characters
 
 func update_pause():
 	if pause_array.size() > (pause_index+1): # Check if the current pause is not the last one. 
@@ -257,4 +267,7 @@ func update_pause():
 	timer.start()
 
 func _on_ContinueButton_pressed():
-	next()
+	if not typewriting_finished:
+		skil_typewriting()
+	else:
+		next()

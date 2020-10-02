@@ -103,6 +103,11 @@ _global_script_classes=[ {
 "class": "SavedGame",
 "language": "GDScript",
 "path": "res://Scenes/Autoload/SavedGame.gd"
+}, {
+"base": "Label",
+"class": "TranslatableLabel",
+"language": "GDScript",
+"path": "res://Scenes/extended/translatableLabel.gd"
 } ]
 _global_script_class_icons={
 "AchievementStats": "",
@@ -123,7 +128,8 @@ _global_script_class_icons={
 "MapNodeStats": "",
 "MapView": "",
 "Party": "",
-"SavedGame": ""
+"SavedGame": "",
+"TranslatableLabel": ""
 }
 
 [application]
@@ -142,6 +148,7 @@ Events="*res://Scenes/Autoload/Events.gd"
 Utils="*res://Scenes/Autoload/Utils.gd"
 GameSaver="*res://Scenes/Autoload/GameSaver.gd"
 GameSettings="*res://Scenes/Autoload/GameSettings.gd"
+AutoCheckTranslation="*res://Scenes/Autoload/AutoCheckTranslation.gd"
 
 [display]
 

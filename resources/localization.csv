@@ -8,3 +8,4 @@ forest,forest,森林
 Practice,Practice,练习
 Explore,Explore,探索
 Explore Deeper,Explore Deeper,深入探索
+"This is just a formated text.@|You can use [b]bold[/b]|, [i]italic[/i]|, [b][i]bold and italic[/i][/b] or any bbcode style you want ||(even [color=red]c[/color][color=#ff7800]o[/color][color=yellow]l[/color][color=lime]o[/color][color=#00f1ff]r[/color][color=#c200ff]s[/color]!).@|Just be sure to set the fonts for other styles if you want to use them.","This is just a formated text.@|You can use [b]bold[/b]|, [i]italic[/i]|, [b][i]bold and italic[/i][/b] or any bbcode style you want ||(even [color=red]c[/color][color=#ff7800]o[/color][color=yellow]l[/color][color=lime]o[/color][color=#00f1ff]r[/color][color=#c200ff]s[/color]!).@|Just be sure to set the fonts for other styles if you want to use them.","测试一下@中文|行|不|行|啊@我的朋友[color=#ff7800]彩色的字体[/color]"
