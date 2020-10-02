@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://DialogueSystem/Scene/DialogueView.gd" type="Script" id=1]
 [ext_resource path="res://theme/basic.tres" type="Theme" id=2]
+
+[sub_resource type="Theme" id=1]
 
 [node name="DialogueView" type="Control"]
 margin_right = 575.0
@@ -27,14 +29,26 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = -20.0
 margin_bottom = -20.0
+theme = SubResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "test"
 text = "test"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ContinueButton" type="Button" parent="Frame"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Timer" type="Timer" parent="."]
+[connection signal="pressed" from="Frame/ContinueButton" to="." method="_on_ContinueButton_pressed"]

@@ -9,6 +9,7 @@ onready var label : Node = $Frame/RichTextLabel # The label where the text will 
 var wait_time : float = 0.02 # Time interval (in seconds) for the typewriter effect. Set to 0 to disable it. 
 
 
+
 var id
 var next_step = ''
 var dialogue
@@ -18,11 +19,13 @@ var phrase = ''
 var phrase_raw = ''
 
 var init_block
+var dialog_id
 
 func _ready():
 	first(init_block)
 
-func init(file_id, block = 'first'): # Load the whole dialogue into a variable
+func init(_dialog_id, file_id, block = 'first'): # Load the whole dialogue into a variable
+	dialog_id = _dialog_id
 	id = file_id
 	init_block = block
 	var file = File.new()
@@ -88,9 +91,7 @@ func update_dialogue(step): # step == whole dialogue block
 	match step['type']:
 		'text': # Simple text.
 			#not_question()
-			label.text = step['content']
-			#label.bbcode_text = step['content']
-			print(step['content'])
+			label.bbcode_text = step['content']
 			#check_pauses(label.get_text())
 			#check_newlines(phrase_raw)
 			#clean_bbcode(step['content'])
@@ -109,3 +110,44 @@ func update_dialogue(step): # step == whole dialogue block
 #	elif enable_continue_indicator: # If typewriter effect is disabled check if the ContinueIndicator should be displayed
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
+func next():
+	if not dialogue:# or on_animation: # Check if is in the middle of a dialogue 
+		return
+	clean() # Be sure all the variables used before are restored to their default values.
+#	if wait_time > 0: # Check if the typewriter effect is active.
+#		if label.visible_characters < number_characters: # Checks if the phrase is complete.
+#			label.visible_characters = number_characters # Finishes the phrase.
+#			return # Stop the function here.
+#	else: # The typewriter effect is disabled so we need to make sure the text is fully displayed.
+#		label.visible_characters = -1 # -1 tells the RichTextLabel to show all the characters.
+#
+	if next_step == '': # Doesn't have a 'next' block.
+#		if current.has('animation_out'):
+#			animate_sprite(current['position'], current['avatar'], current['animation_out'])
+#			yield(tween, "tween_completed")
+#		else:
+#			sprite_left.modulate = white_transparent
+#			sprite_right.modulate = white_transparent
+		dialogue = null
+#		name_left.hide()
+#		name_right.hide()
+#		frame.hide() 
+#		avatar_left = ''
+#		avatar_right = ''
+		Events.emit_signal("finish_dialog",dialog_id)
+		self.queue_free()
+	else:
+		label.bbcode_text = ''
+#		if choices.get_child_count() > 0: # If has choices, remove them.
+#			for n in choices.get_children():
+#				choices.remove_child(n)
+#		else:
+#			pass
+#		if current.has('animation_out'):
+#			animate_sprite(current['position'], current['avatar'], current['animation_out'])
+#			yield(tween, "tween_completed")
+		
+		update_dialogue(dialogue[next_step])
+
+func _on_ContinueButton_pressed():
+	next()
