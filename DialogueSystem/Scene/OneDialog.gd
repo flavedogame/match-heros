@@ -62,6 +62,8 @@ func check_names(block):
 	if not show_names:
 		return
 	if block.has('name'):
+		var talker_name = block['name']
+		Events.emit_signal("actor_talking",talker_name)
 		if block['position'] == 'left':
 			name_left.text = block['name']
 			yield(get_tree(), 'idle_frame')
@@ -150,9 +152,10 @@ func _ready():
 #		continue_indicator.show()
 #		animations.play('Continue_Indicator')
 
-func init(_step): # step == whole dialogue block
+func init(_step, parent_rect_size): # step == whole dialogue block
 	
 	step = _step
+	rect_min_size.x = parent_rect_size.x
 
 func _on_Timer_timeout():
 	#print("timer out")

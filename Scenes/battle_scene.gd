@@ -1,4 +1,4 @@
-extends Node2D
+extends TextureRect
 
 class_name BattleScene
 

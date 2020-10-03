@@ -24,5 +24,8 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Rewards" parent="." instance=ExtResource( 5 )]
+
+[node name="control_start_position" type="Position2D" parent="."]
+position = Vector2( 0, 320 )
 [connection signal="piece_destroyed" from="grid" to="." method="_on_grid_piece_destroyed"]
 [connection signal="battle_completed" from="Rewards" to="." method="_on_Rewards_battle_completed"]

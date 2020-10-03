@@ -11,6 +11,8 @@ export var career: Resource
 onready var skin = $Skin
 onready var bars = $Bars
 
+onready var emotes = $emotes
+
 var is_alive = true
 
 export var attack_move_time = 0.5
@@ -18,6 +20,7 @@ export var attack_move_time = 0.5
 var color_related
 
 var display_name: String
+var id_name:String
 
 export var party_member = false
 
@@ -38,6 +41,18 @@ func _ready():
 	career = _career
 	initialize()
 	
+	Events.connect("actor_talking",self,"on_actor_talking")
+	Events.connect("finish_dialog",self,"on_finish_dialog")
+
+func on_actor_talking(actor_name):
+	if id_name == actor_name:
+		emotes.start_talking()
+	else:
+		emotes.stop_talking()
+
+func on_finish_dialog(id):
+	emotes.stop_talking()
+	
 
 func init(info, is_party_member):
 	party_member = is_party_member
@@ -49,11 +64,13 @@ func init(info, is_party_member):
 	
 	if is_party_member:
 		_career = load("res://resources/battler/"+info.career+".tres").copy()
+	id_name = info.get("id_name","")
 
 func initialize():
 	skin.initialize()
 	#stats = stats.copy()
 	stats.connect("health_depleted", self, "_on_health_depleted")
+	emotes.stop_talking()
 
 func is_able_to_play() -> bool:
 	# Returns true if the battler can perform an action

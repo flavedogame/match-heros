@@ -5,8 +5,11 @@
 [ext_resource path="res://Scenes/battle/ai/enemies_ai.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/battle/ai/party_ai.gd" type="Script" id=5]
 
-[node name="battle_scene" type="Node2D"]
+[node name="battle_scene" type="TextureRect"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="grass_land_background" parent="." instance=ExtResource( 1 )]
 

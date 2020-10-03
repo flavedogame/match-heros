@@ -1,9 +1,29 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/battler/Battler.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/battler/BattlerSkin.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/battler/career.gd" type="Script" id=3]
 [ext_resource path="res://resources/battler/hero_career.tres" type="Resource" id=4]
+[ext_resource path="res://art/misc/talk_anim-Sheet2.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/battler/emotes.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "talking"
+length = 0.2
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
 
 [node name="Battler" type="Position2D" groups=[
 "enemy",
@@ -31,3 +51,15 @@ __meta__ = {
 [node name="career" type="Node2D" parent="."]
 script = ExtResource( 3 )
 stats = ExtResource( 4 )
+
+[node name="emotes" type="Node2D" parent="."]
+position = Vector2( -20.7134, -15.1453 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="emotes"]
+texture = ExtResource( 5 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="emotes"]
+anims/talking = SubResource( 1 )

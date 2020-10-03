@@ -1,7 +1,7 @@
 {
   "first": {
     "type": "text",
-    "name": "Jimmy",
+    "name": "aaron",
     "avatar": "jimmy/01.png",
     "position": "left",
     "animation_in": "move_in",
@@ -11,7 +11,7 @@
   },
   "01": {
     "type": "text",
-    "name": "Jimmy",
+    "name": "alex",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",
@@ -20,7 +20,7 @@
   },
   "0": {
     "type": "text",
-    "name": "John",
+    "name": "alex",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",
@@ -29,7 +29,7 @@
   },
   "1": {
     "type": "text",
-    "name": "John",
+    "name": "alex",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "shake_regular_long",
@@ -38,7 +38,7 @@
   },
   "2": {
     "type": "text",
-    "name": "John",
+    "name": "alex",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "shake_regular_long",
@@ -47,7 +47,7 @@
   },
   "3": {
     "type": "text",
-    "name": "Jimmy",
+    "name": "aaron",
     "avatar": "jimmy/01.png",
     "position": "left",
     "animation_in": "shake_regular_long",

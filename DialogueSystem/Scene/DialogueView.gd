@@ -53,12 +53,12 @@ func first(block):
 func add_dialog(step):
 	var one_dialog_instance = one_dialog_scene.instance()
 	
-	one_dialog_instance.init(step)
+	one_dialog_instance.init(step, rect_size)
 	dialogs.add_child(one_dialog_instance)
-	#todo make 300 a reasonable value
-	dialogs.rect_min_size.y = dialogs.rect_min_size.y+300
+	var dialogHeight = one_dialog_instance.rect_min_size.y
+	dialogs.rect_min_size.y = dialogs.rect_min_size.y+dialogHeight
 	yield(get_tree(),"idle_frame")
-	scroll_container.scroll_to(dialogs.rect_min_size.y - 620)
+	scroll_container.scroll_to(dialogs.rect_min_size.y - rect_size.y)
 	current_one_dialog = one_dialog_instance
 	
 	if step.has('next'):
@@ -90,6 +90,7 @@ func next():
 #		frame.hide() 
 #		avatar_left = ''
 #		avatar_right = ''
+		print("finish_dialog")
 		Events.emit_signal("finish_dialog",dialog_id)
 		self.queue_free()
 	else:

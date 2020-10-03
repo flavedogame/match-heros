@@ -7,9 +7,9 @@ onready var local_map = $local_map
 #onready var party = $party
 var party = {
 	"1":
-		{anim = "HeroAnim", stats = "hero", career = "hero_career"},
+		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "aaron"},
 	"5":
-		{anim = "HeressAnim", stats = "heress", career = "heress_career"},
+		{anim = "HeressAnim", stats = "heress", career = "heress_career", id_name = "alex"},
 	}
 var _formation = {
 	"5":

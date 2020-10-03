@@ -13,8 +13,8 @@ font_data = ExtResource( 3 )
 [node name="OneDialog" type="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -724.0
-rect_min_size = Vector2( 0, 300 )
+margin_bottom = -824.0
+rect_min_size = Vector2( 0, 200 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

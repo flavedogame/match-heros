@@ -8,6 +8,10 @@ var glocing_piece_flying_time = 0.5
 onready var battle_view:BattleScene = $battle_scene
 onready var grid = $grid
 onready var rewards = $Rewards
+#todo: move grid under this
+onready var control_start_position = $control_start_position
+var dialog_view = preload("res://DialogueSystem/Scene/DialogueView.tscn")
+
 signal battle_completed
 func _ready():
 	grid.battle_scene = battle_view
@@ -19,6 +23,11 @@ func initialize(battle_id, formation, party):
 
 func battle_start():
 	battle_view.battle_start()
+	
+	var dialog_view_instance = dialog_view.instance()
+	dialog_view_instance.init("test", "village/practice_1")
+	control_start_position.add_child(dialog_view_instance)
+	
 	grid.battle_start()
 
 
