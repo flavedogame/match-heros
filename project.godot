@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/states/DialogueStats.gd"
 }, {
+"base": "ScrollContainer",
+"class": "DraggableScrollContainer",
+"language": "GDScript",
+"path": "res://Scenes/SwipeScrollContainer.gd"
+}, {
 "base": "Reference",
 "class": "Extents",
 "language": "GDScript",
@@ -119,6 +124,7 @@ _global_script_class_icons={
 "CharacterStats": "",
 "CombatAction": "",
 "DialogueStats": "",
+"DraggableScrollContainer": "",
 "Extents": "",
 "FullMapStats": "",
 "Hit": "",

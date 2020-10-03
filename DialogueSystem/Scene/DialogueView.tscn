@@ -1,10 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://DialogueSystem/Scene/DialogueView.gd" type="Script" id=1]
 [ext_resource path="res://theme/basic.tres" type="Theme" id=2]
-[ext_resource path="res://Scenes/extended/translatableLabel.gd" type="Script" id=3]
-
-[sub_resource type="Theme" id=1]
+[ext_resource path="res://DialogueSystem/Scene/dialogScollContainer.gd" type="Script" id=3]
 
 [node name="DialogueView" type="Control"]
 margin_right = 575.0
@@ -23,52 +21,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Frame"]
+[node name="VScrollBar" type="ScrollContainer" parent="Frame"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = -20.0
-margin_bottom = -20.0
-theme = SubResource( 1 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-custom_colors/selection_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "test"
-text = "test"
-scroll_active = false
+scroll_horizontal_enabled = false
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ContinueButton" type="Button" parent="Frame"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="dialogs" type="VBoxContainer" parent="Frame/VScrollBar"]
+margin_right = 575.0
+rect_min_size = Vector2( 575, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="NameRight" type="Label" parent="Frame"]
-margin_left = 515.958
-margin_top = 5.29733
-margin_right = 565.958
-margin_bottom = 31.2973
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "right"
-script = ExtResource( 3 )
-
-[node name="NameLeft" type="Label" parent="Frame"]
-margin_left = 0.471924
-margin_top = 0.471924
-margin_right = 41.4719
-margin_bottom = 26.4719
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "left"
-script = ExtResource( 3 )
-
-[node name="Timer" type="Timer" parent="."]
-[connection signal="pressed" from="Frame/ContinueButton" to="." method="_on_ContinueButton_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="click_scrollbar" from="Frame/VScrollBar" to="." method="_on_VScrollBar_click_scrollbar"]

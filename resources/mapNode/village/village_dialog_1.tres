@@ -9,5 +9,5 @@ name = "Talk To Uncle"
 battle_id = "village_dialog_1"
 visible_condition = []
 actions = [ {
-	"dialog_action": "avatars"
+	"dialog_action": "village/practice_1"
 } ]

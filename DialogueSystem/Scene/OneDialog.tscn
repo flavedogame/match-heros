@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://DialogueSystem/Scene/OneDialog.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/extended/translatableLabel.gd" type="Script" id=2]
+[ext_resource path="res://fonts/DottedSongtiSquareRegular.otf" type="DynamicFontData" id=3]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="OneDialog" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -724.0
+rect_min_size = Vector2( 0, 300 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 18.9406
+margin_top = 30.5297
+margin_right = -21.0594
+margin_bottom = -19.4703
+theme = SubResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "test"
+text = "test"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameRight" type="Label" parent="."]
+margin_left = 515.554
+margin_top = -2.94336
+margin_right = 576.554
+margin_bottom = 28.0566
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "right"
+script = ExtResource( 2 )
+
+[node name="NameLeft" type="Label" parent="."]
+margin_left = 0.0670166
+margin_top = -7.76877
+margin_right = 49.067
+margin_bottom = 23.2312
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "left"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
