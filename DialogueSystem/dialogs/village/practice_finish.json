@@ -1,0 +1,38 @@
+{
+  "first": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "干的不错！",
+    "next": "0"
+  },
+  "0": {
+    "type": "text",
+    "name": "Arron",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "content": "太棒啦！那我能和Alex一起去森林里打猎了吗？",
+    "next": "1"
+  },
+  "1": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "content": "哈哈哈@我就知道你们两个小家伙这么勤奋，肯定就是想出去玩|@去和你Anty伯母说一声吧！",
+    "next": "2"
+  },
+  "2": {
+    "type": "text",
+    "name": "Arron",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "shake_regular_long",
+    "content": "好嘞！",
+  },
+}

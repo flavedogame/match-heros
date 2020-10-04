@@ -89,11 +89,11 @@ func check_battle_end():
 	var party_has_alive = one_side_has_alive(party.keys())
 	var formation_has_alive = one_side_has_alive(formation.keys())
 	if not party_has_alive or not formation_has_alive:
-		print("battle end")
+		active = false
 		if party_has_alive:
-			battle_end(true)
+			battle_game.battle_end(true)
 		else:
-			battle_end(false)
+			battle_game.battle_end(false)
 		return true
 	return false
 
@@ -105,10 +105,3 @@ func get_attack_party_member(color):
 			related_battlers.append(k)
 	return related_battlers
 
-func battle_end(is_won):
-	emit_signal("battle_ends")
-	active = false
-	emit_signal("battle_complete",is_won)
-	if is_won:
-		Events.emit_signal("battle_won",battle_id)
-		yield(battle_game.rewards.on_battle_completed(), "completed")

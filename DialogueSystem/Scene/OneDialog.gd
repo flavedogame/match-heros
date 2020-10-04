@@ -58,29 +58,34 @@ func clean_bbcode(string):
 		label.bbcode_text = label.get('bbcode_text') + phrase[counter] + '\n'
 		counter += 1
 
+func show_name(node, _name):
+	node.get_node("label").text = _name
+	#node.rect_size.x = 0
+	node.set_process(true)
+	node.show()
+	
+func hide_name(node):
+	node.hide()
+
 func check_names(block):
+	hide_name(name_left)
+	hide_name(name_right)
 	if not show_names:
 		return
 	if block.has('name'):
 		var talker_name = block['name']
 		Events.emit_signal("actor_talking",talker_name)
 		if block['position'] == 'left':
-			name_left.text = block['name']
-			yield(get_tree(), 'idle_frame')
-			name_left.rect_size.x = 0
-			#name_left.rect_position.x += name_offset.x
-			name_left.set_process(true)
-			name_left.show()
-			name_right.hide()
+			show_name(name_left,talker_name)
+#			name_left.text = block['name']
+#			yield(get_tree(), 'idle_frame')
+#			name_left.rect_size.x = 0
+#			#name_left.rect_position.x += name_offset.x
+#			name_left.set_process(true)
+#			name_left.show()
+#			name_right.hide()
 		else:
-			name_right.text = block['name']
-			
-			yield(get_tree(), 'idle_frame')
-			name_right.rect_size.x = 0
-			#name_right.rect_position.x = frame_width - name_right.rect_size.x - name_offset.x
-			name_right.set_process(true)
-			name_right.show()
-			name_left.hide()
+			show_name(name_right,talker_name)
 	else:
 		pass
 

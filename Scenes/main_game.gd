@@ -6,20 +6,16 @@ onready var transition
 onready var local_map = $local_map
 #onready var party = $party
 var party = {
-	"1":
-		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "aaron"},
 	"5":
-		{anim = "HeressAnim", stats = "heress", career = "heress_career", id_name = "alex"},
+		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "Aaron"},
+#	"5":
+#		{anim = "HeressAnim", stats = "heress", career = "heress_career", id_name = "Alex"},
 	}
-var _formation = {
-	"5":
-		{anim = "EnemyAnim", stats = "enemy"},
-	"9":
-		{anim = "EnemyAnim", stats = "enemy"},
-	}
+	
 var transitioning = false
 var battle_game :BattleGame
-func enter_battle(battle_id,formation):
+func enter_battle(battle_id,battle_info):
+	
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
@@ -35,7 +31,7 @@ func enter_battle(battle_id,formation):
 	battle_game.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	battle_game.initialize(battle_id, formation, party)
+	battle_game.initialize(battle_id, battle_info, party)
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()

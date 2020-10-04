@@ -1,8 +1,0 @@
-"And remeber to not overdo the pauses.
-","And remeber to not overdo the pauses.
-",""
-"Hi!| This is the first time we met.| Nice to meet you!","Hi!| This is the first time we met.| Nice to meet you!",""
-"And remeber to not overdo the p|a|u|s|e|s|.","And remeber to not overdo the p|a|u|s|e|s|.",""
-"Talk To Uncle","Talk To Uncle",""
-"Jimmy","Jimmy",""
-"John","John",""

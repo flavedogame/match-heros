@@ -11,25 +11,41 @@ onready var rewards = $Rewards
 #todo: move grid under this
 onready var control_start_position = $control_start_position
 var dialog_view = preload("res://DialogueSystem/Scene/DialogueView.tscn")
+var actions
+var action_finished = []
+var battle_id
 
 signal battle_completed
 func _ready():
 	grid.battle_scene = battle_view
 	
-func initialize(battle_id, formation, party):
+func initialize(_battle_id, battle_info, party):
+	battle_id = _battle_id
+	var formation = battle_info.formation
+	actions = battle_info.actions
+	for action in actions:
+		action_finished.append(false)
 	battle_view.initialize(battle_id, formation,party)
 	#todo can put grid info here, like width height obstacles etc
 	grid.initialize()
 
 func battle_start():
+	yield(check_actions("battle_start"),"completed")
 	battle_view.battle_start()
-	
-	var dialog_view_instance = dialog_view.instance()
-	dialog_view_instance.init("test", "village/practice_1")
-	control_start_position.add_child(dialog_view_instance)
-	
 	grid.battle_start()
-
+	
+func check_actions(condition):
+	for i in actions.size():
+		if not action_finished[i]:
+			var action = actions[i]
+			var action_key  = action.action_key
+			var action_condition = action.condition
+			if action_key == "show_dialog":
+				if action_condition == condition:
+					var dialog_view_instance = dialog_view.instance()
+					dialog_view_instance.init(action.get("dialog_id"), action.dialog_file)
+					control_start_position.add_child(dialog_view_instance)
+					yield(Events,"finish_dialog")
 
 func _on_grid_piece_destroyed(start_position,color,texture):
 	var targets = $battle_scene.get_attack_party_member(color)
@@ -52,6 +68,13 @@ func _on_grid_piece_destroyed(start_position,color,texture):
 		glowing_piece_new.queue_free()
 	
 
+func battle_end(is_won):
+	if is_won:
+		yield(check_actions("battle_won"),"completed")
+		Events.emit_signal("battle_won",battle_id)
+		yield(rewards.on_battle_completed(), "completed")
+	
+	emit_signal("battle_complete",is_won)
 
 func _on_Rewards_battle_completed():
 	emit_signal("battle_completed")

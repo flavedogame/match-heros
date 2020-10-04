@@ -36,6 +36,9 @@ func _ready():
 	var direction: Vector2 = Vector2(1.0, 0.0) if party_member else Vector2(-1.0, 0.0)
 	target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
 	
+	emotes.position.x = -emotes.position.x if party_member else emotes.position.x
+	emotes.scale.x = -emotes.scale.x if party_member else emotes.scale.x
+	
 	skin.add_child(_anim)
 	stats = _stats
 	career = _career

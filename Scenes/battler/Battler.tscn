@@ -53,12 +53,13 @@ script = ExtResource( 3 )
 stats = ExtResource( 4 )
 
 [node name="emotes" type="Node2D" parent="."]
-position = Vector2( -20.7134, -15.1453 )
-scale = Vector2( 2, 2 )
+position = Vector2( -15, -10 )
+scale = Vector2( 3, 3 )
 script = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="emotes"]
 texture = ExtResource( 5 )
+offset = Vector2( -7.5, -7.5 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="emotes"]

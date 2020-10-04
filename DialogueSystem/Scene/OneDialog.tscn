@@ -24,7 +24,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 18.9406
-margin_top = 30.5297
+margin_top = 45.0
 margin_right = -21.0594
 margin_bottom = -19.4703
 theme = SubResource( 1 )
@@ -40,21 +40,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameRight" type="Label" parent="."]
-margin_left = 515.554
-margin_top = -2.94336
-margin_right = 576.554
-margin_bottom = 28.0566
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "right"
-script = ExtResource( 2 )
+[node name="Timer" type="Timer" parent="."]
 
-[node name="NameLeft" type="Label" parent="."]
-margin_left = 0.0670166
-margin_top = -7.76877
-margin_right = 49.067
-margin_bottom = 23.2312
+[node name="NameLeft" type="ColorRect" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 40.0
+color = Color( 1, 0.843137, 0.576471, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="NameLeft"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 2.0
+margin_right = -5.0
+margin_bottom = -5.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "left"
@@ -63,5 +68,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Timer" type="Timer" parent="."]
+[node name="NameRight" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -100.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = 40.0
+color = Color( 1, 0.843137, 0.576471, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="NameRight"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 2.0
+margin_right = -5.0
+margin_bottom = -5.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "right"
+align = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -7,6 +7,5 @@ func start_talking():
 	animation_player.play("talking")
 
 func stop_talking():
-	print("stop")
 	sprite.visible = false
 	animation_player.stop()

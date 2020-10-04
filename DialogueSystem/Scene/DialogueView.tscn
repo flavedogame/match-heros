@@ -5,8 +5,10 @@
 [ext_resource path="res://DialogueSystem/Scene/dialogScollContainer.gd" type="Script" id=3]
 
 [node name="DialogueView" type="Control"]
-margin_right = 575.0
-margin_bottom = 620.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 577.0
+margin_bottom = 622.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
