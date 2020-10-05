@@ -3,7 +3,7 @@ extends Control
 const battle_game_scene = preload("res://Scenes/battle_game.tscn")
 const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn")
 onready var transition
-onready var local_map = $local_map
+#onready var local_map = $local_map
 #onready var party = $party
 #var party = {
 #	"5":
@@ -23,7 +23,7 @@ func enter_battle(battle_id,battle_info):
 	transition = Transition_Overlay.instance()
 	add_child(transition)
 	yield(transition.fade_to_color(), "completed")
-	remove_child(local_map)
+	#remove_child(local_map)
 	battle_game = battle_game_scene.instance()
 	add_child(battle_game)
 	battle_game.connect("victory", self, "_on_CombatArena_player_victory")
@@ -58,7 +58,7 @@ func _on_CombatArena_battle_completed(arena):
 	yield(transition.fade_to_color(), "completed")
 	battle_game.queue_free()
 
-	add_child(local_map)
+	#add_child(local_map)
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()
 	transitioning = false

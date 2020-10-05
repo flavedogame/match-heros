@@ -30,6 +30,7 @@ export var TARGET_OFFSET_DISTANCE: float = 120.0
 var _anim
 var _stats
 var _career
+var info
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +49,7 @@ func _ready():
 	Events.connect("finish_dialog",self,"on_finish_dialog")
 
 func on_actor_talking(actor_name):
+	print(actor_name,id_name)
 	if id_name == actor_name:
 		emotes.start_talking()
 	else:
@@ -57,7 +59,8 @@ func on_finish_dialog(id):
 	emotes.stop_talking()
 	
 
-func init(info, is_party_member):
+func init(_info, is_party_member):
+	info = _info
 	party_member = is_party_member
 	#"res://Scenes/battler/"+info.anim+".tscn"
 	#res://Scenes/battler/HeressAnim.tscn
@@ -87,7 +90,8 @@ func take_damage(hit):
 
 func _on_health_depleted():
 	is_alive = false
-	yield(skin.play_death(), "completed")
+	if not info.get("dontDisappear"):
+		yield(skin.play_death(), "completed")
 	emit_signal("died", self)
 
 func attack(target, move_details):

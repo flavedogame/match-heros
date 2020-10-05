@@ -2,7 +2,6 @@ extends ColorRect
 
 class_name MapView
 
-onready var map_node_view_position = $map_node_view_position
 onready var control_view = $control_view
 onready var control_bottom_view = $control_bottom_view
 
@@ -33,5 +32,5 @@ func load_map_node_view(button:MapNodeButton):
 	control_view.add_child(map_load_view_instance)
 	
 func unload_map_node_view():
-	Utils.clear_all_children(map_node_view_position)
+	Utils.clear_all_children(control_view)
 

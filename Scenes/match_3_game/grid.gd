@@ -122,10 +122,12 @@ func spawn_pieces():
 	
 func grid_to_pixel(column, row):
 	var new_x = x_start+offset*column
-	var new_y = y_start-offset*row
+	var new_y = y_start-offset*row# + GlobalValues.stage_height
 	return Vector2(new_x,new_y)
 	
 func pixel_to_grid(x,y):
+	y -= GlobalValues.stage_height
+	print(y,y_start)
 	var new_x = round((x - x_start) / offset)
 	var new_y = round((y - y_start) / -offset)
 	return Vector2(new_x,new_y)

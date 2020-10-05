@@ -15,6 +15,7 @@ actions = [ {
 				"anim": "HeressAnim",
 				"stats": "enemy",
 				 "id_name" : "Alex",
+				 "dontDisappear": true,
 			},
 		},
 		"actions":[{"action_key":"show_dialog", "dialog_file":"village/practice_start","condition":"battle_start"},
