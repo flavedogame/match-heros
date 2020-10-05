@@ -55,14 +55,11 @@ func update_buttons():
 	#some bugs here
 	#if no previous position
 #	var content_size = rect_min_size
-#	print(rect_min_size)
 #	var center = content_size/2
 #	get_parent(). rect_size = get_parent().full_size
 #	var half_size = rect_size/2
 #	print(center.x - half_size.x," ",center.y - half_size.y)
-#	get_parent().scroll_horizontal = center.x - half_size.x
 #	get_parent().scroll_vertical = center.y - half_size.y
-#	print(get_parent().scroll_horizontal ," ",get_parent().scroll_vertical)
 
 
 func _ready():

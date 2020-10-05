@@ -5,12 +5,12 @@ const Transition_Overlay = preload("res://Scenes/battle/Transition_overlay.tscn"
 onready var transition
 onready var local_map = $local_map
 #onready var party = $party
-var party = {
-	"5":
-		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "Aaron"},
+#var party = {
 #	"5":
-#		{anim = "HeressAnim", stats = "heress", career = "heress_career", id_name = "Alex"},
-	}
+#		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "Aaron"},
+##	"5":
+##		{anim = "HeressAnim", stats = "heress", career = "heress_career", id_name = "Alex"},
+#	}
 	
 var transitioning = false
 var battle_game :BattleGame
@@ -31,7 +31,7 @@ func enter_battle(battle_id,battle_info):
 	battle_game.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	battle_game.initialize(battle_id, battle_info, party)
+	battle_game.initialize(battle_id, battle_info, PartyManager.get_battle_party_members())
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()
@@ -41,6 +41,8 @@ func enter_battle(battle_id,battle_info):
 	emit_signal("combat_started")
 	
 func _ready():
+	
+	#$map_view.rect_size = GlobalValues.window_size
 	Events.connect("encounter_battle",self,"enter_battle")
 
 

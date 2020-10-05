@@ -20,7 +20,6 @@ func initialize(_party: Array, enemies:Array):
 
 
 func _add_reward(battler: Battler):
-	print("add reward")
 	# Appends dictionaries with the form { 'item': Item.tres, 'amount': amount } of dropped items to the drops array.
 	experience_earned += 5
 #	experience_earned += battler.drops.experience

@@ -1,4 +1,4 @@
-extends Node2D
+extends ColorRect
 
 #state machine
 enum {wait, move}
@@ -7,8 +7,10 @@ var state
 export (int) var width = 8
 export (int) var height = 10
 export (int) var x_start = 64
-export (int) var y_start = 950
+export (int) var y_start
 export (int) var offset = 64
+
+var y_needed = height*offset
 #where the piece should drop from
 export (int) var y_offset = -2
 
@@ -57,6 +59,7 @@ var battle_scene :BattleScene
 var particle_effect = preload("res://Scenes/match_3_game/destory_piece_particle.tscn")
 	
 func initialize():
+	y_start = rect_size.y/2+y_needed/2-offset/2
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()

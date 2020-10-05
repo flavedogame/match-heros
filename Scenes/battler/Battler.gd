@@ -100,7 +100,6 @@ func attack(target, move_details):
 		if attack_value == 0:
 			yield(get_tree(), "idle_frame")
 			return
-	print(color_related)
 	var hit = Hit.new(stats.strength * attack_value)
 	yield(skin.move_to(target), "completed")
 	target.take_damage(hit)

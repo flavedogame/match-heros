@@ -1,4 +1,5 @@
-extends Node2D
+extends Control
+
 
 class_name BattleGame
 
@@ -8,6 +9,7 @@ var glocing_piece_flying_time = 0.5
 onready var battle_view:BattleScene = $battle_scene
 onready var grid = $grid
 onready var rewards = $Rewards
+onready var control_view = $control_view
 #todo: move grid under this
 onready var control_start_position = $control_start_position
 var dialog_view = preload("res://DialogueSystem/Scene/DialogueView.tscn")
@@ -18,8 +20,12 @@ var battle_id
 signal battle_completed
 func _ready():
 	grid.battle_scene = battle_view
+	grid.margin_top = GlobalValues.stage_height
+	control_view.margin_top = GlobalValues.stage_height
+	grid.initialize()
 	
 func initialize(_battle_id, battle_info, party):
+	#$background.rect_size = size
 	battle_id = _battle_id
 	var formation = battle_info.formation
 	actions = battle_info.actions
@@ -27,7 +33,6 @@ func initialize(_battle_id, battle_info, party):
 		action_finished.append(false)
 	battle_view.initialize(battle_id, formation,party)
 	#todo can put grid info here, like width height obstacles etc
-	grid.initialize()
 
 func battle_start():
 	yield(check_actions("battle_start"),"completed")
@@ -44,7 +49,7 @@ func check_actions(condition):
 				if action_condition == condition:
 					var dialog_view_instance = dialog_view.instance()
 					dialog_view_instance.init(action.get("dialog_id"), action.dialog_file)
-					control_start_position.add_child(dialog_view_instance)
+					control_view.add_child(dialog_view_instance)
 					yield(Events,"finish_dialog")
 
 func _on_grid_piece_destroyed(start_position,color,texture):
@@ -56,7 +61,6 @@ func _on_grid_piece_destroyed(start_position,color,texture):
 		var glowing_piece_new = glowing_piece.instance()
 		add_child(glowing_piece_new)
 		glowing_piece_new.sprite.texture = texture
-		print(target_position)
 		tween.interpolate_property(
 			glowing_piece_new, 
 			"position", 

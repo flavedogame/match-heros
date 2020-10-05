@@ -25,7 +25,6 @@ func set_max_value(new_value) -> void:
 
 
 func set_value(new_value) -> void:
-	print("set_value")
 	value = new_value
 	bar.value = new_value
 	displayLabel(label,new_value, max_value)
@@ -39,7 +38,6 @@ func _on_value_changed(new_value, old_value) -> void:
 
 
 func _on_value_depleted() -> void:
-	print("_on_value_depleted")
 	if HIDE_ON_DEPLETED:
 		hide()
 		

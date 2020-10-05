@@ -53,7 +53,7 @@ script = ExtResource( 3 )
 stats = ExtResource( 4 )
 
 [node name="emotes" type="Node2D" parent="."]
-position = Vector2( -15, -10 )
+position = Vector2( -14.8331, -10.1669 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 6 )
 

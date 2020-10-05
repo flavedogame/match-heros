@@ -1,4 +1,4 @@
-extends Node2D
+extends ColorRect
 
 onready var local_map = get_parent()
 
@@ -9,6 +9,8 @@ var node_button:MapNodeButton
 
 func init(button:MapNodeButton):
 	node_button = button
+	#rect_size = GlobalValues.control_size
+	#rect_position = GlobalValues.control_position
 
 func clear_buttons():
 	Utils.clear_all_children(buttons_container)

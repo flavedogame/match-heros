@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Autoload/SavedGame.gd" type="Script" id=1]
+[ext_resource path="res://resources/party/party.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -8,5 +9,6 @@ game_version = "0.0.1"
 data = {
 "Achievements": {
 
-}
+},
+"Party": ExtResource( 2 )
 }

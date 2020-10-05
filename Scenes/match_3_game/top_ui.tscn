@@ -1,13 +1,35 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://art/top UI v 2.png" type="Texture" id=1]
 [ext_resource path="res://fonts/Kenney Blocks.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://fonts/kenny_blocksi.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Scenes/match_3_game/top_ui.gd" type="Script" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/top UI v 2.png-b1da9a6ba2d9a8723ed44b1f83718a5b.stex"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends TextureRect
 
 
+onready var score_label = $MarginContainer/HBoxContainer/score_label
+var current_score = 0
 
-[sub_resource type="DynamicFont" id=1]
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	_on_grid_update_score(current_score)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_grid_update_score(amount_to_change):
+	current_score += amount_to_change
+	score_label.text = String(current_score)
+"
+
+[sub_resource type="DynamicFont" id=3]
 size = 72
 use_mipmaps = true
 font_data = ExtResource( 2 )
@@ -15,8 +37,8 @@ font_data = ExtResource( 2 )
 [node name="top_ui" type="TextureRect"]
 margin_right = 40.0
 margin_bottom = 40.0
-texture = ExtResource( 1 )
-script = ExtResource( 4 )
+texture = SubResource( 1 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,7 +74,7 @@ margin_right = 352.0
 margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "00"
 align = 1
 

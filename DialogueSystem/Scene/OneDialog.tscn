@@ -72,9 +72,9 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -100.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = 40.0
+margin_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 0
 color = Color( 1, 0.843137, 0.576471, 1 )
 __meta__ = {
 "_edit_use_anchors_": false

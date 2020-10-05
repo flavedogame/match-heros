@@ -12,6 +12,5 @@ func get_active_members():
 		for member in position.get_children():
 			if member.visible:
 				active[member] = position.name
-	print(active)
 	return active
 

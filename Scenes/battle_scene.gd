@@ -67,7 +67,6 @@ func battle_start():
 	active = true
 
 func party_attack(move_details):
-	#print("party_attack ",move_details)
 	#yield(get_tree().create_timer(0.5), "timeout")
 	yield($party_ai.attack(party.keys(),formation.keys(),move_details),"completed")
 	return check_battle_end()

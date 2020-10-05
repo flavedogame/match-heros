@@ -5,7 +5,7 @@ extends Node
 
 const SaveGame = preload('res://Scenes/Autoload/SavedGame.gd')
 # TODO: Use project setting to save to res://debug vs user://
-var SAVE_FOLDER: String = "res://debug/save"
+var SAVE_FOLDER: String = "user://debug/save"
 var SAVE_NAME_TEMPLATE: String = "save_%03d.tres"
 var SAVE_NAME_TEMPLATE_GLOBAL: String = "save_global.tres"
 
@@ -35,10 +35,13 @@ func load_globally():
 	# to the individual nodes to load
 	var save_file_path: String = SAVE_FOLDER.plus_file(SAVE_NAME_TEMPLATE_GLOBAL)
 	var file: File = File.new()
+	print("before check exist")
+	print(file.file_exists(save_file_path))
+	print("what")
 	if not file.file_exists(save_file_path):
 		print("Save file %s doesn't exist" % save_file_path)
 		return
-
+	print("after check exist")
 	var save_game: Resource = load(save_file_path)
 	for node in get_tree().get_nodes_in_group('save_globally'):
 		node.load(save_game)
@@ -52,6 +55,7 @@ func save(id: int):
 	for node in get_tree().get_nodes_in_group('save'):
 		node.save(save_game)
 	Achievements.save(save_game)
+	PartyManager.save(save_game)
 	var directory: Directory = Directory.new()
 	if not directory.dir_exists(SAVE_FOLDER):
 		directory.make_dir_recursive(SAVE_FOLDER)
@@ -75,3 +79,4 @@ func load(id: int):
 	for node in get_tree().get_nodes_in_group('save'):
 		node.load(save_game)
 	Achievements.load(save_game)
+	PartyManager.load(save_game)

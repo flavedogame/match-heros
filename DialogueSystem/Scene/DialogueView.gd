@@ -26,7 +26,6 @@ func init(_dialog_id, file_id, block = 'first'): # Load the whole dialogue into 
 	init_block = block
 	var file = File.new()
 	var file_path = '%s/%s.json' % [dialogues_folder, id]
-	print(file_path)
 	file.open(file_path, file.READ)
 	var json = file.get_as_text()
 	dialogue = JSON.parse(json).result
@@ -57,6 +56,7 @@ func add_dialog(step):
 	dialogs.add_child(one_dialog_instance)
 	var dialogHeight = one_dialog_instance.rect_min_size.y
 	dialogs.rect_min_size.y = dialogs.rect_min_size.y+dialogHeight
+	print(dialogs.rect_min_size.y," ",rect_size.y," ",frame.rect_size.y," ",$Frame/VScrollBar.rect_size.y)
 	yield(get_tree(),"idle_frame")
 	scroll_container.scroll_to(dialogs.rect_min_size.y - rect_size.y)
 	current_one_dialog = one_dialog_instance
@@ -90,7 +90,6 @@ func next():
 #		frame.hide() 
 #		avatar_left = ''
 #		avatar_right = ''
-		print("finish_dialog")
 		Events.emit_signal("finish_dialog",dialog_id)
 		self.queue_free()
 	else:
@@ -109,7 +108,6 @@ func next():
 
 
 func _on_VScrollBar_click_scrollbar():
-	print(current_one_dialog)
 	var already_stoped = current_one_dialog.stop_typewriting()
 	if already_stoped:
 		next()

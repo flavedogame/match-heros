@@ -27,7 +27,6 @@ func is_click(ev):
 	var current_time = OS.get_ticks_msec()
 	var current_position = ev.position
 	var distance = current_position.distance_to(swipe_mouse_start)
-	print(distance)
 	return current_time - swipe_mouse_times[0] <= click_time and distance<click_distance
 	
 

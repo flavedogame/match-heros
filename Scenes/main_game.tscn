@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/main_game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/debug/DebugInterface.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/main_map.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/mapScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://theme/basic.tres" type="Theme" id=5]
+[ext_resource path="res://Scenes/bottom_view.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/map/map.gd" type="Script" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -48,6 +49,8 @@ VScrollBar/styles/scroll = SubResource( 9 )
 VScrollBar/styles/scroll_focus = SubResource( 10 )
 
 [node name="main_game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 theme = ExtResource( 5 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -67,13 +70,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="map_view" type="Node2D" parent="."]
+[node name="map_view" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.74902, 0.890196, 0.701961, 1 )
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="map_view"]
 anchor_right = 1.0
-margin_right = 573.0
-margin_bottom = 966.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 100, 100 )
 theme = SubResource( 11 )
 script = ExtResource( 4 )
@@ -91,6 +99,30 @@ __meta__ = {
 
 [node name="buttons" type="Node2D" parent="map_view/ScrollContainer/main_map"]
 
-[node name="map_node_view_position" type="Node2D" parent="map_view"]
-position = Vector2( 0, 300 )
+[node name="bottom_view" type="ColorRect" parent="map_view"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="control_view" type="Control" parent="map_view"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 324.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( -2556.55, 512 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="control_bottom_view" type="Control" parent="map_view"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 324.0
+rect_pivot_offset = Vector2( -2556.55, 512 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="DebugLayer/Button" to="DebugLayer/DebugInterface" method="_on_Button_pressed"]

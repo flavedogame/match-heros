@@ -6,10 +6,24 @@
 [ext_resource path="res://Scenes/battle_scene.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/battle/reward.tscn" type="PackedScene" id=5]
 
-[node name="battle_game" type="Node2D"]
+[node name="battle_game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="background" type="TextureRect" parent="."]
+[node name="background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.74902, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background_origin" type="TextureRect" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 2 )
@@ -18,14 +32,23 @@ __meta__ = {
 }
 
 [node name="grid" parent="." instance=ExtResource( 3 )]
+margin_left = -4.49487
+margin_top = 1.49841
+margin_right = -4.49487
+margin_bottom = 1.49841
+color = Color( 1, 0.92549, 0.823529, 1 )
+
+[node name="control_view" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="battle_scene" parent="." instance=ExtResource( 4 )]
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Rewards" parent="." instance=ExtResource( 5 )]
-
-[node name="control_start_position" type="Position2D" parent="."]
-position = Vector2( 0, 320 )
 [connection signal="piece_destroyed" from="grid" to="." method="_on_grid_piece_destroyed"]
 [connection signal="battle_completed" from="Rewards" to="." method="_on_Rewards_battle_completed"]

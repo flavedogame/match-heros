@@ -59,6 +59,7 @@ func clean_bbcode(string):
 		counter += 1
 
 func show_name(node, _name):
+	print("show name ",node.rect_position," ",_name)
 	node.get_node("label").text = _name
 	#node.rect_size.x = 0
 	node.set_process(true)
@@ -128,7 +129,7 @@ func check_newlines(string):
 		pause_array = new_pause_array
 		
 func _ready():
-	
+	rect_size.x = GlobalValues.window_size.x
 	#clean()
 	#current = step
 	number_characters = 0 # Resets the counter
@@ -163,7 +164,6 @@ func init(_step, parent_rect_size): # step == whole dialogue block
 	rect_min_size.x = parent_rect_size.x
 
 func _on_Timer_timeout():
-	#print("timer out")
 	if label.visible_characters < number_characters: # Check if the timer needs to be started
 		if paused:
 			update_pause()
