@@ -1,6 +1,6 @@
 extends Control
 
-var dialogues_folder = 'res://DialogueSystem/dialogs/' 
+var dialogues_folder = 'res://DialogueSystem/dialogs' 
 var one_dialog_scene = preload("res://DialogueSystem/Scene/OneDialog.tscn")
 
 onready var frame : Node = $Frame # The container node for the dialogues.
@@ -18,21 +18,26 @@ var init_block
 var dialog_id
 
 func _ready():
-	first(init_block)
-
-func init(_dialog_id, file_id, block = 'first'): # Load the whole dialogue into a variable
-	dialog_id = _dialog_id
-	id = file_id
-	init_block = block
 	var file = File.new()
 	var file_path = '%s/%s.json' % [dialogues_folder, id]
-	file.open(file_path, file.READ)
+	var error = file.open(file_path, File.READ)
+	if error != OK:
+		printerr("Couldn't open file for read: %s, error code: %s." % [file_path, error])
+		return
 	var json = file.get_as_text()
 	dialogue = JSON.parse(json).result
-	var error = JSON.parse(json).error
+	error = JSON.parse(json).error
 	if error != OK:
 		print(JSON.parse(json).error_string)
 	file.close()
+	first(init_block)
+
+func init(_dialog_id, file_id, block = 'first'): # Load the whole dialogue into a variable
+	#print("test",ProjectSettings.globalize_path("res://DialogueSystem/dialogs/"))
+	dialog_id = _dialog_id
+	id = file_id
+	init_block = block
+	
 
 func first(block):
 	frame.show()
@@ -56,7 +61,7 @@ func add_dialog(step):
 	dialogs.add_child(one_dialog_instance)
 	var dialogHeight = one_dialog_instance.rect_min_size.y
 	dialogs.rect_min_size.y = dialogs.rect_min_size.y+dialogHeight
-	print(dialogs.rect_min_size.y," ",rect_size.y," ",frame.rect_size.y," ",$Frame/VScrollBar.rect_size.y)
+	#print(dialogs.rect_min_size.y," ",rect_size.y," ",frame.rect_size.y," ",$Frame/VScrollBar.rect_size.y)
 	yield(get_tree(),"idle_frame")
 	scroll_container.scroll_to(dialogs.rect_min_size.y - rect_size.y)
 	current_one_dialog = one_dialog_instance
