@@ -12,22 +12,10 @@ visible_condition = [ {
 actions = [ {
 	"formation":{
 		"battle_action": {
-			"1": {
-				"anim": "EnemyAnim",
-				"stats": "enemy"
-			},
-			"3": {
-				"anim": "EnemyAnim",
-				"stats": "enemy"
-			},
-			"5": {
-				"anim": "EnemyAnim",
-				"stats": "enemy"
-			},
-			"9": {
-				"anim": "EnemyAnim",
-				"stats": "enemy"
-			}
+			"1": "porcupine",
+			"3": "porcupine",
+			"5": "porcupine",
+			"9": "porcupine",
 		}
 	}
 } ]

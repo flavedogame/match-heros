@@ -70,7 +70,7 @@ func init(_info, is_party_member):
 	
 	if is_party_member:
 		_career = load("res://resources/battler/"+info.career+".tres").copy()
-	id_name = info.get("id_name","")
+	id_name = info.id_name
 
 func initialize():
 	skin.initialize()

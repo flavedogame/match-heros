@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/main_game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/debug/DebugInterface.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://theme/basic.tres" type="Theme" id=5]
 [ext_resource path="res://Scenes/bottom_view.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/map/map.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/PopupMessage.gd" type="Script" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -127,4 +128,43 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PopupMessage" type="ColorRect" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -100.0
+margin_right = -50.0
+margin_bottom = 100.0
+color = Color( 0, 1, 0.952941, 1 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="PopupMessage"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopupMessage"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+bbcode_enabled = true
+bbcode_text = "test"
+text = "test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="DebugLayer/Button" to="DebugLayer/DebugInterface" method="_on_Button_pressed"]
+[connection signal="pressed" from="PopupMessage/Button" to="PopupMessage" method="_on_Button_pressed"]

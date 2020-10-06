@@ -1,56 +1,62 @@
 {
   "first": {
     "type": "text",
-    "name": "Aaron",
+    "name": "Alex",
     "avatar": "jimmy/01.png",
     "position": "left",
     "animation_in": "move_in",
     "animation_out": "off",
-    "content": "师父今天我们练习什么呀",
+    "content": "Aaron今天的训练结束了吗？",
     "next": "01"
   },
   "01": {
     "type": "text",
-    "name": "Alex",
+    "name": "Aaron",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",
-    "content": "昨天教你的攻击还记得吗？",
+    "content": "对！@我们可以一起去玩啦！",
     "next": "0"
   },
   "0": {
     "type": "text",
-    "name": "Alex",
+    "name": "Aaron",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",
-    "content": "三个相同颜色的方块消除可以攻击，@要记得你是剑士，所以应该消除橘红色的方块",
+    "content": "Anty！",
     "next": "1"
   },
   "1": {
     "type": "text",
-    "name": "Alex",
+    "name": "Anty",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "shake_regular_long",
-    "content": "消除四个或者更多可以造成更多的伤害",
+    "content": "玩的开心呀.@|Aaron，你是剑士，可要多保护Alex。",
     "next": "2"
   },
   "2": {
     "type": "text",
-    "name": "Alex",
+    "name": "Aaron",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "shake_regular_long",
-    "content": "多说无益，直接上手试试吧，试着打倒我吧！",
+    "content": "放心吧Anty！|Alex!你放心的在我身后输出，我保护你！",
     "next": "3"
   },
   "3": {
     "type": "text",
-    "name": "Aaron",
+    "name": "Alex",
     "avatar": "jimmy/01.png",
     "position": "left",
     "animation_in": "shake_regular_long",
-    "content": "来啦！",
+    "content": "切，谁要你保护！",
+    "next": "4"
+  },
+  "4": {
+    "type": "action",
+    "operation": "get_character",
+    "value": "heress",
   },
 }

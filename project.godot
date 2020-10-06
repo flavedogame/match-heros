@@ -105,6 +105,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/party.gd"
 }, {
 "base": "Resource",
+"class": "PartyMemberStats",
+"language": "GDScript",
+"path": "res://Scenes/states/PartyMemberStats.gd"
+}, {
+"base": "Resource",
 "class": "PartyStats",
 "language": "GDScript",
 "path": "res://Scenes/states/PartyStats.gd"
@@ -139,6 +144,7 @@ _global_script_class_icons={
 "MapNodeStats": "",
 "MapView": "",
 "Party": "",
+"PartyMemberStats": "",
 "PartyStats": "",
 "SavedGame": "",
 "TranslatableLabel": ""

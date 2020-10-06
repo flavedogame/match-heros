@@ -143,11 +143,12 @@ func _ready():
 			format_text(text)
 			#check_animation(step)
 			check_names(step)
-			
-#			if step.has('next'):
-#				next_step = step['next']
-#			else:
-#				next_step = ''
+		'action':
+			match step['operation']:
+				'get_character':
+					print("get character",step['value'])
+					PartyManager.add_party_member(step['value'])
+					
 	
 	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
 		label.visible_characters = 0

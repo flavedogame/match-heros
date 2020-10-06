@@ -5,10 +5,16 @@ extends Resource
 
 class_name PartyStats
 
-export(Dictionary) var battle_party_members
+export(Dictionary) var battle_positon_to_party_members
+export(Dictionary) var party_members
 """
 {
-	"5":
-		{anim = "HeroAnim", stats = "hero", career = "hero_career", id_name = "Aaron"},
+	5:"hero",
 }
+
+{
+	"hero":5,
+	"heress":-1
+}
+
 """

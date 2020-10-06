@@ -4,11 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-battle_party_members = {
-"5": {
-"anim": "HeroAnim",
-"career": "hero_career",
-"id_name": "Aaron",
-"stats": "hero"
+battle_positon_to_party_members = {
+"5": "hero"
 }
+party_members = {
+"hero": "5"
 }
