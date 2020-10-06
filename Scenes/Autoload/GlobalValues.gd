@@ -10,10 +10,12 @@ var bottom_size
 var control_size
 var control_position
 var control_plus_bottom_size
+var static_window_size
 
 func _ready():
 	window_size = get_viewport().size
-	control_height = window_size.y - stage_height - bottom_height
+	static_window_size = Vector2(576,1024)
+	control_height = static_window_size.y - stage_height - bottom_height
 	stage_size = Vector2(window_size.x,stage_height)
 	control_size = Vector2(window_size.x,control_height)
 	bottom_size = Vector2(window_size.x,bottom_height)

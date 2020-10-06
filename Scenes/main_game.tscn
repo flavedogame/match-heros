@@ -79,31 +79,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="map_view"]
+[node name="ScrollingMap" type="ScrollContainer" parent="map_view"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 100, 100 )
 theme = SubResource( 11 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="main_map" type="Control" parent="map_view/ScrollContainer"]
+[node name="main_map" type="Control" parent="map_view/ScrollingMap"]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="lines" type="Node2D" parent="map_view/ScrollContainer/main_map"]
+[node name="lines" type="Node2D" parent="map_view/ScrollingMap/main_map"]
 
-[node name="buttons" type="Node2D" parent="map_view/ScrollContainer/main_map"]
+[node name="buttons" type="Node2D" parent="map_view/ScrollingMap/main_map"]
 
 [node name="bottom_view" type="ColorRect" parent="map_view"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="control_view" type="Control" parent="map_view"]
 anchor_right = 1.0

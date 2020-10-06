@@ -4,6 +4,7 @@ class_name MapView
 
 onready var control_view = $control_view
 onready var control_bottom_view = $control_bottom_view
+onready var scrolling_map = $ScrollingMap
 
 var map_load_view = preload("res://Scenes/map/map_node_view.tscn")
 var dialog_view = preload("res://DialogueSystem/Scene/DialogueView.tscn")
@@ -13,9 +14,11 @@ func _ready():
 	Events.connect("cancel_select_map_node_button",self,"unload_map_node_view")
 	Events.connect("start_dialog",self,"start_dialog")
 	Events.connect("finish_dialog",self,"finish_dialog")
+
 	control_view.margin_top = GlobalValues.stage_height
 	control_view.margin_bottom = -GlobalValues.bottom_height
 	control_bottom_view.margin_top = GlobalValues.stage_height
+	scrolling_map.margin_bottom = -GlobalValues.bottom_height 
 	control_bottom_view.margin_bottom = 0
 	
 func start_dialog(dialog_id, dialog_path):

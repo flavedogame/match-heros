@@ -10,6 +10,7 @@ battle_id = "forest_monsters_1"
 visible_condition = []
 actions = [ {
 	"battle_action": {
+		"formation":{
 		"5": {
 			"anim": "EnemyAnim",
 			"stats": "enemy"
@@ -18,5 +19,6 @@ actions = [ {
 			"anim": "EnemyAnim",
 			"stats": "enemy"
 		}
+	}
 	}
 } ]

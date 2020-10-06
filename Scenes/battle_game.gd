@@ -28,7 +28,7 @@ func initialize(_battle_id, battle_info, party):
 	#$background.rect_size = size
 	battle_id = _battle_id
 	var formation = battle_info.formation
-	actions = battle_info.actions
+	actions = battle_info.get(actions,[])
 	for action in actions:
 		action_finished.append(false)
 	battle_view.initialize(battle_id, formation,party)
@@ -51,6 +51,7 @@ func check_actions(condition):
 					dialog_view_instance.init(action.get("dialog_id"), action.dialog_file)
 					control_view.add_child(dialog_view_instance)
 					yield(Events,"finish_dialog")
+	yield(get_tree(), 'idle_frame')
 
 func _on_grid_piece_destroyed(start_position,color,texture):
 	var targets = $battle_scene.get_attack_party_member(color)

@@ -7,25 +7,27 @@ script = ExtResource( 1 )
 name = "Explore Deeper"
 battle_id = "forest_monsters_2"
 visible_condition = [ {
-"battle_won": "forest_monsters_1"
+	"battle_won": "forest_monsters_1"
 } ]
 actions = [ {
-"battle_action": {
-"1": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-},
-"3": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-},
-"5": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-},
-"9": {
-"anim": "EnemyAnim",
-"stats": "enemy"
-}
-}
+	"formation":{
+		"battle_action": {
+			"1": {
+				"anim": "EnemyAnim",
+				"stats": "enemy"
+			},
+			"3": {
+				"anim": "EnemyAnim",
+				"stats": "enemy"
+			},
+			"5": {
+				"anim": "EnemyAnim",
+				"stats": "enemy"
+			},
+			"9": {
+				"anim": "EnemyAnim",
+				"stats": "enemy"
+			}
+		}
+	}
 } ]
