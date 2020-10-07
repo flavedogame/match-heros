@@ -30,6 +30,7 @@ export var TARGET_OFFSET_DISTANCE: float = 120.0
 var _anim
 var _stats
 var _career
+var info_stat
 var info
 
 # Called when the node enters the scene tree for the first time.
@@ -58,19 +59,19 @@ func on_actor_talking(actor_name):
 func on_finish_dialog(id):
 	emotes.stop_talking()
 	
-
 func init(_info, is_party_member):
 	info = _info
+	info_stat = load("res://resources/party/"+_info.name+".tres")
 	party_member = is_party_member
 	#"res://Scenes/battler/"+info.anim+".tscn"
 	#res://Scenes/battler/HeressAnim.tscn
-	_anim = load("res://Scenes/battler/"+info.anim+".tscn").instance()
+	_anim = load("res://Scenes/battler/"+info_stat.anim+".tscn").instance()
 	_anim.init(is_party_member)
-	_stats = load("res://resources/battler/"+info.stats+".tres").copy()
+	_stats = load("res://resources/battler/"+info_stat.stats+".tres").copy()
 	
 	if is_party_member:
-		_career = load("res://resources/battler/"+info.career+".tres").copy()
-	id_name = info.id_name
+		_career = load("res://resources/battler/"+info_stat.career+".tres").copy()
+	id_name = info_stat.id_name
 
 func initialize():
 	skin.initialize()

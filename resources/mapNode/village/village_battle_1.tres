@@ -11,7 +11,7 @@ visible_condition = []
 actions = [ {
 	"battle_action": {
 		"formation":{
-			"5": "uncle",
+			"5": {"name":"uncle","dontDisappear":true}
 		},
 		"actions":[{"action_key":"show_dialog", "dialog_file":"village/practice_start","condition":"battle_start"},
 		{"action_key":"show_dialog", "dialog_file":"village/practice_finish","condition":"battle_won"}

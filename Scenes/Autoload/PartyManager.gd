@@ -8,13 +8,6 @@ var SAVE_KEY = "Party"
 
 
 
-func get_battle_party_members():
-	var result = {}
-	for key in party.battle_positon_to_party_members:
-		var value = party.battle_positon_to_party_members[key]
-		var party_member_info = load("res://resources/party/"+value+".tres")
-		result[key] = party_member_info
-	return result
 
 func _ready():
 	party = load("res://resources/party/party.tres")
@@ -27,11 +20,15 @@ func add_party_member(party_member_id):
 	#remove this later
 	add_party_member_in_battle(party_member_id,"1")
 	
+func battle_positon_to_party_members():
+	return party.battle_positon_to_party_members
+
 func add_party_member_in_battle(party_member_id, position):
+	var party_member_info = {"name":party_member_id}
 	if party.battle_positon_to_party_members.has(position):
 		var old_party_member = party.battle_positon_to_party_members[position]
 		party.party_members[old_party_member] = null
-	party.battle_positon_to_party_members[position] = party_member_id
+	party.battle_positon_to_party_members[position] = party_member_info
 	party.party_members[party_member_id] = position
 	
 	

@@ -31,7 +31,7 @@ func enter_battle(battle_id,battle_info):
 	battle_game.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [battle_game]
 	)
-	battle_game.initialize(battle_id, battle_info, PartyManager.get_battle_party_members())
+	battle_game.initialize(battle_id, battle_info, PartyManager.battle_positon_to_party_members())
 
 	yield(transition.fade_from_color(), "completed")
 	transition.queue_free()

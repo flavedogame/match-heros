@@ -24,22 +24,15 @@ func _ready():
 	control_view.margin_top = GlobalValues.stage_height
 	grid.initialize()
 	
-func get_formation(formation):
-	var result = {}
-	for key in formation:
-		var value = formation[key]
-		var party_member_info = load("res://resources/party/"+value+".tres")
-		result[key] = party_member_info
-	return result
+
 	
 func initialize(_battle_id, battle_info, party):
 	#$background.rect_size = size
 	battle_id = _battle_id
-	var formation = get_formation(battle_info.formation)
 	actions = battle_info.get("actions",[])
 	for action in actions:
 		action_finished.append(false)
-	battle_view.initialize(battle_id, formation,party)
+	battle_view.initialize(battle_id, battle_info.formation,party)
 	#todo can put grid info here, like width height obstacles etc
 
 func battle_start():
