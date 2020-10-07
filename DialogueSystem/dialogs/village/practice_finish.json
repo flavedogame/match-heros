@@ -1,7 +1,7 @@
 {
   "first": {
     "type": "text",
-    "name": "Alex",
+    "name": "Uncle",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",
@@ -20,7 +20,7 @@
   },
   "1": {
     "type": "text",
-    "name": "Alex",
+    "name": "Uncle",
     "avatar": "jimmy/01.png",
     "position": "right",
     "animation_in": "move_in",

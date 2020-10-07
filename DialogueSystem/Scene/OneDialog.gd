@@ -69,8 +69,6 @@ func hide_name(node):
 	node.hide()
 
 func check_names(block):
-	hide_name(name_left)
-	hide_name(name_right)
 	if not show_names:
 		return
 	if block.has('name'):
@@ -130,6 +128,10 @@ func check_newlines(string):
 		
 func _ready():
 	rect_size.x = GlobalValues.window_size.x
+	
+	hide_name(name_left)
+	hide_name(name_right)
+	
 	#clean()
 	#current = step
 	number_characters = 0 # Resets the counter
@@ -144,11 +146,10 @@ func _ready():
 			#check_animation(step)
 			check_names(step)
 		'action':
+			rect_size.y = 0
 			match step['operation']:
 				'get_character':
-					print("get character",step['value'])
 					PartyManager.add_party_member(step['value'])
-					
 	
 	if wait_time > 0: # Check if the typewriter effect is active and then starts the timer.
 		label.visible_characters = 0
@@ -162,7 +163,10 @@ func _ready():
 func init(_step, parent_rect_size): # step == whole dialogue block
 	
 	step = _step
-	rect_min_size.x = parent_rect_size.x
+	match step['type']:
+		'action':
+			return 0
+	return 200
 
 func _on_Timer_timeout():
 	if label.visible_characters < number_characters: # Check if the timer needs to be started

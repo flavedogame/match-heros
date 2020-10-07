@@ -169,6 +169,7 @@ GameSettings="*res://Scenes/Autoload/GameSettings.gd"
 AutoCheckTranslation="*res://Scenes/Autoload/AutoCheckTranslation.gd"
 PartyManager="*res://Scenes/Autoload/PartyManager.gd"
 GlobalValues="*res://Scenes/Autoload/GlobalValues.gd"
+PopupMessageManager="*res://Scenes/Autoload/PopupMessageManager.gd"
 
 [display]
 
