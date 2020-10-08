@@ -37,7 +37,7 @@ func is_button_visible(button_stats):
 	if button_stats.visible_condition.size() == 0:
 		return true
 	for condition_combination in button_stats.visible_condition:
-		if Achievements.is_achievement_finished(condition_combination):
+		if Achievements.are_achievements_finished(condition_combination):
 			return true
 	return false
 	

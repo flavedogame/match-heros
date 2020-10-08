@@ -49,7 +49,7 @@ func check_actions(condition):
 			if action_key == "show_dialog":
 				if action_condition == condition:
 					var dialog_view_instance = dialog_view.instance()
-					dialog_view_instance.init(action.get("dialog_id"), action.dialog_file)
+					dialog_view_instance.init(action.get("dialog_id",action.dialog_file), action.dialog_file)
 					control_view.add_child(dialog_view_instance)
 					yield(Events,"finish_dialog")
 	yield(get_tree(), 'idle_frame')

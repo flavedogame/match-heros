@@ -9,6 +9,15 @@
     "content": "干的不错！",
     "next": "0"
   },
+  "repeat": {
+    "type": "text",
+    "name": "Uncle",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "哈哈，任何时候来找我练习，我都欢迎！",
+  },
   "0": {
     "type": "text",
     "name": "Aaron",

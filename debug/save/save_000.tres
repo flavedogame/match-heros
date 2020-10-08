@@ -1,14 +1,33 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://Scenes/Autoload/SavedGame.gd" type="Script" id=1]
-[ext_resource path="res://resources/party/party.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
 game_version = "0.0.1"
 data = {
 "Achievements": {
-
+"battle_won": {
+"village_practice_1": 2
 },
-"Party": ExtResource( 2 )
+"finish_dialog": {
+"village/practice_finish": 2,
+"village/practice_start": 2,
+"village_dialog_1": 1
+}
+},
+"Party": {
+"battle_positon_to_party_members": {
+"1": {
+"name": "heress"
+},
+"5": {
+"name": "hero"
+}
+},
+"party_members": {
+"heress": "1",
+"hero": "5"
+}
+}
 }

@@ -5,7 +5,7 @@ extends Node
 
 const SaveGame = preload('res://Scenes/Autoload/SavedGame.gd')
 # TODO: Use project setting to save to res://debug vs user://
-var SAVE_FOLDER: String = "user://debug/save"
+var SAVE_FOLDER: String = "res://debug/save"
 var SAVE_NAME_TEMPLATE: String = "save_%03d.tres"
 var SAVE_NAME_TEMPLATE_GLOBAL: String = "save_global.tres"
 

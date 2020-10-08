@@ -27,6 +27,15 @@
     "content": "Anty！",
     "next": "1"
   },
+  "00": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "content": "妈！",
+    "next": "1"
+  },
   "1": {
     "type": "text",
     "name": "Anty",
@@ -58,5 +67,45 @@
     "type": "action",
     "operation": "get_character",
     "value": "heress",
+  },
+
+  "repeat": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "Alex，要小心啊……",
+    "next": "r0"
+  },
+  "r0": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "Aaron你也是",
+    "next": "r1"
+  },
+  "r1": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "放心吧Anty！我会保护好Alex的",
+    "next": "r2"
+  },
+  "r2": {
+    "type": "text",
+    "name": "Alex",
+    "avatar": "jimmy/01.png",
+    "position": "left",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "啊啊啊妈你真啰嗦",
   },
 }

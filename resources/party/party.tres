@@ -5,7 +5,9 @@
 [resource]
 script = ExtResource( 1 )
 battle_positon_to_party_members = {
-"5": {"name":"hero"}
+"5": {
+"name": "hero"
+}
 }
 party_members = {
 "hero": "5"

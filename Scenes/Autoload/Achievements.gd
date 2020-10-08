@@ -12,11 +12,17 @@ func is_battle_won(battle_id):
 	if achievement.has(battle_won) and achievement[battle_won].has(battle_id):
 		return achievement[battle_won][battle_id] > 0
 
-func is_achievement_finished(dictionary):
+func is_achievements_finished(key, value):
+	return achievement.has(key) and achievement[key].has(value) and achievement[key][value] > 0
+
+func is_dialog_finished(dialog_id):
+	return is_achievements_finished(finish_dialog,dialog_id)
+
+func are_achievements_finished(dictionary):
 	var result = true
 	for key in dictionary:
 		var value = dictionary[key]
-		if not (achievement.has(key) and achievement[key].has(value) and achievement[key][value] > 0):
+		if not is_achievements_finished(key,value):
 			return false
 	return result
 

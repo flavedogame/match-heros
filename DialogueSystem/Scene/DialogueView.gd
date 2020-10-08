@@ -42,13 +42,9 @@ func init(_dialog_id, file_id, block = 'first'): # Load the whole dialogue into 
 func first(block):
 	frame.show()
 	if block == 'first': # Check if we are going to use the default 'first' block
-#		if dialogue.has('repeat'):
-#			if progress.get(dialogues_dict).has(id): # Checks if it's the first interaction.
-#				update_dialogue(dialogue['repeat']) # It's not. Use the 'repeat' block.
-#			else:
-#				progress.get(dialogues_dict)[id] = true # Updates the singleton containing the interactions log.
-#				update_dialogue(dialogue['first']) # It is. Use the 'first' block.
-#		else:
+		if dialogue.has('repeat') and Achievements.is_dialog_finished(dialog_id):
+			add_dialog(dialogue['repeat']) # It's not. Use the 'repeat' block.
+		else:
 			add_dialog(dialogue['first'])
 	else: # We are going to use a custom first block
 		add_dialog(dialogue[block])

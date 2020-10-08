@@ -9,6 +9,15 @@
     "content": "师父今天我们练习什么呀",
     "next": "01"
   },
+  "repeat": {
+    "type": "text",
+    "name": "Uncle",
+    "avatar": "jimmy/01.png",
+    "position": "right",
+    "animation_in": "move_in",
+    "animation_out": "off",
+    "content": "又来啦！年轻人真是充满活力，接招！",
+  },
   "01": {
     "type": "text",
     "name": "Uncle",
